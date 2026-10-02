@@ -1,0 +1,166 @@
+/**
+ * @name Sberbank UI for Discord
+ * @author ru1.0
+ * @version 0.2 beta
+ * @description Discord theme based on Sberbank UI style
+ */
+
+/* ===== ЦВЕТОВАЯ ПАЛИТРА ===== */
+:root {
+    /* Основные цвета Sberbank */
+    --hsl-main-color: 145 76% 39%;
+    --hsl-hover-color: 145 76% 32%;
+
+    /* Фон (Снежный Сбер #EEF3FF) */
+    --hsl-background-shading: 220 100% 97%;
+    --background-shading-percent: 90%;
+
+    /* Текст (Графитовый Сбер #333F48) */
+    --hsl-text-normal: 207 16% 24%;
+    --hsl-text-muted: 207 10% 45%;
+
+    /* Статусы */
+    --hsl-success-color: 145 76% 39%;
+    --hsl-danger-color: 0 84% 60%;
+    --hsl-warning-color: 38 92% 50%;
+
+    /* Компоненты */
+    --hsl-card-shading: 220 100% 99%;
+    --hsl-popout-shading: 220 100% 99%;
+    --hsl-input-shading: 220 100% 99%;
+    --hsl-input-border-shading: 220 30% 80%;
+    --hsl-modal-shading: 0 0% 100%;
+
+    /* Проброс в нативные переменные Discord */
+    --text-normal: hsl(var(--hsl-text-normal));
+    --text-default: hsl(var(--hsl-text-normal));
+    --text-muted: hsl(var(--hsl-text-muted));
+    --text-link: hsl(var(--hsl-main-color));
+    --interactive-normal: hsl(var(--hsl-text-normal));
+
+    --brand-360: hsl(var(--hsl-main-color));
+    --brand-500: hsl(var(--hsl-main-color));
+    --brand-560: hsl(var(--hsl-hover-color));
+    --brand-600: hsl(var(--hsl-hover-color));
+
+    /* Типографика */
+    --main-font: "SB Sans Text", "SB Sans Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --code-font: "SB Sans Text", Consolas, Monaco, monospace;
+}
+
+/* ===== БАЗОВЫЕ СТИЛИ ===== */
+body, button, input, select, textarea, ::placeholder {
+    font-family: var(--main-font);
+}
+
+::selection {
+    background: hsl(var(--hsl-main-color));
+    color: white;
+}
+
+/* ===== ФОН ===== */
+.bg__960e4 {
+    background: hsl(var(--hsl-background-shading));
+}
+
+/* ===== КНОПКИ ===== */
+.button__201d5 {
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.lookFilled__201d5:is(.colorBrand__201d5, .colorPrimary__201d5) {
+    background-color: hsl(var(--hsl-main-color));
+    border: none;
+    color: white;
+}
+
+.lookFilled__201d5:is(.colorBrand__201d5, .colorPrimary__201d5):hover {
+    background-color: hsl(var(--hsl-hover-color));
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px hsl(var(--hsl-main-color) / 0.3);
+}
+
+.lookFilled__201d5.colorGreen__201d5 {
+    background-color: hsl(var(--hsl-success-color));
+    border: none;
+    color: white;
+}
+
+.lookFilled__201d5.colorRed__201d5 {
+    background-color: hsl(var(--hsl-danger-color));
+    border: none;
+    color: white;
+}
+
+/* ===== ПОЛЯ ВВОДА ===== */
+.wrapper__72c38,
+.channelTextArea__74017 {
+    background-color: hsl(var(--hsl-input-shading));
+    border: 2px solid hsl(var(--hsl-input-border-shading));
+    border-radius: 12px;
+    transition: all 0.2s ease;
+}
+
+.wrapper__72c38:focus-within,
+.channelTextArea__74017:focus-within {
+    border-color: hsl(var(--hsl-main-color));
+    box-shadow: 0 0 0 3px hsl(var(--hsl-main-color) / 0.15);
+}
+
+/* ===== СООБЩЕНИЯ ===== */
+.mentioned__5126c {
+    background: hsl(var(--hsl-main-color) / 0.08);
+    border-left: 3px solid hsl(var(--hsl-main-color));
+}
+
+.mentioned__5126c:hover {
+    background: hsl(var(--hsl-main-color) / 0.12);
+}
+
+/* ===== ВЛОЖЕНИЯ И КАРТОЧКИ ===== */
+.embedFull__623de,
+.container__60fa3,
+.wrapper_d5f3cd,
+.file__0ccae {
+    background: hsl(var(--hsl-card-shading));
+    border: 1px solid hsl(var(--hsl-input-border-shading));
+    border-radius: 12px;
+}
+
+/* ===== СКРОЛЛБАРЫ ===== */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: hsl(var(--hsl-main-color) / 0.5);
+    border-radius: 5px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--hsl-main-color));
+    background-clip: content-box;
+}
+
+/* ===== БЕЙДЖИ ===== */
+.numberBadge__463b7,
+.textBadge__463b7 {
+    background: hsl(var(--hsl-main-color)) !important;
+    color: white;
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+/* ===== РОЛИ В ЧАТЕ ===== */
+.role_b4b2c3 {
+    background: hsl(var(--hsl-main-color) / 0.15);
+    border-radius: 6px;
+    padding: 2px 8px;
+}
