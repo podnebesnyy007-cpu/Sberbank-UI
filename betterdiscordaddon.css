@@ -1,0 +1,93 @@
+/*! Sberbank UI - BetterDiscord Addon v1.0.1 */
+
+/* ===== BD STORE CARDS ===== */
+.bd-store-card,
+.visual-refresh .bd-store-card {
+    background: hsl(var(--hsl-card-shading));
+    border: 1px solid hsl(var(--hsl-input-border-shading));
+    border-radius: 12px;
+    transition: all 0.2s ease;
+}
+
+.bd-store-card:hover,
+.visual-refresh .bd-store-card:hover {
+    box-shadow: 0 4px 16px hsl(var(--hsl-main-color) / 0.2);
+    border-color: hsl(var(--hsl-main-color));
+}
+
+/* ===== BD ADDON CARDS ===== */
+.bd-addon-card,
+.visual-refresh .bd-addon-card {
+    background: hsl(var(--hsl-card-shading));
+    border: 2px solid transparent;
+    border-radius: 12px;
+    transition: all 0.2s ease;
+}
+
+.bd-addon-card:hover,
+.visual-refresh .bd-addon-card:hover {
+    border-color: hsl(var(--hsl-main-color));
+    box-shadow: 0 4px 16px hsl(var(--hsl-main-color) / 0.15);
+}
+
+.bd-addon-header,
+.visual-refresh .bd-addon-header {
+    background: hsl(var(--hsl-card-shading));
+}
+
+/* ===== BD NOTIFICATIONS ===== */
+.bd-notification,
+.visual-refresh .bd-notification {
+    background: hsl(var(--hsl-card-shading));
+    border: 1px solid hsl(var(--hsl-main-color));
+    border-radius: 10px;
+}
+
+.bd-notification-footer,
+.visual-refresh .bd-notification-footer {
+    background: transparent;
+}
+
+/* ===== BD MODALS ===== */
+.bd-modal-root,
+.visual-refresh .bd-modal-root {
+    background: hsl(var(--hsl-modal-shading));
+    border: 2px solid hsl(var(--hsl-main-color));
+    border-radius: 16px;
+}
+
+.bd-modal-footer,
+.visual-refresh .bd-modal-footer {
+    background: transparent;
+}
+
+/* ===== BD BUTTONS ===== */
+.bd-button-filled.bd-button-color-primary,
+.visual-refresh .bd-button-filled.bd-button-color-primary {
+    border-radius: 8px;
+    background: hsl(var(--hsl-main-color));
+    border-color: transparent;
+    color: white;
+    transition: all 0.2s ease;
+}
+
+.bd-button-filled.bd-button-color-primary:hover,
+.bd-button-filled.bd-button-color-primary:active,
+.visual-refresh .bd-button-filled.bd-button-color-primary:hover,
+.visual-refresh .bd-button-filled.bd-button-color-primary:active {
+    background: hsl(var(--hsl-hover-color));
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px hsl(var(--hsl-main-color) / 0.3);
+}
+
+/* ===== BD ERRORS ===== */
+.bd-addon-error-icon,
+.visual-refresh .bd-addon-error-icon {
+    background: hsl(var(--hsl-main-color));
+}
+
+.bd-addon-error,
+.visual-refresh .bd-addon-error {
+    border: 1px solid hsl(var(--hsl-main-color));
+    border-radius: 8px;
+}
