@@ -22,7 +22,6 @@
     --hsl-hover-color: 145 76% 32%;
     --hsl-success-color: 145 76% 39%;
     --hsl-danger-color: 0 84% 60%;
-    --hsl-warning-color: 38 92% 50%;
     --hsl-streaming-color: 270 45% 40%;
 
     --hsl-online-color: 145 76% 39%;
@@ -37,6 +36,9 @@
     --hsl-input-border-shading: 220 30% 80%;
     --hsl-modal-shading: 0 0% 100%;
 
+    --hsl-text-normal: 207 16% 24%;
+    --hsl-text-muted: 207 10% 45%;
+
     --background-shading-percent: 90%;
     --background-image: none;
     --background-position: center;
@@ -46,6 +48,7 @@
 
     --main-font: "SB Sans Text", "SB Sans Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     --code-font: "SB Sans Text", Consolas, Monaco, monospace;
+}
 
     --text-normal: hsl(var(--hsl-text-normal));
     --text-default: hsl(var(--hsl-text-normal));
