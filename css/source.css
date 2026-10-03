@@ -1,0 +1,270 @@
+/*=============================================
+=                 ОСНОВА ТЕМЫ                 =
+=============================================*/
+
+/* ФОН ПРИЛОЖЕНИЯ */
+#app-mount,
+.app-2CXKsg,
+.bg-1QIAus {
+    background: var(--sber-bg) var(--sber-bg-position) / var(--sber-bg-size) no-repeat fixed !important;
+}
+
+#app-mount::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, var(--sber-bg-brightness));
+    backdrop-filter: blur(var(--sber-bg-blur)) saturate(120%);
+    -webkit-backdrop-filter: blur(var(--sber-bg-blur)) saturate(120%);
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* ОБЩИЙ КОНТЕЙНЕР */
+.app-2CXKsg {
+    padding: var(--sber-margin);
+    box-sizing: border-box;
+    gap: var(--sber-margin);
+    background: transparent !important;
+}
+
+/* ============ ЛЕВАЯ ПАНЕЛЬ (СПИСОК СЕРВЕРОВ) ============ */
+.guilds-2JjMmN {
+    background: var(--sber-glass) !important;
+    backdrop-filter: blur(var(--sber-glass-blur));
+    -webkit-backdrop-filter: blur(var(--sber-glass-blur));
+    border-radius: var(--sber-radius) !important;
+    border: 1px solid var(--sber-border);
+    box-shadow: var(--sber-shadow);
+    padding: 8px 0;
+    width: 72px !important;
+    margin-right: var(--sber-margin);
+}
+
+/* Иконки серверов */
+.guilds-2JjMmN .wrapper-3kahwR {
+    border-radius: var(--sber-radius-sm);
+    transition: all 0.2s ease;
+}
+.guilds-2JjMmN .wrapper-3kahwR:hover {
+    transform: translateY(-1px);
+}
+
+/* Индикатор активного сервера */
+.guilds-2JjMmN .pill-2R7F1Q .item-2LIpTv {
+    background: var(--sber-accent) !important;
+    box-shadow: 0 0 12px var(--sber-accent-glow);
+}
+
+/* Кнопка Home */
+.guilds-2JjMmN .homeIcon-FB7lBf {
+    color: var(--sber-accent) !important;
+}
+
+/* ============ КАНАЛЫ ============ */
+.sidebar-1tnWFu {
+    background: var(--sber-glass) !important;
+    backdrop-filter: blur(var(--sber-glass-blur));
+    -webkit-backdrop-filter: blur(var(--sber-glass-blur));
+    border-radius: var(--sber-radius) !important;
+    border: 1px solid var(--sber-border);
+    box-shadow: var(--sber-shadow);
+    margin-right: var(--sber-margin);
+    overflow: hidden;
+}
+
+/* Заголовок сервера */
+.sidebar-1tnWFu .header-3OsQeK {
+    background: transparent !important;
+    border-bottom: 1px solid var(--sber-border);
+}
+
+/* Категории */
+.sidebar-1tnWFu .containerDefault-YUSmu3 {
+    padding: 0 8px;
+}
+.sidebar-1tnWFu .containerDefault-YUSmu3 .name-28HaxV {
+    color: var(--sber-text-muted) !important;
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+/* Каналы */
+.sidebar-1tnWFu .wrapper-1S43wL {
+    border-radius: var(--sber-radius-sm);
+    margin: 1px 0;
+    transition: all 0.15s ease;
+}
+.sidebar-1tnWFu .wrapper-1S43wL:hover {
+    background: var(--sber-glass-hover) !important;
+}
+.sidebar-1tnWFu .wrapper-1S43wL.modeSelected-1zApJ_ {
+    background: var(--sber-glass-active) !important;
+    border-left: 3px solid var(--sber-accent);
+}
+.sidebar-1tnWFu .wrapper-1S43wL.modeSelected-1zApJ_ .name-28HaxV,
+.sidebar-1tnWFu .wrapper-1S43wL.modeSelected-1zApJ_ .icon-2W8DHg {
+    color: var(--sber-accent-light) !important;
+}
+
+/* ============ ОСНОВНОЙ ЧАТ ============ */
+.chat-2ZfjoI {
+    background: var(--sber-glass) !important;
+    backdrop-filter: blur(var(--sber-glass-blur));
+    -webkit-backdrop-filter: blur(var(--sber-glass-blur));
+    border-radius: var(--sber-radius) !important;
+    border: 1px solid var(--sber-border);
+    box-shadow: var(--sber-shadow);
+    overflow: hidden;
+}
+
+/* Верхняя панель */
+.chat-2ZfjoI .title-31SJ6t,
+.chat-2ZfjoI .header-3OsQeK {
+    background: transparent !important;
+    border-bottom: 1px solid var(--sber-border);
+}
+
+/* Область сообщений */
+.chat-2ZfjoI .messagesWrapper-Rn5jGi {
+    background: transparent !important;
+}
+
+/* ============ СООБЩЕНИЯ ============ */
+.message-2CShn3 {
+    background: transparent !important;
+    border-radius: var(--sber-radius-sm);
+    transition: background 0.15s ease;
+}
+.message-2CShn3:hover {
+    background: var(--sber-glass-hover) !important;
+}
+.message-2CShn3.mentioned-Tre-dv {
+    background: var(--sber-glass-active) !important;
+    border-left: 3px solid var(--sber-accent);
+}
+
+/* Группировка сообщений */
+.group-spacing-16 .groupStart-3Mlgv1 {
+    margin-top: 8px;
+}
+
+/* Никнейм */
+.message-2CShn3 .username-h_Y3Us {
+    color: var(--sber-accent-light) !important;
+    font-weight: 600;
+}
+
+/* Блок кода */
+.markup-eYLPri code,
+.markup-eYLPri pre {
+    background: rgba(0, 0, 0, 0.4) !important;
+    border: 1px solid var(--sber-border-accent);
+    border-radius: var(--sber-radius-sm);
+}
+
+/* ============ ПОЛЕ ВВОДА ============ */
+.channelTextArea-1FufC0 {
+    background: var(--sber-glass) !important;
+    backdrop-filter: blur(var(--sber-glass-blur));
+    -webkit-backdrop-filter: blur(var(--sber-glass-blur));
+    border-radius: var(--sber-radius) !important;
+    border: 1px solid var(--sber-border);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    margin-bottom: 4px;
+}
+.channelTextArea-1FufC0:focus-within {
+    border-color: var(--sber-accent) !important;
+    box-shadow: 0 0 0 3px var(--sber-accent-glow);
+}
+
+/* Кнопки в поле ввода */
+.buttons-3JAsUs .button-3bklZh {
+    border-radius: var(--sber-radius-sm);
+    transition: all 0.15s ease;
+}
+.buttons-3JAsUs .button-3bklZh:hover {
+    background: var(--sber-accent) !important;
+    color: var(--sber-accent-text) !important;
+}
+
+/* ============ ПРАВАЯ ПАНЕЛЬ (УЧАСТНИКИ) ============ */
+.container-2o3qEW {
+    background: var(--sber-glass) !important;
+    backdrop-filter: blur(var(--sber-glass-blur));
+    -webkit-backdrop-filter: blur(var(--sber-glass-blur));
+    border-radius: var(--sber-radius) !important;
+    border: 1px solid var(--sber-border);
+    box-shadow: var(--sber-shadow);
+    margin-left: var(--sber-margin);
+}
+
+/* Участник */
+.member-2gU6Ar {
+    border-radius: var(--sber-radius-sm);
+    transition: background 0.15s ease;
+}
+.member-2gU6Ar:hover {
+    background: var(--sber-glass-hover) !important;
+}
+
+/* ============ ПАНЕЛЬ ПОЛЬЗОВАТЕЛЯ ============ */
+.panels-3wFtMD {
+    background: var(--sber-glass) !important;
+    backdrop-filter: blur(var(--sber-glass-blur));
+    -webkit-backdrop-filter: blur(var(--sber-glass-blur));
+    border-top: 1px solid var(--sber-border);
+}
+.panels-3wFtMD .avatarWrapper-3y0XJY {
+    border-radius: var(--sber-radius-sm);
+}
+.panels-3wFtMD .avatarWrapper-3y0XJY:hover {
+    background: var(--sber-glass-hover) !important;
+}
+
+/* ============ КНОПКИ ============ */
+.lookFilled-1H2Jvj.colorBrand-2M3O3N {
+    background: var(--sber-accent) !important;
+    color: var(--sber-accent-text) !important;
+    border-radius: var(--sber-radius-sm);
+    transition: all 0.15s ease;
+}
+.lookFilled-1H2Jvj.colorBrand-2M3O3N:hover {
+    background: var(--sber-accent-hover) !important;
+    box-shadow: var(--sber-shadow-accent);
+    transform: translateY(-1px);
+}
+
+.lookFilled-1H2Jvj.colorGreen-3J2YFF {
+    background: var(--sber-accent) !important;
+    border-radius: var(--sber-radius-sm);
+}
+
+/* ============ СКРОЛЛБАР ============ */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: var(--sber-glass-hover);
+    border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--sber-accent);
+}
+
+/* ============ АВАТАРЫ ============ */
+.avatar-1BDn8e,
+.avatar-2e8lTP {
+    border-radius: 50%;
+}
+
+/* ============ СТАТУСЫ ============ */
+.status-1f8c9d {
+    border-color: var(--sber-glass) !important;
+}
