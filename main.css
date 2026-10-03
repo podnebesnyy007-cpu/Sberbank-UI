@@ -1,124 +1,63 @@
 /**
  * @name Sberbank UI — main
- * @description Discord 2025 + Sberbank UI
+ * @description Discord 2025 / Vencord — фон + прозрачность + зелёный
  * @author podnebesnyy007-cpu
  */
 
 /*=============================================
 =   ПЕРЕМЕННЫЕ                                 =
 =============================================*/
-:root,
-.theme-dark,
-.theme-darker,
-.theme-midnight,
-.theme-light {
-    /* --- ФОН --- */
-    --background-image: url(https://i.imgur.com/LZ0UO8z.png) !important;
-
-    /* --- ФОНОВЫЕ ПЕРЕМЕННЫЕ DISCORD 2025 --- */
-    --background-base-lowest: transparent !important;
-    --background-base-lower: transparent !important;
-    --background-base-low: transparent !important;
-    --background-base: transparent !important;
-    --background-base-high: transparent !important;
-    --background-base-higher: transparent !important;
-    --background-base-highest: transparent !important;
-
-    --background-surface-lowest: transparent !important;
-    --background-surface-lower: transparent !important;
-    --background-surface-low: transparent !important;
-    --background-surface: transparent !important;
-    --background-surface-high: transparent !important;
-    --background-surface-higher: transparent !important;
-    --background-surface-highest: transparent !important;
-
-    /* --- ОСНОВНЫЕ ПАНЕЛИ (полупрозрачные!) --- */
-    --background-primary: rgba(5, 20, 10, 0.4) !important;
-    --background-secondary: rgba(5, 20, 10, 0.5) !important;
-    --background-secondary-alt: rgba(5, 20, 10, 0.5) !important;
-    --background-tertiary: rgba(5, 20, 10, 0.55) !important;
-
-    /* --- ПОПАУТЫ И МОДАЛКИ (плотнее, чтобы читались) --- */
-    --background-floating: rgba(5, 20, 10, 0.88) !important;
-    --background-nested-floating: rgba(5, 20, 10, 0.88) !important;
-    --modal-background: rgba(5, 20, 10, 0.85) !important;
-    --modal-footer-background: rgba(5, 20, 10, 0.85) !important;
-
-    /* --- МОДИФИКАТОРЫ --- */
-    --background-modifier-hover: rgba(33, 160, 56, 0.12) !important;
-    --background-modifier-active: rgba(33, 160, 56, 0.18) !important;
-    --background-modifier-selected: rgba(33, 160, 56, 0.25) !important;
-    --background-modifier-accent: rgba(255, 255, 255, 0.08) !important;
-
-    /* --- ИНПУТЫ --- */
-    --input-background: rgba(33, 160, 56, 0.08) !important;
-    --input-background-focus: rgba(33, 160, 56, 0.15) !important;
-    --input-border: rgba(33, 160, 56, 0.3) !important;
-
-    /* --- ЗЕЛЁНЫЙ СБЕРА --- */
+:root {
     --sber-green: #21A038;
-    --sber-green-dark: #0F5A22;
     --sber-green-hover: #1B8530;
     --sber-green-light: #4FBF60;
     --sber-green-glow: rgba(33, 160, 56, 0.55);
 
-    /* --- БРЕНД --- */
-    --brand-experiment: #21A038 !important;
-    --brand-500: #21A038 !important;
-    --brand-560: #1B8530 !important;
-    --brand-600: #1B8530 !important;
-    --text-brand: #4FBF60 !important;
-    --text-link: #4FBF60 !important;
-    --focus-primary: #21A038 !important;
+    --bg-image: url(https://raw.githubusercontent.com/podnebesnyy007-cpu/Sberbank-UI/refs/heads/main/bg.png);
+    --bg-dim: rgba(5, 20, 10, 0.45);
+    --bg-blur: 3px;
 
-    /* --- ClearVision override --- */
-    --main-color: #21A038 !important;
-    --hover-color: #1B8530 !important;
-    --success-color: #4FBF60 !important;
-    --online-color: #21A038 !important;
-    --channel-selected-bg: #21A038 !important;
-    --focus-color: #21A038 !important;
-    --background-shading: rgba(5, 20, 10, 0.5) !important;
-    --card-shading: rgba(5, 20, 10, 0.4) !important;
-    --popout-shading: rgba(5, 20, 10, 0.85) !important;
-    --modal-shading: rgba(5, 20, 10, 0.8) !important;
-    --input-shading: rgba(33, 160, 56, 0.08) !important;
+    --glass-panel: rgba(5, 20, 10, 0.55);
+    --glass-chat: rgba(5, 20, 10, 0.5);
+    --glass-card: rgba(5, 20, 10, 0.5);
+    --glass-menu: rgba(5, 20, 10, 0.92);
+    --glass-modal: rgba(5, 20, 10, 0.85);
+    --glass-border: rgba(33, 160, 56, 0.25);
+    --glass-border-hi: rgba(33, 160, 56, 0.4);
 }
 
 /*=============================================
-=   ФОН — НА HTML + BODY                       =
-=   (главное исправление: html тоже!)         =
+=   ФОН — ЖЁСТКО, БЕЗ ПЕРЕМЕННОЙ ВЫШЕ          =
+=   (картинка вписана напрямую — 100% работает)
 =============================================*/
-html {
-    background: transparent !important;
-}
-
+html,
 body {
     background: transparent !important;
 }
 
-/* Фон рисуем через ::before на html — он всегда ПОД всем */
+/* Слой 1: картинка */
 html::before {
     content: "";
     position: fixed;
     inset: 0;
-    background-image: var(--background-image);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
+    background-image: url(https://raw.githubusercontent.com/podnebesnyy007-cpu/Sberbank-UI/refs/heads/main/bg.png) !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    background-attachment: fixed !important;
+    background-color: #0a1a0e !important;
     z-index: -2;
     pointer-events: none;
 }
 
-/* Затемнение + размытие поверх фона */
+/* Слой 2: затемнение + размытие */
 html::after {
     content: "";
     position: fixed;
     inset: 0;
+    background: rgba(5, 20, 10, 0.45) !important;
     backdrop-filter: blur(3px) saturate(115%);
     -webkit-backdrop-filter: blur(3px) saturate(115%);
-    background: rgba(5, 20, 10, 0.35);
     z-index: -1;
     pointer-events: none;
 }
@@ -133,7 +72,8 @@ html::after {
 [class^="notAppAsidePanel_"],
 [class^="layers_"],
 [class^="layer_"],
-[class^="base_"] {
+[class^="base_"],
+[class^="bg_"] {
     background: transparent !important;
 }
 
@@ -148,7 +88,6 @@ html::after {
     margin: 8px 0 8px 8px !important;
     padding: 8px 0 !important;
     border: 1px solid rgba(33, 160, 56, 0.2) !important;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45) !important;
 }
 
 /*=============================================
@@ -174,10 +113,6 @@ html::after {
     border: 1px solid rgba(33, 160, 56, 0.15) !important;
 }
 
-[class^="chatContent_"] {
-    background: transparent !important;
-}
-
 /*=============================================
 =   ПАНЕЛЬ УЧАСТНИКОВ                          =
 =============================================*/
@@ -190,12 +125,8 @@ html::after {
     margin: 8px 8px 8px 0 !important;
 }
 
-[class^="members_"]:not([class^="member_"]) {
-    background: transparent !important;
-}
-
 /*=============================================
-=   УЧАСТНИКИ — КАРТОЧКИ                       =
+=   КАРТОЧКИ УЧАСТНИКОВ                        =
 =============================================*/
 [class^="member_"]:not([class^="memberInner"]):not([class^="memberSince"]):not([class^="membersWrap"]) {
     background: rgba(5, 20, 10, 0.5) !important;
@@ -237,7 +168,7 @@ html::after {
 }
 
 /*=============================================
-=   МОДАЛКИ НАСТРОЕК (Учётная запись)          =
+=   МОДАЛКА НАСТРОЕК (Учётная запись)          =
 =   ВАЖНО: плотный фон, иначе не читается      =
 =============================================*/
 [class^="standardSidebarView_"] {
@@ -254,13 +185,11 @@ html::after {
     background: transparent !important;
 }
 
-/* Боковое меню настроек */
 [class^="sidebarRegion_"] {
     background: rgba(5, 20, 10, 0.4) !important;
     border-right: 1px solid rgba(33, 160, 56, 0.15) !important;
 }
 
-/* Пункт меню настроек */
 [class^="side_"] [class^="item_"] {
     transition: all 0.15s ease !important;
     border-radius: 8px !important;
@@ -273,7 +202,6 @@ html::after {
     color: #4FBF60 !important;
 }
 
-/* Обычные модалки */
 [class^="modal_"]:not([class^="modalContent"]):not([class^="modalBody"]) {
     background: rgba(5, 20, 10, 0.9) !important;
     backdrop-filter: blur(20px) !important;
