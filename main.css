@@ -668,3 +668,197 @@ iframe {
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
 }
+
+/* ============================================================
+   SBERBANK UI — ФИНАЛЬНЫЙ УНИВЕРСАЛЬНЫЙ ФИКС
+   Работает на любой сборке Discord (2024–2026)
+   ============================================================ */
+
+/* ---------- 1. ТОПБАР (верхняя панель канала) ---------- */
+[class*="chatHeaderBar"],
+[class*="headerBar"],
+[class*="upperContainer"],
+[class*="channelHeader"],
+[class*="chatHeader"],
+[class*="titleBar"],
+[class*="header_"][class*="chat"] {
+    background-color: rgba(var(--color2), 0.25) !important;
+    backdrop-filter: blur(6px) !important;
+    -webkit-backdrop-filter: blur(6px) !important;
+    border-bottom: none !important;
+    box-shadow: none !important;
+}
+
+/* Дети топбара — прозрачные, чтобы не создавать вложенные слои */
+[class*="chatHeaderBar"] *,
+[class*="headerBar"] *,
+[class*="upperContainer"] * {
+    background-color: transparent !important;
+}
+
+/* Тулбар с иконками — прозрачный */
+[class*="toolbar_"] {
+    background-color: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+/* Кнопка поиска */
+[class*="searchBar"],
+[class*="search_"] {
+    background-color: rgba(var(--color2), 0.3) !important;
+    backdrop-filter: blur(6px) !important;
+    -webkit-backdrop-filter: blur(6px) !important;
+    border-radius: 8px !important;
+}
+
+/* ---------- 2. ПОЛЕ ВВОДА СООБЩЕНИЯ ---------- */
+[class*="channelTextArea"],
+[class*="scrollableContainer"]:has([class*="slateTextArea"]),
+[class*="form_"]:has([class*="textArea"]) {
+    background-color: rgba(var(--color2), 0.3) !important;
+    backdrop-filter: blur(6px) !important;
+    -webkit-backdrop-filter: blur(6px) !important;
+    border-radius: 12px !important;
+    box-shadow: none !important;
+}
+
+/* Всё внутри поля — прозрачное */
+[class*="channelTextArea"] *,
+[class*="scrollableContainer"] *,
+[class*="form_"] > * {
+    background-color: transparent !important;
+}
+
+/* Но убираем blur с внутренних мелких элементов — экономит GPU */
+[class*="buttons_"],
+[class*="attachWrapper"],
+[class*="attachButton"],
+[class*="emojiButton"],
+[class*="slateTextArea"],
+[class*="textArea_"] {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background-color: transparent !important;
+}
+
+/* ---------- 3. ПРАВАЯ ПАНЕЛЬ "АКТИВНОСТЬ" И УЧАСТНИКИ ---------- */
+[class*="nowPlayingColumn"],
+[class*="nowPlaying"],
+[class*="activityPanel"],
+[class*="membersWrap"],
+[class*="members_"],
+[class*="container_"]:has([class*="member_"]) {
+    background-color: rgba(var(--color2), 0.15) !important;
+    backdrop-filter: blur(6px) !important;
+    -webkit-backdrop-filter: blur(6px) !important;
+}
+
+/* Карточки внутри активности — тоже стеклянные */
+[class*="nowPlayingColumn"] [class*="card"],
+[class*="nowPlayingColumn"] [class*="section"],
+[class*="nowPlayingColumn"] [class*="empty"] {
+    background-color: rgba(var(--color2), 0.25) !important;
+    backdrop-filter: blur(4px) !important;
+    -webkit-backdrop-filter: blur(4px) !important;
+    border-radius: 8px !important;
+}
+
+/* ---------- 4. ПРОФИЛЬ В ЛЕВОМ НИЖНЕМ УГЛУ ---------- */
+[class*="panels_"],
+[class*="panel_"]:has([class*="avatarWrapper"]) {
+    background-color: rgba(var(--color2), 0.2) !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+    border-top: 1px solid rgba(var(--color3), 0.15) !important;
+}
+
+/* Аватар + имя */
+[class*="avatarWrapper"] {
+    background-color: transparent !important;
+    border-radius: 8px !important;
+    transition: background-color 0.2s ease, transform 0.2s ease !important;
+}
+
+[class*="avatarWrapper"]:hover {
+    background-color: rgba(var(--color3), 0.15) !important;
+}
+
+[class*="avatarWrapper"]:hover img,
+[class*="avatarWrapper"]:hover [class*="avatar_"] {
+    transform: scale(1.08);
+    box-shadow: 0 0 0 2px rgb(var(--color3)), 0 0 12px rgba(var(--color3), 0.5);
+    transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+/* Кнопки микро/наушники/настройки */
+[class*="panels_"] [class*="button_"],
+[class*="panel_"] [class*="button_"] {
+    background-color: transparent !important;
+    border-radius: 6px !important;
+    transition: background-color 0.2s ease, transform 0.15s ease !important;
+}
+
+[class*="panels_"] [class*="button_"]:hover,
+[class*="panel_"] [class*="button_"]:hover {
+    background-color: rgba(var(--color3), 0.2) !important;
+    transform: scale(1.05);
+}
+
+/* ---------- 5. ЛЕВАЯ ПАНЕЛЬ КАНАЛОВ ---------- */
+[class*="sidebar_"]:not([class*="sidebarRegion"]),
+[class*="sidebarRegion"] {
+    background-color: rgba(var(--color2), 0.15) !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+}
+
+/* ---------- 6. ГЛОБАЛЬНАЯ ЗАЩИТА ОТ ПЛОТНЫХ ФОНОВ ---------- */
+/* Убираем дефолтные тёмные фоны Discord везде, где они есть */
+[class*="app_"],
+[class*="appMount"],
+[class*="layers_"],
+[class*="base_"],
+[class*="container_"]:not([class*="member"]):not([class*="card"]) {
+    background-color: transparent;
+}
+
+/* Исключения — оставляем прозрачность как задано выше */
+[class*="nowPlayingColumn"],
+[class*="nowPlaying"],
+[class*="chatHeaderBar"],
+[class*="headerBar"],
+[class*="channelTextArea"],
+[class*="panels_"],
+[class*="sidebar_"],
+[class*="members_"] {
+    background-color: unset;
+}
+
+/* ---------- 7. ПЛАВНОСТЬ (без лагов) ---------- */
+[class*="chatHeaderBar"],
+[class*="channelTextArea"],
+[class*="nowPlayingColumn"],
+[class*="panels_"] {
+    transition: background-color 0.2s ease !important;
+}
+
+/* Отключаем blur на всех мелких иконках — снижает нагрузку GPU */
+[class*="toolbar_"] *,
+[class*="buttons_"] *,
+[class*="attachWrapper"] *,
+[class*="avatarWrapper"] *,
+[class*="panels_"] [class*="button_"] * {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+/* GPU-ускорение для тяжёлых слоёв */
+[class*="chatContent"],
+[class*="sidebar_"],
+[class*="members_"],
+[class*="guilds_"],
+[class*="panels_"] {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
