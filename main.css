@@ -1,12 +1,11 @@
 /**
  * @name Sberbank UI — main
- * @description Discord 2025 + ClearVision → Sberbank UI
+ * @description Discord 2025 + Sberbank UI
  * @author podnebesnyy007-cpu
  */
 
 /*=============================================
-=   ФОН + ПЕРЕОПРЕДЕЛЕНИЕ ВСЕХ ПЕРЕМЕННЫХ      =
-=   DISCORD 2025 (главное!)                    =
+=   ПЕРЕМЕННЫЕ                                 =
 =============================================*/
 :root,
 .theme-dark,
@@ -16,7 +15,7 @@
     /* --- ФОН --- */
     --background-image: url(https://i.imgur.com/LZ0UO8z.png) !important;
 
-    /* --- ВСЕ ФОНОВЫЕ ПЕРЕМЕННЫЕ DISCORD 2025 → ПРОЗРАЧНО --- */
+    /* --- ФОНОВЫЕ ПЕРЕМЕННЫЕ DISCORD 2025 --- */
     --background-base-lowest: transparent !important;
     --background-base-lower: transparent !important;
     --background-base-low: transparent !important;
@@ -33,26 +32,23 @@
     --background-surface-higher: transparent !important;
     --background-surface-highest: transparent !important;
 
-    --background-primary: transparent !important;
-    --background-secondary: transparent !important;
-    --background-secondary-alt: transparent !important;
-    --background-tertiary: transparent !important;
-    --background-floating: rgba(5, 20, 10, 0.78) !important;
-    --background-nested-floating: rgba(5, 20, 10, 0.78) !important;
-    --background-mobile-primary: transparent !important;
-    --background-mobile-secondary: transparent !important;
+    /* --- ОСНОВНЫЕ ПАНЕЛИ (полупрозрачные!) --- */
+    --background-primary: rgba(5, 20, 10, 0.4) !important;
+    --background-secondary: rgba(5, 20, 10, 0.5) !important;
+    --background-secondary-alt: rgba(5, 20, 10, 0.5) !important;
+    --background-tertiary: rgba(5, 20, 10, 0.55) !important;
 
-    /* --- МОДАЛКИ / МЕНЮ / МОДАЛКИ НАСТРОЕК --- */
-    --modal-background: rgba(5, 20, 10, 0.75) !important;
-    --modal-footer-background: transparent !important;
+    /* --- ПОПАУТЫ И МОДАЛКИ (плотнее, чтобы читались) --- */
+    --background-floating: rgba(5, 20, 10, 0.88) !important;
+    --background-nested-floating: rgba(5, 20, 10, 0.88) !important;
+    --modal-background: rgba(5, 20, 10, 0.85) !important;
+    --modal-footer-background: rgba(5, 20, 10, 0.85) !important;
+
+    /* --- МОДИФИКАТОРЫ --- */
     --background-modifier-hover: rgba(33, 160, 56, 0.12) !important;
     --background-modifier-active: rgba(33, 160, 56, 0.18) !important;
     --background-modifier-selected: rgba(33, 160, 56, 0.25) !important;
     --background-modifier-accent: rgba(255, 255, 255, 0.08) !important;
-
-    /* --- КАНАЛЫ / САЙДБАР --- */
-    --background-sidebar: transparent !important;
-    --background-sidebar-2: transparent !important;
 
     /* --- ИНПУТЫ --- */
     --input-background: rgba(33, 160, 56, 0.08) !important;
@@ -82,80 +78,62 @@
     --online-color: #21A038 !important;
     --channel-selected-bg: #21A038 !important;
     --focus-color: #21A038 !important;
-    --background-shading: rgba(5, 20, 10, 0.55) !important;
+    --background-shading: rgba(5, 20, 10, 0.5) !important;
     --card-shading: rgba(5, 20, 10, 0.4) !important;
-    --popout-shading: rgba(5, 20, 10, 0.78) !important;
-    --modal-shading: rgba(5, 20, 10, 0.72) !important;
+    --popout-shading: rgba(5, 20, 10, 0.85) !important;
+    --modal-shading: rgba(5, 20, 10, 0.8) !important;
     --input-shading: rgba(33, 160, 56, 0.08) !important;
 }
 
 /*=============================================
-=   ФОН — НА BODY + ПСЕВДОСЛОЙ                 =
+=   ФОН — НА HTML + BODY                       =
+=   (главное исправление: html тоже!)         =
 =============================================*/
-html,
-body {
+html {
     background: transparent !important;
 }
 
 body {
-    background-image: var(--background-image) !important;
-    background-size: cover !important;
-    background-position: center !important;
-    background-repeat: no-repeat !important;
-    background-attachment: fixed !important;
-    background-color: #0a1a0e !important;
+    background: transparent !important;
 }
 
-body::before {
+/* Фон рисуем через ::before на html — он всегда ПОД всем */
+html::before {
     content: "";
     position: fixed;
     inset: 0;
-    backdrop-filter: blur(4px) saturate(115%);
-    -webkit-backdrop-filter: blur(4px) saturate(115%);
-    background: rgba(5, 20, 10, 0.55);
-    z-index: 0;
+    background-image: var(--background-image);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    z-index: -2;
     pointer-events: none;
 }
 
-/* Принудительно прозрачный контейнер Discord */
-#app-mount,
-[class^="appMount_"],
-[class^="app_"] {
-    background: transparent !important;
-    position: relative;
-    z-index: 1;
+/* Затемнение + размытие поверх фона */
+html::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    backdrop-filter: blur(3px) saturate(115%);
+    -webkit-backdrop-filter: blur(3px) saturate(115%);
+    background: rgba(5, 20, 10, 0.35);
+    z-index: -1;
+    pointer-events: none;
 }
 
 /*=============================================
-=   ГЛОБАЛЬНАЯ ПРОЗРАЧНОСТЬ ПАНЕЛЕЙ            =
-=   (по классам Discord 2025)                  =
+=   ПРИЛОЖЕНИЕ — ПРОЗРАЧНОЕ                    =
 =============================================*/
+#app-mount,
+[class^="appMount_"],
+[class^="app_"],
+[class^="appAsidePanelWrapper_"],
+[class^="notAppAsidePanel_"],
 [class^="layers_"],
 [class^="layer_"],
-[class^="base_"],
-[class^="bg_"],
-[class^="content_"],
-[class^="chat_"],
-[class^="chatContent_"],
-[class^="messagesWrapper_"],
-[class^="sidebar_"]:not([class^="sidebarRegion"]),
-[class^="panels_"],
-[class^="standardSidebarView_"],
-[class^="contentRegion_"],
-[class^="contentRegionScroller_"],
-[class^="sidebarRegion_"],
-[class^="sidebarRegionScroller_"],
-[class^="page_"],
-[class^="pageWrapper_"],
-[class^="modal_"]:not([class^="modalContent"]),
-[class^="root_"]:not([class^="root_"]) { /* безопасно */
-    background-color: transparent !important;
-}
-
-/* --- Персонально: контейнер приложения и глобальные --- */
-[class^="appAsidePanelWrapper_"],
-[class^="appDevToolsWrapper_"],
-[class^="notAppAsidePanel_"] {
+[class^="base_"] {
     background: transparent !important;
 }
 
@@ -170,11 +148,11 @@ body::before {
     margin: 8px 0 8px 8px !important;
     padding: 8px 0 !important;
     border: 1px solid rgba(33, 160, 56, 0.2) !important;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45) !important;
 }
 
 /*=============================================
-=   ПАНЕЛЬ КАНАЛОВ (SIDEBAR)                   =
+=   ПАНЕЛЬ КАНАЛОВ                             =
 =============================================*/
 [class^="sidebar_"]:not([class^="sidebarRegion"]):not([class^="sidebarRegionScroller"]) {
     background: rgba(5, 20, 10, 0.55) !important;
@@ -188,8 +166,7 @@ body::before {
 /*=============================================
 =   ОСНОВНОЙ ЧАТ                               =
 =============================================*/
-[class^="chat_"]:not([class^="chatContent"]):not([class^="chatHeader"]),
-[class^="chatContent_"] {
+[class^="chat_"]:not([class^="chatContent"]):not([class^="chatHeader"]) {
     background: rgba(5, 20, 10, 0.5) !important;
     backdrop-filter: blur(14px) saturate(140%) !important;
     -webkit-backdrop-filter: blur(14px) saturate(140%) !important;
@@ -197,18 +174,14 @@ body::before {
     border: 1px solid rgba(33, 160, 56, 0.15) !important;
 }
 
-/* Верхняя панель чата */
-[class^="chat_"] [class^="title_"],
-[class^="chat_"] [class^="header_"] {
+[class^="chatContent_"] {
     background: transparent !important;
-    border-bottom: 1px solid rgba(33, 160, 56, 0.15) !important;
 }
 
 /*=============================================
 =   ПАНЕЛЬ УЧАСТНИКОВ                          =
 =============================================*/
-[class^="membersWrap_"],
-[class^="members_"]:not([class^="member_"]) {
+[class^="membersWrap_"] {
     background: rgba(5, 20, 10, 0.55) !important;
     backdrop-filter: blur(14px) saturate(140%) !important;
     -webkit-backdrop-filter: blur(14px) saturate(140%) !important;
@@ -217,69 +190,100 @@ body::before {
     margin: 8px 8px 8px 0 !important;
 }
 
+[class^="members_"]:not([class^="member_"]) {
+    background: transparent !important;
+}
+
 /*=============================================
-=   МЕНЮ (контекстное, Ctrl+K, попауты)         =
+=   УЧАСТНИКИ — КАРТОЧКИ                       =
+=============================================*/
+[class^="member_"]:not([class^="memberInner"]):not([class^="memberSince"]):not([class^="membersWrap"]) {
+    background: rgba(5, 20, 10, 0.5) !important;
+    border: 1px solid rgba(33, 160, 56, 0.3) !important;
+    border-radius: 10px !important;
+    margin: 2px 6px !important;
+    padding: 4px 6px !important;
+    transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+
+[class^="member_"]:hover {
+    background: rgba(33, 160, 56, 0.18) !important;
+    border-color: #21A038 !important;
+    transform: translateX(4px) !important;
+    box-shadow: 0 4px 20px rgba(33, 160, 56, 0.35) !important;
+}
+
+[class^="member_"] [class^="name_"] {
+    color: #4FBF60 !important;
+    font-weight: 600 !important;
+}
+
+[class^="member_"]:hover [class^="name_"] {
+    color: #21A038 !important;
+    text-shadow: 0 0 10px rgba(33, 160, 56, 0.7) !important;
+}
+
+/*=============================================
+=   МЕНЮ / ПОПАУТЫ                             =
 =============================================*/
 [role="menu"],
 [class^="menu_"]:not([class^="menuItem"]):not([class^="menuIcon"]) {
-    background: rgba(5, 20, 10, 0.85) !important;
+    background: rgba(5, 20, 10, 0.92) !important;
     backdrop-filter: blur(20px) saturate(160%) !important;
     -webkit-backdrop-filter: blur(20px) saturate(160%) !important;
     border: 1px solid rgba(33, 160, 56, 0.3) !important;
     border-radius: 14px !important;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6),
-                0 0 20px rgba(33, 160, 56, 0.15) !important;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6) !important;
 }
 
 /*=============================================
-=   МОДАЛКИ (настройки, профиль, диалоги)      =
-=   Именно это — "Учётная запись" на скрине    =
+=   МОДАЛКИ НАСТРОЕК (Учётная запись)          =
+=   ВАЖНО: плотный фон, иначе не читается      =
 =============================================*/
-[class^="modal_"]:not([class^="modalContent"]):not([class^="modalBody"]),
-[class^="root_"]:has([class^="content_"]):has([class^="sidebar_"]),
-[class^="standardSidebarView_"],
-[class^="layer_"]:has([class^="standardSidebarView_"]),
-[class^="layer_"]:has([class^="modal_"]) {
-    background: rgba(5, 20, 10, 0.75) !important;
+[class^="standardSidebarView_"] {
+    background: rgba(5, 20, 10, 0.85) !important;
     backdrop-filter: blur(20px) saturate(160%) !important;
     -webkit-backdrop-filter: blur(20px) saturate(160%) !important;
 }
 
-/* Внутри модалки настроек — всё прозрачно */
 [class^="standardSidebarView_"] [class^="contentRegion_"],
 [class^="standardSidebarView_"] [class^="contentRegionScroller_"],
 [class^="standardSidebarView_"] [class^="sidebarRegion_"],
 [class^="standardSidebarView_"] [class^="sidebarRegionScroller_"],
-[class^="standardSidebarView_"] [class^="contentColumn_"],
-[class^="standardSidebarView_"] [class^="sidebar_"] {
+[class^="standardSidebarView_"] [class^="contentColumn_"] {
     background: transparent !important;
 }
 
-/* Боковое меню настроек — лёгкое стекло */
+/* Боковое меню настроек */
 [class^="sidebarRegion_"] {
-    background: rgba(5, 20, 10, 0.35) !important;
-    border-radius: 12px 0 0 12px !important;
+    background: rgba(5, 20, 10, 0.4) !important;
     border-right: 1px solid rgba(33, 160, 56, 0.15) !important;
 }
 
 /* Пункт меню настроек */
-[class^="side_"] [class^="item_"],
-[class^="sidebarRegion_"] [class^="item_"] {
+[class^="side_"] [class^="item_"] {
     transition: all 0.15s ease !important;
     border-radius: 8px !important;
 }
-[class^="side_"] [class^="item_"]:hover,
-[class^="sidebarRegion_"] [class^="item_"]:hover {
+[class^="side_"] [class^="item_"]:hover {
     background: rgba(33, 160, 56, 0.15) !important;
 }
-[class^="side_"] [class^="item_"][class*="active"],
-[class^="sidebarRegion_"] [class^="item_"][class*="active"] {
+[class^="side_"] [class^="item_"][class*="active"] {
     background: rgba(33, 160, 56, 0.28) !important;
     color: #4FBF60 !important;
 }
 
+/* Обычные модалки */
+[class^="modal_"]:not([class^="modalContent"]):not([class^="modalBody"]) {
+    background: rgba(5, 20, 10, 0.9) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border-radius: 16px !important;
+    border: 1px solid rgba(33, 160, 56, 0.25) !important;
+}
+
 /*=============================================
-=   ВЕРХНЯЯ ПАНЕЛЬ (заголовок окна)            =
+=   ВЕРХНЯЯ ПАНЕЛЬ                             =
 =============================================*/
 [class^="titleBar_"] {
     background: rgba(5, 20, 10, 0.5) !important;
@@ -291,15 +295,13 @@ body::before {
 /*=============================================
 =   ПОЛЕ ВВОДА                                 =
 =============================================*/
-[class^="channelTextArea_"],
-[class^="textArea_"] {
+[class^="channelTextArea_"] {
     background: rgba(33, 160, 56, 0.1) !important;
     border: 1px solid rgba(33, 160, 56, 0.25) !important;
     border-radius: 24px !important;
     transition: all 0.2s ease !important;
 }
-[class^="channelTextArea_"]:focus-within,
-[class^="textArea_"]:focus-within {
+[class^="channelTextArea_"]:focus-within {
     background: rgba(33, 160, 56, 0.16) !important;
     border-color: #21A038 !important;
     box-shadow: 0 0 0 2px rgba(33, 160, 56, 0.25) !important;
@@ -309,7 +311,7 @@ body::before {
 =   СООБЩЕНИЯ                                 =
 =============================================*/
 [class^="message_"]:not([class^="messageContent"]):not([class^="messageListItem"]) {
-    background: rgba(5, 20, 10, 0.4) !important;
+    background: rgba(5, 20, 10, 0.35) !important;
     border-radius: 12px !important;
     margin: 2px 8px !important;
     padding: 4px 8px !important;
@@ -328,26 +330,8 @@ body::before {
     60%  { opacity: 1; transform: translateY(-2px) scale(1.005); filter: blur(0); }
     100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
 }
-
-[class^="messageListItem_"],
-[class^="message_"] {
+[class^="messageListItem_"] {
     animation: sber-message-send 0.4s cubic-bezier(0.22, 1, 0.36, 1) both !important;
-}
-
-@keyframes sber-fade-in-left {
-    from { opacity: 0; transform: translateX(-8px); }
-    to   { opacity: 1; transform: translateX(0); }
-}
-@keyframes sber-fade-in-up {
-    from { opacity: 0; transform: translateY(10px); }
-    to   { opacity: 1; transform: translateY(0); }
-}
-
-[class^="sidebar_"] [class^="wrapper_"] {
-    animation: sber-fade-in-left 0.3s ease both !important;
-}
-[class^="member_"] {
-    animation: sber-fade-in-up 0.3s ease both !important;
 }
 
 /*=============================================
@@ -356,11 +340,6 @@ body::before {
 [class^="username_"] {
     color: #4FBF60 !important;
     font-weight: 600 !important;
-    transition: all 0.15s ease !important;
-}
-[class^="username_"]:hover {
-    color: #21A038 !important;
-    text-shadow: 0 0 8px rgba(33, 160, 56, 0.7) !important;
 }
 
 [class^="mention_"] {
