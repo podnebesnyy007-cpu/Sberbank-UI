@@ -1,0 +1,189 @@
+/*=============================================
+=                 ADDONS                      =
+=============================================*/
+
+/* ============ КОЛЬЦА ВОКРУГ АВАТАРОВ ============ */
+.avatar-1BDn8e::after,
+.avatar-2e8lTP::after {
+    content: "";
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    background: linear-gradient(135deg, var(--sber-accent), var(--sber-accent-light)) border-box;
+    -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+}
+
+/* ============ ROUNDED STATUS ============ */
+.status-1f8c9d {
+    border-radius: 50% !important;
+    border-width: 3px !important;
+}
+
+/* ============ ЛИЧНЫЕ СООБЩЕНИЯ ============ */
+.privateChannels-1nO12O {
+    background: var(--sber-glass) !important;
+    backdrop-filter: blur(var(--sber-glass-blur));
+    -webkit-backdrop-filter: blur(var(--sber-glass-blur));
+    border-radius: var(--sber-radius) !important;
+    border: 1px solid var(--sber-border);
+}
+.privateChannels-1nO12O .channel-1Shao0 {
+    border-radius: var(--sber-radius-sm);
+    transition: all 0.15s ease;
+}
+.privateChannels-1nO12O .channel-1Shao0:hover {
+    background: var(--sber-glass-hover) !important;
+}
+.privateChannels-1nO12O .channel-1Shao0.selected-1dODfG {
+    background: var(--sber-glass-active) !important;
+    border-left: 3px solid var(--sber-accent);
+}
+
+/* ============ ВЛОЖЕНИЯ ============ */
+.attachment-1PZZB2,
+.embedFull-1QYk3Y {
+    background: var(--sber-glass) !important;
+    border-radius: var(--sber-radius-sm) !important;
+    border: 1px solid var(--sber-border) !important;
+    border-left: 3px solid var(--sber-accent) !important;
+}
+.embedFull-1QYk3Y .embedAuthorName-3mnGvk {
+    color: var(--sber-accent-light) !important;
+}
+
+/* ============ РЕАКЦИИ ============ */
+.reaction-2QYk3Y {
+    background: var(--sber-glass) !important;
+    border-radius: 12px !important;
+    border: 1px solid var(--sber-border);
+    transition: all 0.15s ease;
+}
+.reaction-2QYk3Y:hover {
+    background: var(--sber-glass-hover) !important;
+    border-color: var(--sber-accent);
+}
+.reaction-2QYk3Y.reactionMe-1QYk3Y {
+    background: var(--sber-glass-active) !important;
+    border-color: var(--sber-accent) !important;
+}
+.reaction-2QYk3Y.reactionMe-1QYk3Y .reactionCount-1QYk3Y {
+    color: var(--sber-accent-light) !important;
+}
+
+/* ============ УПОМИНАНИЯ ============ */
+.mention-1QYk3Y {
+    background: var(--sber-glass-active) !important;
+    color: var(--sber-accent-light) !important;
+    border-radius: 4px;
+    font-weight: 600;
+    padding: 0 3px;
+    transition: all 0.15s ease;
+}
+.mention-1QYk3Y:hover {
+    background: var(--sber-accent) !important;
+    color: var(--sber-accent-text) !important;
+}
+
+/* ============ КАНАЛ В ГОЛОСОВОМ ============ */
+.voiceUser-1QYk3Y {
+    border-radius: var(--sber-radius-sm);
+    background: var(--sber-glass) !important;
+    border: 1px solid var(--sber-border);
+}
+.voiceUser-1QYk3Y.speaking-1QYk3Y {
+    border-color: var(--sber-accent) !important;
+    box-shadow: 0 0 0 2px var(--sber-accent-glow);
+}
+
+/* ============ ВЕРХНЯЯ ПАНЕЛЬ (TITLE BAR) ============ */
+.titleBar-1it3bQ {
+    background: var(--sber-glass) !important;
+    backdrop-filter: blur(var(--sber-glass-blur));
+    -webkit-backdrop-filter: blur(var(--sber-glass-blur));
+    border-bottom: 1px solid var(--sber-border);
+}
+
+/* ============ БАННЕР СЕРВЕРА ============ */
+.banner-1QYk3Y {
+    border-radius: var(--sber-radius) var(--sber-radius) 0 0;
+}
+
+/* ============ ЗВУКОВАЯ ВОЛНА ============ */
+.wave-1QYk3Y {
+    color: var(--sber-accent) !important;
+}
+
+/* ============ ПРОГРЕСС-БАР ============ */
+.bar-1QYk3Y .barInner-1QYk3Y {
+    background: var(--sber-accent) !important;
+    border-radius: 4px;
+}
+
+/* ============ СКРОЛЛБАР В КАНАЛАХ ============ */
+.sidebar-1tnWFu ::-webkit-scrollbar-thumb {
+    background: var(--sber-glass-hover);
+}
+.sidebar-1tnWFu ::-webkit-scrollbar-thumb:hover {
+    background: var(--sber-accent);
+}
+
+/* ============ ПАНЕЛЬ УЧАСТНИКОВ ============ */
+.container-2o3qEW .members-3WRCEx {
+    background: transparent !important;
+}
+
+/* ============ ИНДИКАТОР ЗАГРУЗКИ ============ */
+.spinner-2QYk3Y {
+    color: var(--sber-accent) !important;
+}
+
+/* ============ КНОПКА ЗАКРЫТИЯ/СВЁРНУТОГО ============ */
+.winButton-3UMjdg:hover {
+    background: var(--sber-glass-hover) !important;
+}
+.winButtonClose-3UMjdg:hover {
+    background: #ED4245 !important;
+}
+
+/* ============ НОВЫЕ СООБЩЕНИЯ ============ */
+.newMessagesBar-1hF-9G {
+    background: var(--sber-accent) !important;
+    color: var(--sber-accent-text) !important;
+    border-radius: 0 0 var(--sber-radius-sm) var(--sber-radius-sm);
+    box-shadow: var(--sber-shadow-accent);
+}
+
+/* ============ ПРИВЕТСТВЕННЫЙ ЭКРАН ============ */
+.welcomeMessage-3QYk3Y {
+    background: transparent !important;
+}
+
+/* ============ НИТИ (THREADS) ============ */
+.container-1QYk3Y {
+    background: var(--sber-glass) !important;
+    border-radius: var(--sber-radius-sm) !important;
+    border: 1px solid var(--sber-border);
+}
+
+/* ============ ФОРУМ ============ */
+.container-3i3i1Q {
+    background: var(--sber-glass) !important;
+    border-radius: var(--sber-radius-sm) !important;
+    border: 1px solid var(--sber-border);
+    transition: all 0.15s ease;
+}
+.container-3i3i1Q:hover {
+    border-color: var(--sber-accent) !important;
+    box-shadow: 0 4px 16px var(--sber-accent-glow);
+}
+
+/* ============ МАГАЗИН / НИТРО ============ */
+.premiumIndicator-1QYk3Y {
+    background: linear-gradient(135deg, var(--sber-accent), var(--sber-accent-light)) !important;
+    border-radius: var(--sber-radius-sm);
+    color: var(--sber-accent-text) !important;
+}
