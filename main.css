@@ -1,434 +1,228 @@
 /**
- * @name Sberbank UI — main
- * @description Перекраска ClearVision в стиль СберБанк UI
+ * @name Sberbank UI — main (Discord 2025)
+ * @description Тема для Discord 2025 с префиксными классами
  * @author podnebesnyy007-cpu
  */
 
-/*=============================================
-=   ПЕРЕМЕННЫЕ CLEARVISION → SBER              =
-=============================================*/
 :root {
-    --main-color: #21A038;
-    --hover-color: #1B8530;
-    --success-color: #4FBF60;
-    --danger-color: #982929;
-    --info-color: #4FBF60;
-
-    --online-color: #21A038;
-    --idle-color: #faa61a;
-    --dnd-color: #982929;
-    --streaming-color: #593695;
-    --offline-color: #808080;
-
-    --background-shading-percent: 100%;
-    --background-image: url(https://i.imgur.com/LZ0UO8z.png);
-    --background-position: center;
-    --background-size: cover;
-    --background-attachment: fixed;
-    --background-filter: saturate(calc(var(--saturation-factor, 1) * 1.05)) brightness(0.75);
-
-    --user-popout-image: var(--background-image);
-    --user-popout-position: var(--background-position);
-    --user-popout-size: var(--background-size);
-    --user-popout-attachment: var(--background-attachment);
-    --user-popout-filter: var(--background-filter);
-
-    --user-modal-image: var(--background-image);
-    --user-modal-position: var(--background-position);
-    --user-modal-size: var(--background-size);
-    --user-modal-attachment: var(--background-attachment);
-    --user-modal-filter: var(--background-filter);
-
-    --home-icon: url(https://i.imgur.com/LZ0UO8z.png);
-    --home-size: cover;
-
-    --main-font: "Inter", "gg sans", "Helvetica Neue", sans-serif;
-    --code-font: Consolas, "gg mono", monospace;
-
-    --channel-normal: var(--interactive-text-default);
-    --channel-muted: var(--interactive-muted);
-    --channel-hover: var(--interactive-text-hover);
-    --channel-selected: #FFFFFF;
-    --channel-selected-bg: var(--main-color);
-    --channel-unread: var(--main-color);
-    --channel-unread-hover: var(--hover-color);
-
-    --focus-color: var(--main-color);
-
-    /* --- Кастомные переменные Sber --- */
+    /* ЗЕЛЁНЫЙ СБЕРА */
     --sber-green: #21A038;
     --sber-green-dark: #0F5A22;
     --sber-green-light: #4FBF60;
     --sber-green-glow: rgba(33, 160, 56, 0.55);
     --sber-card-bg: rgba(5, 20, 10, 0.55);
     --sber-card-border: rgba(33, 160, 56, 0.35);
+
+    /* ClearVision override */
+    --main-color: #21A038 !important;
+    --hover-color: #1B8530 !important;
+    --success-color: #4FBF60 !important;
+    --online-color: #21A038 !important;
+    --channel-selected-bg: #21A038 !important;
+    --focus-color: #21A038 !important;
+
+    /* ФОН */
+    --background-image: url(https://i.imgur.com/LZ0UO8z.png) !important;
+    --background-position: center !important;
+    --background-size: cover !important;
+    --background-attachment: fixed !important;
+    --background-filter: saturate(110%) brightness(0.75) !important;
+
+    --background-primary: transparent !important;
+    --background-secondary: transparent !important;
+    --background-secondary-alt: transparent !important;
+    --background-tertiary: transparent !important;
+
+    --brand-experiment: #21A038 !important;
+    --brand-500: #21A038 !important;
+    --brand-560: #21A038 !important;
+    --brand-600: #1B8530 !important;
+    --text-brand: #4FBF60 !important;
+    --text-link: #4FBF60 !important;
 }
 
 /*=============================================
-=   ОТТЕНКИ ФОНА                               =
+=   ФОН — ЖЁСТКО ЧЕРЕЗ BODY                   =
 =============================================*/
-:is(.theme-dark, .theme-light .theme-dark) {
-    --background-shading: rgba(5, 20, 10, 0.5);
-    --card-shading: rgba(5, 20, 10, 0.35);
-    --popout-shading: rgba(5, 20, 10, 0.78);
-    --modal-shading: rgba(5, 20, 10, 0.65);
-    --input-shading: rgba(33, 160, 56, 0.08);
-    --normal-text: #d8d8db;
-    --muted-text: #aeaeb4;
+html, body, #app-mount, [class^="appMount"] {
+    background: transparent !important;
 }
-:is(.theme-darker, .theme-light .theme-darker) {
-    --background-shading: rgba(3, 15, 8, 0.6);
-    --card-shading: rgba(3, 15, 8, 0.4);
-    --popout-shading: rgba(3, 15, 8, 0.8);
-    --modal-shading: rgba(3, 15, 8, 0.7);
-    --input-shading: rgba(33, 160, 56, 0.1);
-    --normal-text: #fbfbfb;
-    --muted-text: #94949c;
+
+body {
+    background-image: var(--background-image) !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    background-attachment: fixed !important;
+    background-color: #000 !important;
 }
-:is(.theme-midnight, .theme-light .theme-midnight) {
-    --background-shading: rgba(0, 10, 5, 0.75);
-    --card-shading: rgba(0, 10, 5, 0.5);
-    --popout-shading: rgba(0, 10, 5, 0.85);
-    --modal-shading: rgba(0, 10, 5, 0.8);
-    --input-shading: rgba(33, 160, 56, 0.1);
-    --normal-text: #dcdcde;
-    --muted-text: #86868e;
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    backdrop-filter: blur(4px) saturate(120%);
+    -webkit-backdrop-filter: blur(4px) saturate(120%);
+    background: rgba(5, 20, 10, 0.55);
+    z-index: 0;
+    pointer-events: none;
+}
+
+#app-mount {
+    position: relative;
+    z-index: 1;
+    background: transparent !important;
 }
 
 /*=============================================
-=   ПРОФИЛЬ / УЧАСТНИК — КАК НА СКРИНЕ         =
-=   (тёмная подложка + зелёная рамка)          =
+=   ГЛОБАЛЬНАЯ ПРОЗРАЧНОСТЬ                   =
+=   ВАЖНО: [class^=""] — префиксный селектор!  =
 =============================================*/
+.theme-dark [class^="app_"],
+.theme-dark [class^="layers_"],
+.theme-dark [class^="layer_"],
+.theme-dark [class^="base_"],
+.theme-dark [class^="bg_"],
+.theme-dark [class^="container_"]:not([class^="containerDefault"]),
+.theme-dark [class^="wrapper_"],
+.theme-dark [class^="content_"],
+.theme-dark [class^="chat_"],
+.theme-dark [class^="chatContent_"],
+.theme-dark [class^="messagesWrapper_"],
+.theme-dark [class^="sidebar_"],
+.theme-dark [class^="panels_"] {
+    background-color: transparent !important;
+}
 
-/* ---------- УЧАСТНИК В СПИСКЕ СПРАВА ---------- */
-.member__5d473 .memberInner__5d473 {
-    background: var(--sber-card-bg) !important;
-    border: 1px solid var(--sber-card-border) !important;
+/*=============================================
+=   ПАНЕЛИ — СТЕКЛО                            =
+=============================================*/
+[class^="guilds_"] {
+    background: rgba(5, 20, 10, 0.55) !important;
+    backdrop-filter: blur(14px) saturate(140%) !important;
+    -webkit-backdrop-filter: blur(14px) saturate(140%) !important;
+    border-radius: 12px !important;
+    margin: 8px 0 8px 8px !important;
+    padding: 8px 0 !important;
+    border: 1px solid rgba(33, 160, 56, 0.2) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5) !important;
+}
+
+[class^="sidebar_"]:not([class^="sidebarRegion"]) {
+    background: rgba(5, 20, 10, 0.55) !important;
+    backdrop-filter: blur(14px) saturate(140%) !important;
+    -webkit-backdrop-filter: blur(14px) saturate(140%) !important;
+    border-radius: 12px !important;
+    border: 1px solid rgba(33, 160, 56, 0.15) !important;
+    margin: 8px 0 !important;
+}
+
+[class^="chat_"]:not([class^="chatContent"]):not([class^="chatHeader"]) {
+    background: rgba(5, 20, 10, 0.5) !important;
+    backdrop-filter: blur(14px) saturate(140%) !important;
+    -webkit-backdrop-filter: blur(14px) saturate(140%) !important;
+    border-radius: 12px !important;
+    border: 1px solid rgba(33, 160, 56, 0.15) !important;
+}
+
+[class^="membersWrap_"],
+[class^="members_"]:not([class^="member_"]) {
+    background: rgba(5, 20, 10, 0.55) !important;
+    backdrop-filter: blur(14px) saturate(140%) !important;
+    -webkit-backdrop-filter: blur(14px) saturate(140%) !important;
+    border-radius: 12px !important;
+    border: 1px solid rgba(33, 160, 56, 0.15) !important;
+    margin: 8px 8px 8px 0 !important;
+}
+
+/*=============================================
+=   УЧАСТНИКИ — КАК НА СКРИНЕ                  =
+=============================================*/
+[class^="member_"]:not([class^="memberInner"]):not([class^="memberSince"]):not([class^="membersWrap"]) {
+    background: rgba(5, 20, 10, 0.55) !important;
+    border: 1px solid rgba(33, 160, 56, 0.3) !important;
     border-radius: 10px !important;
+    margin: 2px 6px !important;
     padding: 4px 6px !important;
     transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1) !important;
     position: relative;
 }
-.member__5d473:hover .memberInner__5d473 {
+
+[class^="member_"]:not([class^="memberInner"]):not([class^="membersWrap"]):hover {
     background: rgba(33, 160, 56, 0.18) !important;
-    border-color: var(--sber-green) !important;
+    border-color: #21A038 !important;
     transform: translateX(4px) !important;
     box-shadow: 0 4px 20px rgba(33, 160, 56, 0.35),
                 0 0 0 1px rgba(33, 160, 56, 0.4) !important;
 }
 
-/* Ник участника — зелёный */
-.member__5d473 .name__91a9d,
-.member__5d473 .username__91a9d {
-    color: var(--sber-green-light) !important;
+[class^="member_"] [class^="name_"],
+[class^="member_"] [class^="username_"] {
+    color: #4FBF60 !important;
     font-weight: 600 !important;
     transition: all 0.2s ease !important;
 }
-.member__5d473:hover .name__91a9d,
-.member__5d473:hover .username__91a9d {
-    color: var(--sber-green) !important;
-    text-shadow: 0 0 10px var(--sber-green-glow) !important;
+[class^="member_"]:hover [class^="name_"],
+[class^="member_"]:hover [class^="username_"] {
+    color: #21A038 !important;
+    text-shadow: 0 0 10px rgba(33, 160, 56, 0.7) !important;
 }
 
-/* ---------- ПРОФИЛЬ В СПИСКЕ ЛС ---------- */
-.privateChannels__99e7c .channel__972a0 {
-    background: var(--sber-card-bg) !important;
-    border: 1px solid var(--sber-card-border) !important;
-    border-radius: 10px !important;
-    margin: 2px 8px !important;
-    padding: 4px 6px !important;
-    transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1) !important;
-}
-.privateChannels__99e7c .channel__972a0:hover {
-    background: rgba(33, 160, 56, 0.18) !important;
-    border-color: var(--sber-green) !important;
-    transform: translateX(4px) !important;
-    box-shadow: 0 4px 20px rgba(33, 160, 56, 0.35) !important;
-}
-.privateChannels__99e7c .channel__972a0.interactiveSelected__972a0 {
-    background: rgba(33, 160, 56, 0.28) !important;
-    border-color: var(--sber-green) !important;
-    box-shadow: 0 0 0 1px var(--sber-green),
-                0 4px 16px rgba(33, 160, 56, 0.4) !important;
-}
-.privateChannels__99e7c .channel__972a0 .name__972a0,
-.privateChannels__99e7c .channel__972a0 .username__972a0 {
-    color: var(--sber-green-light) !important;
-    font-weight: 600 !important;
-}
-.privateChannels__99e7c .channel__972a0:hover .name__972a0,
-.privateChannels__99e7c .channel__972a0.interactiveSelected__972a0 .name__972a0 {
-    color: var(--sber-green) !important;
-    text-shadow: 0 0 10px var(--sber-green-glow) !important;
-}
-
-/* ============ КАРТОЧКА "Sberbank — N" (группа) ============ */
-/* Заголовок группы каналов */
-.containerDefault__29444 .name__29444,
-[class*="containerDefault"] [class*="name-"] {
-    color: var(--sber-green-light) !important;
-    font-weight: 700 !important;
-    text-shadow: 0 0 6px rgba(33, 160, 56, 0.4) !important;
-}
-
-/* ============ USER POPOUT (клик по нику) ============ */
-.userPopoutOuter__37e49,
-.userProfileOuter__37e49,
-.userProfileInner__37e49,
-[class*="userPopoutOuter"],
-[class*="userProfileOuter"] {
-    background: rgba(5, 20, 10, 0.9) !important;
-    backdrop-filter: blur(24px) saturate(160%) !important;
-    -webkit-backdrop-filter: blur(24px) saturate(160%) !important;
-    border: 1px solid var(--sber-card-border) !important;
-    border-radius: 16px !important;
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6),
-                0 0 40px rgba(33, 160, 56, 0.25) !important;
-    overflow: hidden;
-}
-
-/* Ник в профиле — зелёный */
-.userPopoutOuter__37e49 [class*="nickname"],
-.userPopoutOuter__37e49 [class*="userTagUsername"],
-.userProfileOuter__37e49 [class*="nickname"],
-.userProfileOuter__37e49 [class*="userTagUsername"] {
-    color: var(--sber-green-light) !important;
-    font-weight: 700 !important;
-    transition: all 0.25s ease !important;
-    cursor: pointer;
-    display: inline-block;
-}
-.userPopoutOuter__37e49 [class*="nickname"]:hover,
-.userProfileOuter__37e49 [class*="nickname"]:hover {
-    color: var(--sber-green) !important;
-    text-shadow: 0 0 12px var(--sber-green-glow) !important;
-    transform: translateX(3px) !important;
-}
-
-/* Аватар в профиле — ховер */
-.userPopoutOuter__37e49 [class*="avatar"],
-.userProfileOuter__37e49 [class*="avatar"] {
+[class^="member_"] [class^="avatar_"] {
     transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
-                box-shadow 0.25s ease,
-                filter 0.25s ease !important;
+                box-shadow 0.25s ease !important;
 }
-.userPopoutOuter__37e49 [class*="avatar"]:hover,
-.userProfileOuter__37e49 [class*="avatar"]:hover {
-    transform: scale(1.12) rotate(-3deg) !important;
-    box-shadow: 0 0 0 3px var(--sber-green),
-                0 0 24px var(--sber-green-glow) !important;
-    filter: brightness(1.15) !important;
+[class^="member_"]:hover [class^="avatar_"] {
+    transform: scale(1.15) !important;
+    box-shadow: 0 0 0 2px #21A038,
+                0 0 12px rgba(33, 160, 56, 0.7) !important;
 }
 
 /*=============================================
-=   АНИМАЦИЯ: ОТПРАВКА СООБЩЕНИЯ               =
-=   (новое сообщение вылетает снизу)           =
+=   АНИМАЦИИ                                   =
 =============================================*/
 @keyframes sber-message-send {
-    0% {
-        opacity: 0;
-        transform: translateY(24px) scale(0.94);
-        filter: blur(4px);
-    }
-    60% {
-        opacity: 1;
-        transform: translateY(-2px) scale(1.01);
-        filter: blur(0);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-        filter: blur(0);
-    }
+    0% { opacity: 0; transform: translateY(24px) scale(0.94); filter: blur(4px); }
+    60% { opacity: 1; transform: translateY(-2px) scale(1.01); filter: blur(0); }
+    100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
 }
 
-/* Все сообщения получают анимацию появления */
-.message__5126c,
-.messageListItem__5126c {
+[class^="message_"], [class^="messageListItem_"] {
     animation: sber-message-send 0.4s cubic-bezier(0.22, 1, 0.36, 1) both !important;
-    transition: background 0.15s ease,
-                transform 0.15s ease,
-                box-shadow 0.15s ease !important;
+    transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease !important;
     border-radius: 12px !important;
 }
 
-/* Ховер сообщения */
-.message__5126c:hover {
+[class^="message_"]:hover {
     background: rgba(33, 160, 56, 0.08) !important;
     transform: translateX(3px) !important;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3) !important;
 }
 
-/* Только что отправленное сообщение — особый эффект */
-.message__5126c.groupStart__5126c.cozyMessage__5126c:last-child {
-    animation: sber-message-fresh 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) both !important;
-}
-@keyframes sber-message-fresh {
-    0% {
-        opacity: 0;
-        transform: translateY(30px) scale(0.9);
-        box-shadow: 0 0 0 0 var(--sber-green-glow);
-    }
-    50% {
-        box-shadow: 0 0 0 8px rgba(33, 160, 56, 0.4);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-        box-shadow: 0 0 0 0 rgba(33, 160, 56, 0);
-    }
-}
-
-/*=============================================
-=   АНИМАЦИЯ: ПОЯВЛЕНИЕ ЭЛЕМЕНТОВ ПРИ СКРОЛЛЕ  =
-=   (просмотр сообщений)                       =
-=============================================*/
-@keyframes sber-fade-in-up {
-    from {
-        opacity: 0;
-        transform: translateY(12px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-@keyframes sber-fade-in-left {
-    from {
-        opacity: 0;
-        transform: translateX(-10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-/* Каналы — выезд слева */
-.wrapper__2ea32 {
-    animation: sber-fade-in-left 0.3s ease both !important;
-}
-
-/* Участники — появление снизу */
-.member__5d473 {
-    animation: sber-fade-in-up 0.3s ease both !important;
-}
-
-/* Элементы ЛС — появление слева */
-.privateChannels__99e7c .channel__972a0 {
-    animation: sber-fade-in-left 0.3s ease both !important;
-}
-
-/* Аватары при загрузке чата */
-.avatar_c19a55,
-.avatar__07f91 {
-    animation: sber-fade-in-up 0.3s ease both !important;
-}
-
-/* Вложения / эмбеды */
-.embedFull__623de,
-.attachment__0ccae {
-    animation: sber-fade-in-up 0.35s ease both !important;
-}
-
-/*=============================================
-=   КАНАЛ — ЗЕЛЁНАЯ ПОЛОСА ПРИ ВЫБОРЕ          =
-=============================================*/
-.wrapper__2ea32.modeSelected__2ea32 .link__2ea32::before {
-    background: var(--sber-green) !important;
-    box-shadow: 0 0 10px var(--sber-green-glow) !important;
-    animation: sber-bar-in 0.3s ease-out both !important;
-}
-@keyframes sber-bar-in {
-    from { right: 100%; }
-    to   { right: 0; }
-}
-
-/*=============================================
-=   НИК АВТОРА СООБЩЕНИЯ — ЗЕЛЁНЫЙ             =
-=============================================*/
-.username__5d473,
-.username_c19a55,
-.headerText_c19a55 .username_c19a55 {
-    color: var(--sber-green-light) !important;
+[class^="username_"], [class^="username_c19a55"] {
+    color: #4FBF60 !important;
     font-weight: 600 !important;
-    transition: color 0.15s ease, text-shadow 0.15s ease !important;
-}
-.message__5126c:hover .username_c19a55 {
-    color: var(--sber-green) !important;
-    text-shadow: 0 0 8px var(--sber-green-glow) !important;
 }
 
-/*=============================================
-=   УПОМИНАНИЯ / РЕАКЦИИ — ЗЕЛЁНЫЕ             =
-=============================================*/
-.mention__3b95d,
-.mentioned__5126c {
+[class^="mention_"], [class^="mentioned_"] {
     background: rgba(33, 160, 56, 0.25) !important;
-    color: var(--sber-green-light) !important;
+    color: #4FBF60 !important;
     border-radius: 4px !important;
 }
-.mentioned__5126c::before {
-    background: var(--sber-green) !important;
-}
 
-.reaction__23977,
-.reaction_f8896c {
+[class^="reaction_"]:not([class^="reactionMe"]), [class^="reactionMe_"] {
     background: rgba(33, 160, 56, 0.12) !important;
     border: 1px solid rgba(33, 160, 56, 0.25) !important;
     border-radius: 12px !important;
     transition: all 0.15s ease !important;
 }
-.reaction__23977:hover,
-.reaction_f8896c:hover {
+[class^="reaction_"]:hover {
     background: rgba(33, 160, 56, 0.25) !important;
-    border-color: var(--sber-green) !important;
+    border-color: #21A038 !important;
     transform: translateY(-2px) scale(1.05) !important;
     box-shadow: 0 6px 16px rgba(33, 160, 56, 0.4) !important;
 }
-.reactionMe__23977,
-.reactionMe_f8896c {
-    background: rgba(33, 160, 56, 0.3) !important;
-    border-color: var(--sber-green) !important;
-}
 
-/*=============================================
-=   КНОПКИ                                    =
-=============================================*/
-.lookFilled__201d5,
-button[class*="lookFilled"] {
-    transition: transform 0.15s ease,
-                box-shadow 0.2s ease,
-                background 0.15s ease !important;
-}
-.lookFilled__201d5:hover,
-button[class*="lookFilled"]:hover {
-    transform: translateY(-1px) !important;
-    box-shadow: 0 8px 24px rgba(33, 160, 56, 0.45) !important;
-}
-
-/*=============================================
-=   ПУЛЬС ГОВОРЯЩЕГО                           =
-=============================================*/
-.avatar__07f91[style*="var(--status-speaking)"]::before {
-    background: linear-gradient(to right,
-        var(--sber-green) 10%,
-        transparent) !important;
-    animation: sber-speaking-pulse 1.4s ease-in-out infinite !important;
-}
-@keyframes sber-speaking-pulse {
-    0%, 100% { opacity: 0.4; }
-    50%      { opacity: 0.8; }
-}
-
-/*=============================================
-=   СКРОЛЛБАР                                  =
-=============================================*/
 ::-webkit-scrollbar-thumb {
-    background-color: var(--sber-green) !important;
-    transition: background 0.15s ease !important;
-}
-::-webkit-scrollbar-thumb:hover {
-    background-color: var(--sber-green-light) !important;
-    box-shadow: 0 0 8px var(--sber-green-glow) !important;
+    background-color: #21A038 !important;
 }
