@@ -191,6 +191,7 @@ iframe {
 /* ============================================================
    2. АНИМАЦИЯ ПОЯВЛЕНИЯ СООБЩЕНИЙ
    ============================================================ */
+
 @keyframes sber-message-appear {
     0% {
         opacity: 0;
@@ -209,34 +210,21 @@ iframe {
     }
 }
 
-/* --- Анимируем ТОЛЬКО входящие сообщения (не свои) --- */
-/* Свои сообщения Discord помечает классом .hasReply или data-author-id === текущий */
-/* Проще всего — анимировать только те, что НЕ в группе "моих" */
-
-.messageListItem__5126c:not(.groupStart__5126c) .message__5126c {
-    /* Без анимации — это продолжение группы */
-}
-
-/* --- Базовая анимация для всех, но отключаемая --- */
+/* --- Базовая анимация для всех сообщений --- */
 .messageListItem__5126c {
     animation: sber-message-appear 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 /* --- ОТКЛЮЧАЕМ анимацию для своих отправленных сообщений --- */
-.messageListItem__5126c[data-is-author="true"],
-.messageListItem__5126c .message__5126c[data-is-author="true"],
 .messageListItem__5126c.local__5126c,
-.messageListItem__5126c .local__5126c {
+.messageListItem__5126c .local__5126c,
+.messageListItem__5126c:has(.message__5126c[class*="local"]),
+.messageListItem__5126c:has(.message__5126c[class*="optimistic"]),
+.messageListItem__5126c:has(.message__5126c[class*="pending"]) {
     animation: none !important;
 }
 
-/* --- ОТКЛЮЧАЕМ повторную анимацию для уже отрисованных --- */
-/* Discord помечает уже проигранные сообщения через aria или data-атрибуты */
-.messageListItem__5126c[data-list-item-id*="chat-messages"] {
-    animation-fill-mode: both;
-}
-
-/* --- Задержка для последовательного появления (соседние сообщения) --- */
+/* --- Задержка для последовательного появления --- */
 .messageListItem__5126c:nth-child(1)  { animation-delay: 0s; }
 .messageListItem__5126c:nth-child(2)  { animation-delay: 0.03s; }
 .messageListItem__5126c:nth-child(3)  { animation-delay: 0.06s; }
@@ -249,7 +237,6 @@ iframe {
 .messageListItem__5126c:nth-child(10) { animation-delay: 0.27s; }
 
 @media (prefers-reduced-motion: reduce) {
-    .message__5126c,
     .messageListItem__5126c {
         animation: none !important;
     }
