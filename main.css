@@ -1,24 +1,23 @@
 /**
  * @name Sberbank UI
  * @version 3.0.0
- * @description Тема Discord в стиле СберБанк UI — полная прозрачность, зелёный, анимации
+ * @description Тема Discord в стиле СберБанк UI — полная прозрачность, зелёный акцент, анимации
  * @author podnebesnyy007-cpu
  * @source https://github.com/podnebesnyy007-cpu/Sberbank-UI
  */
 
-@import url(https://raw.githubusercontent.com/podnebesnyy007-cpu/Sberbank-UI/refs/heads/main/css/source.css);
-@import url(https://raw.githubusercontent.com/podnebesnyy007-cpu/Sberbank-UI/refs/heads/main/css/menu.css);
-@import url(https://raw.githubusercontent.com/podnebesnyy007-cpu/Sberbank-UI/refs/heads/main/css/addons.css);
-
+/*=============================================
+=                ПЕРЕМЕННЫЕ                    =
+=============================================*/
 :root {
     /* ---------- ФОН ---------- */
     --app-bg: url(https://i.imgur.com/LZ0UO8z.png);
     --app-blur: 8px;
-    --app-dim: 0.4;                  /* затемнение фона: 0–1 */
+    --app-dim: 0.4;
     --app-margin: 24px;
     --app-radius: 12px;
 
-    /* ---------- ПРОЗРАЧНОСТЬ ПАНЕЛЕЙ ---------- */
+    /* ---------- СТЕКЛО / ПРОЗРАЧНОСТЬ ---------- */
     --glass-sidebar: hsla(0, 0%, 0%, 0.35);
     --glass-chat: hsla(0, 0%, 0%, 0.30);
     --glass-members: hsla(0, 0%, 0%, 0.35);
@@ -32,11 +31,10 @@
     --sber-green-glow: rgba(33, 160, 56, 0.55);
     --sber-green-soft: rgba(33, 160, 56, 0.18);
 
-    /* ---------- ACCENT HSL ---------- */
+    /* ---------- ACCENT ---------- */
     --accent-hue: 129;
     --accent-saturation: 66%;
     --accent-lightness: 38%;
-    --accent-opacity: 0.9;
     --accent-text-color: hsl(0, 0%, 100%);
 
     /* ---------- СООБЩЕНИЯ ---------- */
@@ -45,7 +43,7 @@
     --message-radius: 18px;
     --message-padding: 8px;
 
-    /* ---------- ПОЛЕ ВВОДА ---------- */
+    /* ---------- TEXTAREA ---------- */
     --textarea-alpha: 0.14;
     --textarea-alpha-focus: 0.20;
     --textarea-radius: 28px;
@@ -55,36 +53,573 @@
     --anim-base: 0.25s cubic-bezier(0.22, 1, 0.36, 1);
     --anim-slow: 0.4s cubic-bezier(0.22, 1, 0.36, 1);
     --anim-bounce: 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+
+    /* ---------- СТАНДАРТНЫЕ ПЕРЕМЕННЫЕ DISCORD ---------- */
+    --background-primary: transparent;
+    --background-secondary: transparent;
+    --background-secondary-alt: transparent;
+    --background-tertiary: transparent;
+    --background-floating: var(--glass-popout);
+    --background-accent: var(--sber-green);
+
+    --text-primary: hsl(0, 0%, 100%);
+    --text-secondary: hsl(0, 0%, 80%);
+    --text-default: hsl(0, 0%, 88%);
+    --text-muted: hsl(0, 0%, 72%);
+    --text-strong: hsl(0, 0%, 100%);
+    --text-link: var(--sber-green-light);
+    --text-brand: var(--sber-green);
+
+    --channels-default: hsl(0, 0%, 75%);
+    --channel-icon: hsl(0, 0%, 75%);
+
+    --interactive-normal: hsl(0, 0%, 80%);
+    --interactive-hover: hsl(0, 0%, 95%);
+    --interactive-active: hsl(0, 0%, 100%);
+    --interactive-muted: hsl(0, 0%, 45%);
+
+    --background-modifier-hover: rgba(33, 160, 56, 0.12);
+    --background-modifier-active: rgba(33, 160, 56, 0.18);
+    --background-modifier-selected: rgba(33, 160, 56, 0.25);
+    --background-modifier-accent: rgba(255, 255, 255, 0.1);
+
+    --scrollbar-auto-thumb: rgba(33, 160, 56, 0.35);
+    --scrollbar-auto-track: transparent;
+    --scrollbar-thin-thumb: rgba(33, 160, 56, 0.35);
+    --scrollbar-thin-track: transparent;
 }
 
-@supports (color: color-mix(in lch, red, blue)) {
-    .theme-dark {
-        --background-primary: transparent;
-        --background-secondary: transparent;
-        --background-secondary-alt: transparent;
-        --background-tertiary: transparent;
-        --background-floating: var(--glass-popout);
-        --background-accent: var(--sber-green);
-
-        --text-primary: hsl(0, 0%, 100%);
-        --text-secondary: hsl(0, 0%, 80%);
-        --text-default: hsl(0, 0%, 88%);
-        --text-muted: hsl(0, 0%, 72%);
-        --text-strong: hsl(0, 0%, 100%);
-        --text-link: var(--sber-green-light);
-        --text-brand: var(--sber-green);
-
-        --channels-default: hsl(0, 0%, 75%);
-        --channel-icon: hsl(0, 0%, 75%);
-
-        --interactive-normal: hsl(0, 0%, 80%);
-        --interactive-hover: hsl(0, 0%, 95%);
-        --interactive-active: hsl(0, 0%, 100%);
-        --interactive-muted: hsl(0, 0%, 45%);
-
-        --background-modifier-hover: rgba(33, 160, 56, 0.12);
-        --background-modifier-active: rgba(33, 160, 56, 0.18);
-        --background-modifier-selected: rgba(33, 160, 56, 0.25);
-        --background-modifier-accent: rgba(255, 255, 255, 0.1);
-    }
+/*=============================================
+=              ФОН APP-MOUNT                  =
+=============================================*/
+#app-mount {
+    background: transparent !important;
 }
+#app-mount::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: var(--app-bg) center / cover no-repeat fixed;
+    z-index: -2;
+    pointer-events: none;
+    animation: sber-bg-pan 40s ease-in-out infinite alternate;
+}
+#app-mount::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    backdrop-filter: blur(var(--app-blur)) saturate(120%);
+    -webkit-backdrop-filter: blur(var(--app-blur)) saturate(120%);
+    background: rgba(0, 0, 0, var(--app-dim));
+    z-index: -1;
+    pointer-events: none;
+}
+@keyframes sber-bg-pan {
+    0%   { transform: scale(1)    translate(0, 0); }
+    100% { transform: scale(1.05) translate(-8px, -8px); }
+}
+
+/*=============================================
+=        ПОЛНАЯ ПРОЗРАЧНОСТЬ КОНТЕЙНЕРОВ     =
+=============================================*/
+#app-mount .app-2CXKsg,
+#app-mount .app-3xd6d0,
+#app-mount .appAsidePanelWrapper-ev4hlp,
+#app-mount .content-1SgpWY,
+#app-mount .layers-OrUESM,
+#app-mount .layer-86YKbF,
+#app-mount .base-2jDfDU,
+#app-mount .container-1NXEtd,
+#app-mount .container-2RRFHK,
+#app-mount .wrapper-1_HaEi,
+#app-mount .bg-1QIAus,
+#app-mount .sidebarRegion-1VBisG,
+#app-mount .sidebarRegionScroller-FXiQOh,
+#app-mount .contentRegion-3HkfJJ,
+#app-mount .contentRegionScroller-2_GT_N {
+    background: transparent !important;
+}
+
+/*=============================================
+=        ЛЕВАЯ ПАНЕЛЬ СЕРВЕРОВ — СТЕКЛО       =
+=============================================*/
+#app-mount .guilds-2JjMmN {
+    background: var(--glass-sidebar) !important;
+    backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+    border-radius: var(--app-radius);
+    margin: 8px 0 8px 8px;
+    padding: 8px 0;
+    border: 1px solid rgba(33, 160, 56, 0.15);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+#app-mount .guilds-2JjMmN .wrapper-3kahwR {
+    transition: transform var(--anim-base), border-radius var(--anim-base);
+}
+#app-mount .guilds-2JjMmN .wrapper-3kahwR:hover {
+    transform: translateY(-2px) scale(1.06);
+}
+#app-mount .guilds-2JjMmN .pill-2R7F1Q .item-2LIpTv {
+    background: var(--sber-green) !important;
+    box-shadow: 0 0 12px var(--sber-green-glow);
+    animation: sber-pulse 2s ease-in-out infinite;
+}
+@keyframes sber-pulse {
+    0%, 100% { box-shadow: 0 0 8px var(--sber-green-glow); }
+    50%      { box-shadow: 0 0 18px var(--sber-green-glow); }
+}
+#app-mount .guilds-2JjMmN .homeIcon-FB7lBf {
+    color: var(--sber-green) !important;
+    filter: drop-shadow(0 0 6px var(--sber-green-glow));
+}
+
+/*=============================================
+=        КАНАЛЫ — СТЕКЛО + АНИМАЦИИ           =
+=============================================*/
+#app-mount .sidebar-1tnWFu {
+    background: var(--glass-sidebar) !important;
+    backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+    border-radius: var(--app-radius);
+    border: 1px solid rgba(33, 160, 56, 0.12);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    margin: 8px 0;
+}
+#app-mount .sidebar-1tnWFu .header-3OsQeK,
+#app-mount .sidebar-1tnWFu .header-1nHcYw {
+    background: transparent !important;
+    border-bottom: 1px solid rgba(33, 160, 56, 0.15);
+    box-shadow: none;
+    transition: background var(--anim-base);
+}
+#app-mount .sidebar-1tnWFu .header-3OsQeK:hover {
+    background: rgba(33, 160, 56, 0.08) !important;
+}
+#app-mount .sidebar-1tnWFu .wrapper-1S43wL {
+    border-radius: 10px;
+    transition: background var(--anim-fast),
+                transform var(--anim-fast),
+                box-shadow var(--anim-fast);
+}
+#app-mount .sidebar-1tnWFu .wrapper-1S43wL:hover {
+    background: rgba(33, 160, 56, 0.12) !important;
+    transform: translateX(3px);
+}
+#app-mount .sidebar-1tnWFu .wrapper-1S43wL.modeSelected-1zApJ_,
+#app-mount .sidebar-1tnWFu .wrapper-1S43wL.selected-1dODfG {
+    background: rgba(33, 160, 56, 0.22) !important;
+    transform: translateX(3px);
+    box-shadow: inset 0 0 0 1px rgba(33, 160, 56, 0.25);
+}
+#app-mount .sidebar-1tnWFu .wrapper-1S43wL.modeSelected-1zApJ_::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 10%;
+    bottom: 10%;
+    width: 3px;
+    background: var(--sber-green);
+    border-radius: 0 3px 3px 0;
+    box-shadow: 0 0 10px var(--sber-green-glow);
+}
+#app-mount .sidebar-1tnWFu .wrapper-1S43wL.modeSelected-1zApJ_ .icon-2W8DHg,
+#app-mount .sidebar-1tnWFu .wrapper-1S43wL.modeSelected-1zApJ_ .name-28HaxV {
+    color: var(--sber-green-light) !important;
+}
+
+/*=============================================
+=        ЧАТ — СТЕКЛО                         =
+=============================================*/
+#app-mount .chat-2ZfjoI,
+#app-mount .chatContent-3KubbW,
+#app-mount .messagesWrapper-Rn5jGi {
+    background: var(--glass-chat) !important;
+    backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+    border-radius: var(--app-radius);
+    border: 1px solid rgba(33, 160, 56, 0.12);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+#app-mount .chat-2ZfjoI .title-31SJ6t,
+#app-mount .chat-2ZfjoI .header-3OsQeK,
+#app-mount .chat-2ZfjoI .upperContainer-1QYk3Y {
+    background: transparent !important;
+    border-bottom: 1px solid rgba(33, 160, 56, 0.15);
+    box-shadow: none;
+}
+
+/*=============================================
+=        СООБЩЕНИЯ                            =
+=============================================*/
+#app-mount .message-2CShn3 {
+    background: var(--message-color) !important;
+    border-radius: var(--message-radius);
+    margin: 2px 8px;
+    padding: var(--message-padding);
+    transition: background var(--anim-fast),
+                transform var(--anim-fast),
+                box-shadow var(--anim-fast);
+    animation: sber-msg-in 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes sber-msg-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+#app-mount .message-2CShn3:hover {
+    background: var(--message-color-hover) !important;
+    transform: translateX(3px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3),
+                0 0 0 1px rgba(33, 160, 56, 0.15);
+}
+#app-mount .message-2CShn3.mentioned-Tre-dv {
+    background: rgba(33, 160, 56, 0.18) !important;
+    border-left: 3px solid var(--sber-green);
+    animation: sber-mention-pulse 2s ease-in-out infinite;
+}
+@keyframes sber-mention-pulse {
+    0%, 100% { box-shadow: 0 0 12px rgba(33, 160, 56, 0.2); }
+    50%      { box-shadow: 0 0 24px rgba(33, 160, 56, 0.5); }
+}
+#app-mount .message-2CShn3 .username-h_Y3Us {
+    color: var(--sber-green-light) !important;
+    transition: color var(--anim-fast), text-shadow var(--anim-fast);
+}
+#app-mount .message-2CShn3:hover .username-h_Y3Us {
+    color: var(--sber-green) !important;
+    text-shadow: 0 0 8px var(--sber-green-glow);
+}
+
+/*=============================================
+=        ПОЛЕ ВВОДА                           =
+=============================================*/
+#app-mount .channelTextArea-1FufC0,
+#app-mount .channelTextArea-2VhZ6z,
+#app-mount .channelTextArea-1VQBuV {
+    background: rgba(33, 160, 56, var(--textarea-alpha)) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: var(--textarea-radius) !important;
+    border: 1px solid rgba(33, 160, 56, 0.25);
+    transition: all var(--anim-base);
+}
+#app-mount .channelTextArea-1FufC0:focus-within,
+#app-mount .channelTextArea-2VhZ6z:focus-within {
+    background: rgba(33, 160, 56, var(--textarea-alpha-focus)) !important;
+    border-color: var(--sber-green) !important;
+    box-shadow: 0 0 0 3px rgba(33, 160, 56, 0.25),
+                0 0 24px rgba(33, 160, 56, 0.35);
+    transform: translateY(-1px);
+}
+
+/*=============================================
+=   ПРАВАЯ ПАНЕЛЬ УЧАСТНИКОВ + АНИМАЦИЯ       =
+=   ПРИ НАВЕДЕНИИ НА УЧАСТНИКА                =
+=============================================*/
+#app-mount .container-2o3qEW,
+#app-mount .members-3WRCEx,
+#app-mount .membersWrap-3hqJpK {
+    background: var(--glass-members) !important;
+    backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+    border-radius: var(--app-radius);
+    border: 1px solid rgba(33, 160, 56, 0.12);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    margin: 8px 8px 8px 0;
+}
+
+/* Участник — анимация при наведении */
+#app-mount .member-2gU6Ar,
+#app-mount .member-2gU6Ar .memberInner-3r7g5L {
+    border-radius: 12px;
+    padding: 4px 6px;
+    transition: background var(--anim-base),
+                transform var(--anim-base),
+                box-shadow var(--anim-base),
+                padding-left var(--anim-base);
+    position: relative;
+}
+#app-mount .member-2gU6Ar:hover {
+    background: rgba(33, 160, 56, 0.15) !important;
+    transform: translateX(4px) scale(1.01);
+    box-shadow: 0 4px 16px rgba(33, 160, 56, 0.25),
+                inset 0 0 0 1px rgba(33, 160, 56, 0.3);
+    padding-left: 10px;
+}
+#app-mount .member-2gU6Ar:hover::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 20%;
+    bottom: 20%;
+    width: 3px;
+    background: var(--sber-green);
+    border-radius: 0 3px 3px 0;
+    box-shadow: 0 0 10px var(--sber-green-glow);
+    animation: sber-bar-in var(--anim-base) both;
+}
+@keyframes sber-bar-in {
+    from { height: 0; top: 50%; bottom: 50%; opacity: 0; }
+    to   { height: auto; top: 20%; bottom: 20%; opacity: 1; }
+}
+#app-mount .member-2gU6Ar .name-3Vmqxm,
+#app-mount .member-2gU6Ar .username-1A8OIy {
+    transition: color var(--anim-fast), text-shadow var(--anim-fast);
+}
+#app-mount .member-2gU6Ar:hover .name-3Vmqxm,
+#app-mount .member-2gU6Ar:hover .username-1A8OIy {
+    color: var(--sber-green-light) !important;
+    text-shadow: 0 0 8px var(--sber-green-glow);
+}
+#app-mount .member-2gU6Ar .avatar-1BDn8e,
+#app-mount .member-2gU6Ar .avatar-2e8lTP {
+    transition: transform var(--anim-base), box-shadow var(--anim-base);
+}
+#app-mount .member-2gU6Ar:hover .avatar-1BDn8e,
+#app-mount .member-2gU6Ar:hover .avatar-2e8lTP {
+    transform: scale(1.15);
+    box-shadow: 0 0 0 2px var(--sber-green),
+                0 0 12px var(--sber-green-glow);
+}
+
+/*=============================================
+=        ПАНЕЛЬ ПОЛЬЗОВАТЕЛЯ — СТЕКЛО         =
+=============================================*/
+#app-mount .panels-3wFtMD,
+#app-mount .panels-3wFtMD .container-YkUktl,
+#app-mount .panels-3wFtMD .panel-2ZF6Cz {
+    background: var(--glass-sidebar) !important;
+    backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+    border-top: 1px solid rgba(33, 160, 56, 0.15);
+    box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.3);
+}
+#app-mount .panels-3wFtMD .avatarWrapper-3y0XJY {
+    border-radius: 10px;
+    transition: background var(--anim-fast), transform var(--anim-fast);
+}
+#app-mount .panels-3wFtMD .avatarWrapper-3y0XJY:hover {
+    background: rgba(33, 160, 56, 0.15) !important;
+    transform: scale(1.08);
+    box-shadow: 0 0 0 2px var(--sber-green),
+                0 0 16px var(--sber-green-glow);
+}
+
+/*=============================================
+=        КНОПКИ — АНИМАЦИЯ + БЛИК             =
+=============================================*/
+#app-mount .lookFilled-1H2Jvj.colorBrand-2M3O3N,
+#app-mount .lookFilled-1H2Jvj.colorGreen-3J2YFF,
+#app-mount button[class*="colorBrand"] {
+    background: var(--sber-green) !important;
+    color: var(--accent-text-color) !important;
+    border-radius: 12px !important;
+    transition: background var(--anim-fast),
+                transform var(--anim-fast),
+                box-shadow var(--anim-base);
+    position: relative;
+    overflow: hidden;
+}
+#app-mount .lookFilled-1H2Jvj.colorBrand-2M3O3N:hover,
+#app-mount .lookFilled-1H2Jvj.colorGreen-3J2YFF:hover,
+#app-mount button[class*="colorBrand"]:hover {
+    background: var(--sber-green-hover) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(33, 160, 56, 0.45);
+}
+#app-mount .lookFilled-1H2Jvj.colorBrand-2M3O3N:active,
+#app-mount .lookFilled-1H2Jvj.colorGreen-3J2YFF:active {
+    transform: translateY(0) scale(0.98);
+}
+#app-mount .lookFilled-1H2Jvj.colorBrand-2M3O3N::after,
+#app-mount .lookFilled-1H2Jvj.colorGreen-3J2YFF::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -75%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transform: skewX(-20deg);
+    transition: left 0.6s ease;
+    pointer-events: none;
+}
+#app-mount .lookFilled-1H2Jvj.colorBrand-2M3O3N:hover::after,
+#app-mount .lookFilled-1H2Jvj.colorGreen-3J2YFF:hover::after {
+    left: 125%;
+}
+
+/*=============================================
+=        КОНТЕКСТНОЕ МЕНЮ — СТЕКЛО            =
+=============================================*/
+#app-mount .menu-1QYk3Y,
+#app-mount .root-2QYk3Y {
+    background: var(--glass-popout) !important;
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border-radius: 16px !important;
+    border: 1px solid rgba(33, 160, 56, 0.25);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5),
+                0 0 0 1px rgba(33, 160, 56, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    padding: 6px;
+    animation: sber-menu-in var(--anim-base) both;
+    transform-origin: top left;
+}
+@keyframes sber-menu-in {
+    from { opacity: 0; transform: scale(0.94) translateY(-6px); }
+    to   { opacity: 1; transform: scale(1)    translateY(0); }
+}
+#app-mount .menu-1QYk3Y .item-1OdjEJ {
+    border-radius: 10px;
+    color: var(--text-default) !important;
+    transition: background var(--anim-fast),
+                color var(--anim-fast),
+                padding-left var(--anim-fast),
+                transform var(--anim-fast);
+}
+#app-mount .menu-1QYk3Y .item-1OdjEJ:hover {
+    background: rgba(33, 160, 56, 0.22) !important;
+    color: #fff !important;
+    padding-left: 14px;
+    transform: translateX(2px);
+}
+#app-mount .menu-1QYk3Y .item-1OdjEJ.colorDanger-2YLzLC:hover {
+    background: rgba(237, 66, 69, 0.22) !important;
+    color: #ED4245 !important;
+}
+#app-mount .menu-1QYk3Y .separator-1So4YB {
+    background: rgba(33, 160, 56, 0.25) !important;
+    margin: 4px 8px;
+}
+
+/*=============================================
+=   ПРОФИЛЬ (ЮЗЕР-ПОПАУТ) — СТЕКЛО + АНИМАЦИИ =
+=   ПРИ НАВЕДЕНИИ НА АВУ / НИК В ПРОФИЛЕ      =
+=============================================*/
+#app-mount .userPopout-3YAwnI,
+#app-mount .userPopoutOuter-3AVBmJ,
+#app-mount .userProfileOuterUnthemed-2b7g4F,
+#app-mount .userProfileOuter-1QYk3Y,
+#app-mount .outer-1QYk3Y {
+    background: var(--glass-popout) !important;
+    backdrop-filter: blur(24px) saturate(160%);
+    -webkit-backdrop-filter: blur(24px) saturate(160%);
+    border-radius: 20px !important;
+    border: 1px solid rgba(33, 160, 56, 0.3);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6),
+                0 0 40px rgba(33, 160, 56, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    animation: sber-popout-in 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+    overflow: hidden;
+}
+@keyframes sber-popout-in {
+    from { opacity: 0; transform: scale(0.92) translateY(-10px); }
+    to   { opacity: 1; transform: scale(1)    translateY(0); }
+}
+#app-mount .userPopout-3YAwnI .body-3iLsc4,
+#app-mount .userPopout-3YAwnI .footer-1fjuF6,
+#app-mount .userProfileInner-2QYk3Y,
+#app-mount .inner-1QYk3Y {
+    background: transparent !important;
+}
+#app-mount .userPopout-3YAwnI .headerNormal-T_seeN,
+#app-mount .userPopout-3YAwnI .headerTop-3C2Zn0 {
+    background: linear-gradient(135deg, var(--sber-green) 0%, var(--sber-green-light) 100%) !important;
+    border-radius: 20px 20px 0 0;
+    position: relative;
+    overflow: hidden;
+}
+#app-mount .userPopout-3YAwnI .headerNormal-T_seeN::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg,
+        transparent 30%,
+        rgba(255, 255, 255, 0.25) 50%,
+        transparent 70%);
+    transform: translateX(-100%);
+    animation: sber-header-shine 4s ease-in-out infinite;
+    pointer-events: none;
+}
+@keyframes sber-header-shine {
+    0%, 100% { transform: translateX(-100%); }
+    50%      { transform: translateX(100%); }
+}
+#app-mount .userPopout-3YAwnI .headerNormal-T_seeN .headerText-3Uvj1Y,
+#app-mount .userPopout-3YAwnI .headerNormal-T_seeN .headerTag-3F5f6k {
+    color: #fff !important;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Аватар в профиле — анимация при наведении */
+#app-mount .userPopout-3YAwnI .avatar-1BDn8e,
+#app-mount .userPopout-3YAwnI .avatarWrapper-3y0XJY,
+#app-mount .userProfileInner-2QYk3Y .avatar-1BDn8e,
+#app-mount .userProfileInner-2QYk3Y .avatarWrapper-3y0XJY {
+    transition: transform var(--anim-base),
+                box-shadow var(--anim-base),
+                filter var(--anim-base);
+    cursor: pointer;
+}
+#app-mount .userPopout-3YAwnI .avatarWrapper-3y0XJY:hover .avatar-1BDn8e,
+#app-mount .userPopout-3YAwnI .avatar-1BDn8e:hover,
+#app-mount .userProfileInner-2QYk3Y .avatarWrapper-3y0XJY:hover .avatar-1BDn8e,
+#app-mount .userProfileInner-2QYk3Y .avatar-1BDn8e:hover {
+    transform: scale(1.12) rotate(-3deg);
+    box-shadow: 0 0 0 3px var(--sber-green),
+                0 0 24px var(--sber-green-glow);
+    filter: brightness(1.15);
+}
+
+/* Ник в профиле — анимация при наведении */
+#app-mount .userPopout-3YAwnI .headerText-3Uvj1Y,
+#app-mount .userPopout-3YAwnI .nickname-2QYk3Y,
+#app-mount .userPopout-3YAwnI .username-1QYk3Y,
+#app-mount .userProfileInner-2QYk3Y .nickname-2QYk3Y,
+#app-mount .userProfileInner-2QYk3Y .username-1QYk3Y,
+#app-mount .userPopout-3YAwnI [class*="nickname"],
+#app-mount .userPopout-3YAwnI [class*="username"] {
+    transition: color var(--anim-base),
+                text-shadow var(--anim-base),
+                transform var(--anim-base);
+    cursor: pointer;
+    display: inline-block;
+}
+#app-mount .userPopout-3YAwnI .headerText-3Uvj1Y:hover,
+#app-mount .userPopout-3YAwnI .nickname-2QYk3Y:hover,
+#app-mount .userPopout-3YAwnI .username-1QYk3Y:hover,
+#app-mount .userPopout-3YAwnI [class*="nickname"]:hover,
+#app-mount .userPopout-3YAwnI [class*="username"]:hover {
+    color: var(--sber-green-light) !important;
+    text-shadow: 0 0 12px var(--sber-green-glow);
+    transform: translateX(3px);
+}
+#app-mount .userProfileInner-2QYk3Y .nickname-2QYk3Y:hover,
+#app-mount .userProfileInner-2QYk3Y .username-1QYk3Y:hover {
+    color: var(--sber-green-light) !important;
+    text-shadow: 0 0 12px var(--sber-green-glow);
+    transform: translateX(3px);
+}
+
+/* Кнопки в профиле — зелёный ховер */
+#app-mount .userPopout-3YAwnI button,
+#app-mount .userProfileInner-2QYk3Y button {
+    transition: background var(--anim-fast),
+                transform var(--anim-fast),
+                box-shadow var(--anim-fast);
+}
+#app-mount .userPopout-3YAwnI button:hover,
+#app-mount .userProfileInner-2QYk3Y button:hover {
+    background: rgba(33, 160, 56, 0.2) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(33, 160, 56, 0.3);
+}
+
+/* Роли в профиле — зелёная подсветка */
+#app-mount .userPopout-3YAwnI [class*="role"],
+#app-mount .userProfileInner-2QYk3Y [class*="role"] {
+    transition:
