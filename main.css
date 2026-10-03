@@ -535,3 +535,47 @@ iframe {
 .guildSeparator__5e434 {
     background: rgba(var(--color3), 0.3) !important;
 }
+
+/* ============================================================
+   5. ФИКС ДЛЯ IFRAME-СБОРКИ DISCORD 2025
+   ============================================================ */
+
+/* --- Поле ввода сообщения --- */
+[class*="channelTextArea_"],
+[class*="form_"]:has([class*="channelTextArea_"]),
+[class*="scrollableContainer_"] {
+    background: rgba(var(--color2), 0.3) !important;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border-radius: 12px;
+}
+
+[class*="slateTextArea_"],
+[class*="textArea_"],
+[class*="placeholder_"],
+[class*="buttons_"],
+[class*="attachWrapper_"],
+[class*="attachButton_"],
+[class*="emojiButton_"] {
+    background: transparent !important;
+}
+
+/* --- Топбар канала --- */
+[class*="chatHeaderBar_"],
+[class*="upperContainer_"],
+[class*="children_"]:has([class*="channelName_"]),
+[class*="toolbar_"],
+[class*="title_"]:has([class*="channelName_"]),
+[class*="searchBar_"] {
+    background: rgba(var(--color2), 0.25) !important;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}
+
+/* --- Правая панель "Активность" --- */
+[class*="nowPlayingColumn_"],
+[class*="container_"]:has([class*="scroller_"]):has([class*="section_"]) {
+    background: rgba(var(--color2), 0.15) !important;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}
