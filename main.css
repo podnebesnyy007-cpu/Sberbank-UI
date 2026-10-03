@@ -5,25 +5,21 @@
  */
 
 /*=============================================
-=   ПЕРЕОПРЕДЕЛЕНИЕ ПЕРЕМЕННЫХ CLEARVISION    =
-=   (это работает поверх ClearVision V7)      =
+=   ПЕРЕМЕННЫЕ CLEARVISION → SBER              =
 =============================================*/
 :root {
-    /* ---------- АКЦЕНТ — ЗЕЛЁНЫЙ СБЕРА ---------- */
     --main-color: #21A038;
     --hover-color: #1B8530;
     --success-color: #4FBF60;
     --danger-color: #982929;
     --info-color: #4FBF60;
 
-    /* ---------- СТАТУСЫ ---------- */
     --online-color: #21A038;
     --idle-color: #faa61a;
     --dnd-color: #982929;
     --streaming-color: #593695;
     --offline-color: #808080;
 
-    /* ---------- ФОН ---------- */
     --background-shading-percent: 100%;
     --background-image: url(https://i.imgur.com/LZ0UO8z.png);
     --background-position: center;
@@ -31,7 +27,6 @@
     --background-attachment: fixed;
     --background-filter: saturate(calc(var(--saturation-factor, 1) * 1.05)) brightness(0.75);
 
-    /* ---------- ФОН В ПРОФИЛЯХ ---------- */
     --user-popout-image: var(--background-image);
     --user-popout-position: var(--background-position);
     --user-popout-size: var(--background-size);
@@ -44,15 +39,12 @@
     --user-modal-attachment: var(--background-attachment);
     --user-modal-filter: var(--background-filter);
 
-    /* ---------- HOME ICON ---------- */
     --home-icon: url(https://i.imgur.com/LZ0UO8z.png);
     --home-size: cover;
 
-    /* ---------- ШРИФТЫ ---------- */
-    --main-font: "Inter", "gg sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --main-font: "Inter", "gg sans", "Helvetica Neue", sans-serif;
     --code-font: Consolas, "gg mono", monospace;
 
-    /* ---------- КАНАЛЫ — ЗЕЛЁНЫЕ ---------- */
     --channel-normal: var(--interactive-text-default);
     --channel-muted: var(--interactive-muted);
     --channel-hover: var(--interactive-text-hover);
@@ -62,14 +54,19 @@
     --channel-unread-hover: var(--hover-color);
 
     --focus-color: var(--main-color);
+
+    /* --- Кастомные переменные Sber --- */
+    --sber-green: #21A038;
+    --sber-green-dark: #0F5A22;
+    --sber-green-light: #4FBF60;
+    --sber-green-glow: rgba(33, 160, 56, 0.55);
+    --sber-card-bg: rgba(5, 20, 10, 0.55);
+    --sber-card-border: rgba(33, 160, 56, 0.35);
 }
 
 /*=============================================
-=   ОТТЕНКИ ФОНА (тёмно-зелёные)               =
-=   Перебиваем 4 темы ClearVision             =
+=   ОТТЕНКИ ФОНА                               =
 =============================================*/
-
-/* ASH (theme-dark) */
 :is(.theme-dark, .theme-light .theme-dark) {
     --background-shading: rgba(5, 20, 10, 0.5);
     --card-shading: rgba(5, 20, 10, 0.35);
@@ -79,8 +76,6 @@
     --normal-text: #d8d8db;
     --muted-text: #aeaeb4;
 }
-
-/* DARKER */
 :is(.theme-darker, .theme-light .theme-darker) {
     --background-shading: rgba(3, 15, 8, 0.6);
     --card-shading: rgba(3, 15, 8, 0.4);
@@ -90,8 +85,6 @@
     --normal-text: #fbfbfb;
     --muted-text: #94949c;
 }
-
-/* MIDNIGHT */
 :is(.theme-midnight, .theme-light .theme-midnight) {
     --background-shading: rgba(0, 10, 5, 0.75);
     --card-shading: rgba(0, 10, 5, 0.5);
@@ -103,39 +96,282 @@
 }
 
 /*=============================================
-=   ЗЕЛЁНЫЕ АКЦЕНТЫ ПОВЕРХ CLEARVISION        =
+=   ПРОФИЛЬ / УЧАСТНИК — КАК НА СКРИНЕ         =
+=   (тёмная подложка + зелёная рамка)          =
 =============================================*/
 
-/* ---------- КАНАЛ: зелёная полоса при выборе ---------- */
-.wrapper__2ea32.modeSelected__2ea32 .link__2ea32::before {
-    background: #21A038 !important;
-    box-shadow: 0 0 10px rgba(33, 160, 56, 0.7) !important;
+/* ---------- УЧАСТНИК В СПИСКЕ СПРАВА ---------- */
+.member__5d473 .memberInner__5d473 {
+    background: var(--sber-card-bg) !important;
+    border: 1px solid var(--sber-card-border) !important;
+    border-radius: 10px !important;
+    padding: 4px 6px !important;
+    transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1) !important;
+    position: relative;
+}
+.member__5d473:hover .memberInner__5d473 {
+    background: rgba(33, 160, 56, 0.18) !important;
+    border-color: var(--sber-green) !important;
+    transform: translateX(4px) !important;
+    box-shadow: 0 4px 20px rgba(33, 160, 56, 0.35),
+                0 0 0 1px rgba(33, 160, 56, 0.4) !important;
 }
 
-/* ---------- НИК АВТОРА СООБЩЕНИЯ — ЗЕЛЁНЫЙ ---------- */
+/* Ник участника — зелёный */
+.member__5d473 .name__91a9d,
+.member__5d473 .username__91a9d {
+    color: var(--sber-green-light) !important;
+    font-weight: 600 !important;
+    transition: all 0.2s ease !important;
+}
+.member__5d473:hover .name__91a9d,
+.member__5d473:hover .username__91a9d {
+    color: var(--sber-green) !important;
+    text-shadow: 0 0 10px var(--sber-green-glow) !important;
+}
+
+/* ---------- ПРОФИЛЬ В СПИСКЕ ЛС ---------- */
+.privateChannels__99e7c .channel__972a0 {
+    background: var(--sber-card-bg) !important;
+    border: 1px solid var(--sber-card-border) !important;
+    border-radius: 10px !important;
+    margin: 2px 8px !important;
+    padding: 4px 6px !important;
+    transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+.privateChannels__99e7c .channel__972a0:hover {
+    background: rgba(33, 160, 56, 0.18) !important;
+    border-color: var(--sber-green) !important;
+    transform: translateX(4px) !important;
+    box-shadow: 0 4px 20px rgba(33, 160, 56, 0.35) !important;
+}
+.privateChannels__99e7c .channel__972a0.interactiveSelected__972a0 {
+    background: rgba(33, 160, 56, 0.28) !important;
+    border-color: var(--sber-green) !important;
+    box-shadow: 0 0 0 1px var(--sber-green),
+                0 4px 16px rgba(33, 160, 56, 0.4) !important;
+}
+.privateChannels__99e7c .channel__972a0 .name__972a0,
+.privateChannels__99e7c .channel__972a0 .username__972a0 {
+    color: var(--sber-green-light) !important;
+    font-weight: 600 !important;
+}
+.privateChannels__99e7c .channel__972a0:hover .name__972a0,
+.privateChannels__99e7c .channel__972a0.interactiveSelected__972a0 .name__972a0 {
+    color: var(--sber-green) !important;
+    text-shadow: 0 0 10px var(--sber-green-glow) !important;
+}
+
+/* ============ КАРТОЧКА "Sberbank — N" (группа) ============ */
+/* Заголовок группы каналов */
+.containerDefault__29444 .name__29444,
+[class*="containerDefault"] [class*="name-"] {
+    color: var(--sber-green-light) !important;
+    font-weight: 700 !important;
+    text-shadow: 0 0 6px rgba(33, 160, 56, 0.4) !important;
+}
+
+/* ============ USER POPOUT (клик по нику) ============ */
+.userPopoutOuter__37e49,
+.userProfileOuter__37e49,
+.userProfileInner__37e49,
+[class*="userPopoutOuter"],
+[class*="userProfileOuter"] {
+    background: rgba(5, 20, 10, 0.9) !important;
+    backdrop-filter: blur(24px) saturate(160%) !important;
+    -webkit-backdrop-filter: blur(24px) saturate(160%) !important;
+    border: 1px solid var(--sber-card-border) !important;
+    border-radius: 16px !important;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6),
+                0 0 40px rgba(33, 160, 56, 0.25) !important;
+    overflow: hidden;
+}
+
+/* Ник в профиле — зелёный */
+.userPopoutOuter__37e49 [class*="nickname"],
+.userPopoutOuter__37e49 [class*="userTagUsername"],
+.userProfileOuter__37e49 [class*="nickname"],
+.userProfileOuter__37e49 [class*="userTagUsername"] {
+    color: var(--sber-green-light) !important;
+    font-weight: 700 !important;
+    transition: all 0.25s ease !important;
+    cursor: pointer;
+    display: inline-block;
+}
+.userPopoutOuter__37e49 [class*="nickname"]:hover,
+.userProfileOuter__37e49 [class*="nickname"]:hover {
+    color: var(--sber-green) !important;
+    text-shadow: 0 0 12px var(--sber-green-glow) !important;
+    transform: translateX(3px) !important;
+}
+
+/* Аватар в профиле — ховер */
+.userPopoutOuter__37e49 [class*="avatar"],
+.userProfileOuter__37e49 [class*="avatar"] {
+    transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+                box-shadow 0.25s ease,
+                filter 0.25s ease !important;
+}
+.userPopoutOuter__37e49 [class*="avatar"]:hover,
+.userProfileOuter__37e49 [class*="avatar"]:hover {
+    transform: scale(1.12) rotate(-3deg) !important;
+    box-shadow: 0 0 0 3px var(--sber-green),
+                0 0 24px var(--sber-green-glow) !important;
+    filter: brightness(1.15) !important;
+}
+
+/*=============================================
+=   АНИМАЦИЯ: ОТПРАВКА СООБЩЕНИЯ               =
+=   (новое сообщение вылетает снизу)           =
+=============================================*/
+@keyframes sber-message-send {
+    0% {
+        opacity: 0;
+        transform: translateY(24px) scale(0.94);
+        filter: blur(4px);
+    }
+    60% {
+        opacity: 1;
+        transform: translateY(-2px) scale(1.01);
+        filter: blur(0);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+/* Все сообщения получают анимацию появления */
+.message__5126c,
+.messageListItem__5126c {
+    animation: sber-message-send 0.4s cubic-bezier(0.22, 1, 0.36, 1) both !important;
+    transition: background 0.15s ease,
+                transform 0.15s ease,
+                box-shadow 0.15s ease !important;
+    border-radius: 12px !important;
+}
+
+/* Ховер сообщения */
+.message__5126c:hover {
+    background: rgba(33, 160, 56, 0.08) !important;
+    transform: translateX(3px) !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Только что отправленное сообщение — особый эффект */
+.message__5126c.groupStart__5126c.cozyMessage__5126c:last-child {
+    animation: sber-message-fresh 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) both !important;
+}
+@keyframes sber-message-fresh {
+    0% {
+        opacity: 0;
+        transform: translateY(30px) scale(0.9);
+        box-shadow: 0 0 0 0 var(--sber-green-glow);
+    }
+    50% {
+        box-shadow: 0 0 0 8px rgba(33, 160, 56, 0.4);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        box-shadow: 0 0 0 0 rgba(33, 160, 56, 0);
+    }
+}
+
+/*=============================================
+=   АНИМАЦИЯ: ПОЯВЛЕНИЕ ЭЛЕМЕНТОВ ПРИ СКРОЛЛЕ  =
+=   (просмотр сообщений)                       =
+=============================================*/
+@keyframes sber-fade-in-up {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+@keyframes sber-fade-in-left {
+    from {
+        opacity: 0;
+        transform: translateX(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Каналы — выезд слева */
+.wrapper__2ea32 {
+    animation: sber-fade-in-left 0.3s ease both !important;
+}
+
+/* Участники — появление снизу */
+.member__5d473 {
+    animation: sber-fade-in-up 0.3s ease both !important;
+}
+
+/* Элементы ЛС — появление слева */
+.privateChannels__99e7c .channel__972a0 {
+    animation: sber-fade-in-left 0.3s ease both !important;
+}
+
+/* Аватары при загрузке чата */
+.avatar_c19a55,
+.avatar__07f91 {
+    animation: sber-fade-in-up 0.3s ease both !important;
+}
+
+/* Вложения / эмбеды */
+.embedFull__623de,
+.attachment__0ccae {
+    animation: sber-fade-in-up 0.35s ease both !important;
+}
+
+/*=============================================
+=   КАНАЛ — ЗЕЛЁНАЯ ПОЛОСА ПРИ ВЫБОРЕ          =
+=============================================*/
+.wrapper__2ea32.modeSelected__2ea32 .link__2ea32::before {
+    background: var(--sber-green) !important;
+    box-shadow: 0 0 10px var(--sber-green-glow) !important;
+    animation: sber-bar-in 0.3s ease-out both !important;
+}
+@keyframes sber-bar-in {
+    from { right: 100%; }
+    to   { right: 0; }
+}
+
+/*=============================================
+=   НИК АВТОРА СООБЩЕНИЯ — ЗЕЛЁНЫЙ             =
+=============================================*/
 .username__5d473,
 .username_c19a55,
 .headerText_c19a55 .username_c19a55 {
-    color: #4FBF60 !important;
+    color: var(--sber-green-light) !important;
+    font-weight: 600 !important;
     transition: color 0.15s ease, text-shadow 0.15s ease !important;
 }
 .message__5126c:hover .username_c19a55 {
-    color: #21A038 !important;
-    text-shadow: 0 0 8px rgba(33, 160, 56, 0.7) !important;
+    color: var(--sber-green) !important;
+    text-shadow: 0 0 8px var(--sber-green-glow) !important;
 }
 
-/* ---------- УПОМИНАНИЯ — ЗЕЛЁНЫЕ ---------- */
+/*=============================================
+=   УПОМИНАНИЯ / РЕАКЦИИ — ЗЕЛЁНЫЕ             =
+=============================================*/
 .mention__3b95d,
 .mentioned__5126c {
     background: rgba(33, 160, 56, 0.25) !important;
-    color: #4FBF60 !important;
+    color: var(--sber-green-light) !important;
     border-radius: 4px !important;
 }
 .mentioned__5126c::before {
-    background: #21A038 !important;
+    background: var(--sber-green) !important;
 }
 
-/* ---------- РЕАКЦИИ — ЗЕЛЁНЫЕ ---------- */
 .reaction__23977,
 .reaction_f8896c {
     background: rgba(33, 160, 56, 0.12) !important;
@@ -146,114 +382,18 @@
 .reaction__23977:hover,
 .reaction_f8896c:hover {
     background: rgba(33, 160, 56, 0.25) !important;
-    border-color: #21A038 !important;
+    border-color: var(--sber-green) !important;
     transform: translateY(-2px) scale(1.05) !important;
     box-shadow: 0 6px 16px rgba(33, 160, 56, 0.4) !important;
 }
 .reactionMe__23977,
 .reactionMe_f8896c {
     background: rgba(33, 160, 56, 0.3) !important;
-    border-color: #21A038 !important;
-}
-
-/* ---------- СКРОЛЛБАР — ЗЕЛЁНЫЙ ---------- */
-::-webkit-scrollbar-thumb {
-    background-color: #21A038 !important;
+    border-color: var(--sber-green) !important;
 }
 
 /*=============================================
-=   АНИМАЦИЯ: НАВЕДЕНИЕ НА УЧАСТНИКА           =
-=   (список участников справа)                =
-=============================================*/
-.member__5d473 .memberInner__5d473 {
-    transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1) !important;
-    border-radius: 10px !important;
-}
-.member__5d473:hover .memberInner__5d473 {
-    background: rgba(33, 160, 56, 0.15) !important;
-    transform: translateX(4px) !important;
-    box-shadow: 0 4px 16px rgba(33, 160, 56, 0.25),
-                inset 0 0 0 1px rgba(33, 160, 56, 0.35) !important;
-}
-.member__5d473:hover .name__91a9d {
-    color: #4FBF60 !important;
-    text-shadow: 0 0 8px rgba(33, 160, 56, 0.7) !important;
-}
-.member__5d473 .avatar__07f91,
-.member__5d473 .avatar_c19a55 {
-    transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
-                box-shadow 0.25s ease !important;
-}
-.member__5d473:hover .avatar__07f91,
-.member__5d473:hover .avatar_c19a55 {
-    transform: scale(1.15) !important;
-    box-shadow: 0 0 0 2px #21A038,
-                0 0 12px rgba(33, 160, 56, 0.7) !important;
-}
-
-/*=============================================
-=   АНИМАЦИЯ: АВАТАР В ПРОФИЛЕ                 =
-=============================================*/
-.avatar_c19a55.clickable_c19a55,
-.avatarWrapper__37e49,
-.avatar__37e49,
-.avatar_f215b9 {
-    transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
-                box-shadow 0.25s ease,
-                filter 0.25s ease !important;
-}
-.avatar_c19a55.clickable_c19a55:hover,
-.avatarWrapper__37e49:hover .avatar__37e49,
-.avatar_f215b9:hover {
-    transform: scale(1.12) rotate(-3deg) !important;
-    box-shadow: 0 0 0 3px #21A038,
-                0 0 24px rgba(33, 160, 56, 0.7) !important;
-    filter: brightness(1.15) !important;
-}
-
-/*=============================================
-=   АНИМАЦИЯ: НИК В ПРОФИЛЕ                    =
-=============================================*/
-.nickname__37e49,
-.username__37e49,
-.headerText__37e49,
-.userTagUsername__37e49,
-[class*="nickname"],
-[class*="userTagUsername"] {
-    transition: color 0.25s ease,
-                text-shadow 0.25s ease,
-                transform 0.25s ease !important;
-    cursor: pointer;
-    display: inline-block;
-}
-.nickname__37e49:hover,
-.username__37e49:hover,
-.headerText__37e49:hover,
-[class*="nickname"]:hover,
-[class*="userTagUsername"]:hover {
-    color: #4FBF60 !important;
-    text-shadow: 0 0 12px rgba(33, 160, 56, 0.7) !important;
-    transform: translateX(3px) !important;
-}
-
-/*=============================================
-=   АНИМАЦИЯ: СООБЩЕНИЯ                        =
-=============================================*/
-.message__5126c,
-.messageListItem__5126c {
-    transition: background 0.15s ease,
-                transform 0.15s ease,
-                box-shadow 0.15s ease !important;
-    border-radius: 12px !important;
-}
-.message__5126c:hover {
-    background: rgba(33, 160, 56, 0.08) !important;
-    transform: translateX(3px) !important;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3) !important;
-}
-
-/*=============================================
-=   АНИМАЦИЯ: КНОПКИ                           =
+=   КНОПКИ                                    =
 =============================================*/
 .lookFilled__201d5,
 button[class*="lookFilled"] {
@@ -268,11 +408,11 @@ button[class*="lookFilled"]:hover {
 }
 
 /*=============================================
-=   ПУЛЬС ГОВОРЯЩЕГО — ЗЕЛЁНЫЙ                 =
+=   ПУЛЬС ГОВОРЯЩЕГО                           =
 =============================================*/
 .avatar__07f91[style*="var(--status-speaking)"]::before {
     background: linear-gradient(to right,
-        #21A038 10%,
+        var(--sber-green) 10%,
         transparent) !important;
     animation: sber-speaking-pulse 1.4s ease-in-out infinite !important;
 }
@@ -282,12 +422,13 @@ button[class*="lookFilled"]:hover {
 }
 
 /*=============================================
-=   ПЛАВНОЕ ПОЯВЛЕНИЕ КАНАЛОВ                  =
+=   СКРОЛЛБАР                                  =
 =============================================*/
-.wrapper__2ea32 {
-    animation: sber-fade 0.3s ease both;
+::-webkit-scrollbar-thumb {
+    background-color: var(--sber-green) !important;
+    transition: background 0.15s ease !important;
 }
-@keyframes sber-fade {
-    from { opacity: 0; transform: translateX(-4px); }
-    to   { opacity: 1; transform: translateX(0); }
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--sber-green-light) !important;
+    box-shadow: 0 0 8px var(--sber-green-glow) !important;
 }
