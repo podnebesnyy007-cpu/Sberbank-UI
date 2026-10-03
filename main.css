@@ -862,3 +862,141 @@ iframe {
     transform: translateZ(0);
     backface-visibility: hidden;
 }
+
+/* ============================================================
+   9. ЕДИНЫЙ ФРЕЙМ — скругления + отступы между панелями
+   ============================================================ */
+
+/* ---------- ГЛОБАЛЬНЫЕ ОТСТУПЫ ---------- */
+:root {
+    --FrameGap: 8px;        /* отступ между панелями */
+    --FrameRadius: 16px;    /* радиус скругления */
+}
+
+/* Убираем дефолтные отступы у главного контейнера */
+#app-mount,
+[class*="appMount"],
+[class*="app_"] {
+    background-color: transparent !important;
+    padding: 0 !important;
+}
+
+/* ---------- 1. СПИСОК СЕРВЕРОВ (левая колонка) ---------- */
+[class*="guilds_"] {
+    background-color: rgba(var(--color2), 0.15) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    border-radius: var(--FrameRadius) !important;
+    margin: var(--FrameGap) 0 var(--FrameGap) var(--FrameGap) !important;
+    padding: 6px 0 !important;
+    border: 1px solid rgba(var(--color3), 0.1) !important;
+}
+
+/* ---------- 2. ПАНЕЛЬ КАНАЛОВ (сайдбар) ---------- */
+[class*="sidebar_"]:not([class*="sidebarRegion"]),
+[class*="sidebarRegion"] {
+    background-color: rgba(var(--color2), 0.15) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    border-radius: var(--FrameRadius) !important;
+    margin: var(--FrameGap) 0 !important;
+    border: 1px solid rgba(var(--color3), 0.1) !important;
+}
+
+/* ---------- 3. ЧАТ (центральная часть) ---------- */
+[class*="chat_"]:not([class*="chatContent"]):not([class*="chatHeaderBar"]),
+[class*="chatContent"] {
+    background-color: rgba(var(--color2), 0.12) !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+    border-radius: var(--FrameRadius) !important;
+    margin: var(--FrameGap) 0 !important;
+    border: 1px solid rgba(var(--color3), 0.1) !important;
+    overflow: hidden !important;
+}
+
+/* ---------- 4. ПРАВАЯ ПАНЕЛЬ (участники / активность) ---------- */
+[class*="membersWrap"],
+[class*="members_"],
+[class*="nowPlayingColumn"],
+[class*="nowPlaying"] {
+    background-color: rgba(var(--color2), 0.15) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    border-radius: var(--FrameRadius) !important;
+    margin: var(--FrameGap) var(--FrameGap) var(--FrameGap) 0 !important;
+    border: 1px solid rgba(var(--color3), 0.1) !important;
+}
+
+/* ---------- 5. ТОПБАР (внутри чата) ---------- */
+[class*="chatHeaderBar"],
+[class*="headerBar"],
+[class*="upperContainer"] {
+    background-color: rgba(var(--color2), 0.2) !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+    border-top-left-radius: var(--FrameRadius) !important;
+    border-top-right-radius: var(--FrameRadius) !important;
+    border: none !important;
+    margin: 0 !important;
+}
+
+/* ---------- 6. ПОЛЕ ВВОДА (внутри чата) ---------- */
+[class*="channelTextArea"],
+[class*="form_"]:has([class*="textArea"]) {
+    background-color: rgba(var(--color2), 0.25) !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+    border-radius: 12px !important;
+    margin: 0 var(--FrameGap) var(--FrameGap) var(--FrameGap) !important;
+    box-shadow: none !important;
+    border: 1px solid rgba(var(--color3), 0.1) !important;
+}
+
+/* ---------- 7. ПАНЕЛЬ ПРОФИЛЯ (низ слева) ---------- */
+[class*="panels_"] {
+    background-color: rgba(var(--color2), 0.2) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    border-radius: var(--FrameRadius) !important;
+    margin: 0 0 var(--FrameGap) var(--FrameGap) !important;
+    border: 1px solid rgba(var(--color3), 0.1) !important;
+}
+
+/* ---------- 8. ВЫРАВНИВАНИЕ "СТЫКОВ" ---------- */
+/* Убираем двойные границы между панелями */
+[class*="sidebar_"] + [class*="chat_"],
+[class*="chat_"] + [class*="members_"],
+[class*="chat_"] + [class*="nowPlaying"] {
+    margin-left: calc(var(--FrameGap) / 2) !important;
+}
+
+/* Между сайдбаром и серверами — тоже gap */
+[class*="guilds_"] + [class*="sidebar_"],
+[class*="guilds_"] + [class*="sidebarRegion"] {
+    margin-left: calc(var(--FrameGap) / 2) !important;
+}
+
+/* ---------- 9. ЛЁГКАЯ ТЕНЬ ДЛЯ ГЛУБИНЫ ---------- */
+[class*="guilds_"],
+[class*="sidebar_"]:not([class*="sidebarRegion"]),
+[class*="chat_"]:not([class*="chatContent"]),
+[class*="chatContent"],
+[class*="membersWrap"],
+[class*="nowPlayingColumn"],
+[class*="panels_"] {
+    box-shadow:
+        0 4px 20px rgba(0, 0, 0, 0.25),
+        inset 0 0 0 1px rgba(var(--color3), 0.05) !important;
+}
+
+/* ---------- 10. ПЛАВНОСТЬ ---------- */
+[class*="guilds_"],
+[class*="sidebar_"]:not([class*="sidebarRegion"]),
+[class*="chat_"],
+[class*="chatContent"],
+[class*="membersWrap"],
+[class*="nowPlayingColumn"],
+[class*="panels_"] {
+    transition: box-shadow 0.3s ease, border-color 0.3s ease !important;
+}
