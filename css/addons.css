@@ -1,189 +1,127 @@
 /*=============================================
-=                 ADDONS                      =
+=                  ADDONS                     =
 =============================================*/
 
-/* ============ КОЛЬЦА ВОКРУГ АВАТАРОВ ============ */
-.avatar-1BDn8e::after,
-.avatar-2e8lTP::after {
-    content: "";
-    position: absolute;
-    inset: -3px;
-    border-radius: 50%;
-    border: 2px solid transparent;
-    background: linear-gradient(135deg, var(--sber-accent), var(--sber-accent-light)) border-box;
-    -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
-}
-
-/* ============ ROUNDED STATUS ============ */
-.status-1f8c9d {
-    border-radius: 50% !important;
-    border-width: 3px !important;
-}
-
-/* ============ ЛИЧНЫЕ СООБЩЕНИЯ ============ */
-.privateChannels-1nO12O {
-    background: var(--sber-glass) !important;
-    backdrop-filter: blur(var(--sber-glass-blur));
-    -webkit-backdrop-filter: blur(var(--sber-glass-blur));
-    border-radius: var(--sber-radius) !important;
-    border: 1px solid var(--sber-border);
-}
-.privateChannels-1nO12O .channel-1Shao0 {
-    border-radius: var(--sber-radius-sm);
-    transition: all 0.15s ease;
-}
-.privateChannels-1nO12O .channel-1Shao0:hover {
-    background: var(--sber-glass-hover) !important;
-}
-.privateChannels-1nO12O .channel-1Shao0.selected-1dODfG {
-    background: var(--sber-glass-active) !important;
-    border-left: 3px solid var(--sber-accent);
-}
-
-/* ============ ВЛОЖЕНИЯ ============ */
-.attachment-1PZZB2,
-.embedFull-1QYk3Y {
-    background: var(--sber-glass) !important;
-    border-radius: var(--sber-radius-sm) !important;
-    border: 1px solid var(--sber-border) !important;
-    border-left: 3px solid var(--sber-accent) !important;
-}
-.embedFull-1QYk3Y .embedAuthorName-3mnGvk {
-    color: var(--sber-accent-light) !important;
-}
-
-/* ============ РЕАКЦИИ ============ */
-.reaction-2QYk3Y {
-    background: var(--sber-glass) !important;
+/* ---------- РЕАКЦИИ ---------- */
+#app-mount .reaction-2QYk3Y {
+    background: rgba(33, 160, 56, 0.12) !important;
     border-radius: 12px !important;
-    border: 1px solid var(--sber-border);
+    border: 1px solid rgba(33, 160, 56, 0.2);
     transition: all 0.15s ease;
 }
-.reaction-2QYk3Y:hover {
-    background: var(--sber-glass-hover) !important;
-    border-color: var(--sber-accent);
+#app-mount .reaction-2QYk3Y:hover {
+    background: rgba(33, 160, 56, 0.22) !important;
+    border-color: var(--sber-green);
 }
-.reaction-2QYk3Y.reactionMe-1QYk3Y {
-    background: var(--sber-glass-active) !important;
-    border-color: var(--sber-accent) !important;
+#app-mount .reaction-2QYk3Y.reactionMe-1QYk3Y {
+    background: rgba(33, 160, 56, 0.28) !important;
+    border-color: var(--sber-green) !important;
 }
-.reaction-2QYk3Y.reactionMe-1QYk3Y .reactionCount-1QYk3Y {
-    color: var(--sber-accent-light) !important;
+#app-mount .reaction-2QYk3Y.reactionMe-1QYk3Y .reactionCount-1QYk3Y {
+    color: var(--sber-green-light) !important;
 }
 
-/* ============ УПОМИНАНИЯ ============ */
-.mention-1QYk3Y {
-    background: var(--sber-glass-active) !important;
-    color: var(--sber-accent-light) !important;
+/* ---------- УПОМИНАНИЯ ---------- */
+#app-mount .mention-1QYk3Y,
+#app-mount .mention {
+    background: rgba(33, 160, 56, 0.25) !important;
+    color: var(--sber-green-light) !important;
     border-radius: 4px;
     font-weight: 600;
     padding: 0 3px;
     transition: all 0.15s ease;
 }
-.mention-1QYk3Y:hover {
-    background: var(--sber-accent) !important;
-    color: var(--sber-accent-text) !important;
+#app-mount .mention-1QYk3Y:hover,
+#app-mount .mention:hover {
+    background: var(--sber-green) !important;
+    color: #fff !important;
 }
 
-/* ============ КАНАЛ В ГОЛОСОВОМ ============ */
-.voiceUser-1QYk3Y {
-    border-radius: var(--sber-radius-sm);
-    background: var(--sber-glass) !important;
-    border: 1px solid var(--sber-border);
+/* ---------- ВЛОЖЕНИЯ / EMBEDS ---------- */
+#app-mount .attachment-1PZZB2,
+#app-mount .embedFull-1QYk3Y {
+    background: rgba(0, 0, 0, 0.3) !important;
+    border-radius: 12px !important;
+    border: 1px solid rgba(33, 160, 56, 0.2) !important;
+    border-left: 3px solid var(--sber-green) !important;
 }
-.voiceUser-1QYk3Y.speaking-1QYk3Y {
-    border-color: var(--sber-accent) !important;
-    box-shadow: 0 0 0 2px var(--sber-accent-glow);
-}
-
-/* ============ ВЕРХНЯЯ ПАНЕЛЬ (TITLE BAR) ============ */
-.titleBar-1it3bQ {
-    background: var(--sber-glass) !important;
-    backdrop-filter: blur(var(--sber-glass-blur));
-    -webkit-backdrop-filter: blur(var(--sber-glass-blur));
-    border-bottom: 1px solid var(--sber-border);
+#app-mount .embedFull-1QYk3Y .embedAuthorName-3mnGvk {
+    color: var(--sber-green-light) !important;
 }
 
-/* ============ БАННЕР СЕРВЕРА ============ */
-.banner-1QYk3Y {
-    border-radius: var(--sber-radius) var(--sber-radius) 0 0;
+/* ---------- КОЛЬЦА ВОКРУГ АВАТАРА АКТИВНОГО ЮЗЕРА ---------- */
+#app-mount .avatarWrapper-3y0XJY.speaking-1QYk3Y .avatar-1BDn8e,
+#app-mount .voiceUser-1QYk3Y.speaking-1QYk3Y .avatar-1BDn8e {
+    box-shadow: 0 0 0 3px var(--sber-green),
+                0 0 12px rgba(33, 160, 56, 0.7) !important;
 }
 
-/* ============ ЗВУКОВАЯ ВОЛНА ============ */
-.wave-1QYk3Y {
-    color: var(--sber-accent) !important;
+/* ---------- ГОЛОСОВОЙ КАНАЛ ---------- */
+#app-mount .voiceUser-1QYk3Y {
+    border-radius: 12px;
+    background: rgba(33, 160, 56, 0.08) !important;
+    border: 1px solid rgba(33, 160, 56, 0.18);
+}
+#app-mount .voiceUser-1QYk3Y.speaking-1QYk3Y {
+    border-color: var(--sber-green) !important;
+    box-shadow: 0 0 0 2px rgba(33, 160, 56, 0.4);
 }
 
-/* ============ ПРОГРЕСС-БАР ============ */
-.bar-1QYk3Y .barInner-1QYk3Y {
-    background: var(--sber-accent) !important;
-    border-radius: 4px;
+/* ---------- НОВЫЕ СООБЩЕНИЯ (плашка сверху) ---------- */
+#app-mount .newMessagesBar-1hF-9G {
+    background: var(--sber-green) !important;
+    color: #fff !important;
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 6px 20px rgba(33, 160, 56, 0.5);
 }
 
-/* ============ СКРОЛЛБАР В КАНАЛАХ ============ */
-.sidebar-1tnWFu ::-webkit-scrollbar-thumb {
-    background: var(--sber-glass-hover);
+/* ---------- НИТИ (THREADS) ---------- */
+#app-mount .container-1QYk3Y,
+#app-mount .container-3i3i1Q {
+    background: rgba(33, 160, 56, 0.08) !important;
+    border-radius: 12px !important;
+    border: 1px solid rgba(33, 160, 56, 0.2);
+    transition: all 0.15s ease;
 }
-.sidebar-1tnWFu ::-webkit-scrollbar-thumb:hover {
-    background: var(--sber-accent);
-}
-
-/* ============ ПАНЕЛЬ УЧАСТНИКОВ ============ */
-.container-2o3qEW .members-3WRCEx {
-    background: transparent !important;
-}
-
-/* ============ ИНДИКАТОР ЗАГРУЗКИ ============ */
-.spinner-2QYk3Y {
-    color: var(--sber-accent) !important;
+#app-mount .container-3i3i1Q:hover {
+    border-color: var(--sber-green) !important;
+    box-shadow: 0 4px 16px rgba(33, 160, 56, 0.35);
 }
 
-/* ============ КНОПКА ЗАКРЫТИЯ/СВЁРНУТОГО ============ */
-.winButton-3UMjdg:hover {
-    background: var(--sber-glass-hover) !important;
+/* ---------- ЗВУКОВАЯ ВОЛНА ---------- */
+#app-mount .wave-1QYk3Y {
+    color: var(--sber-green) !important;
 }
-.winButtonClose-3UMjdg:hover {
+
+/* ---------- СПИННЕР ЗАГРУЗКИ ---------- */
+#app-mount .spinner-2QYk3Y {
+    color: var(--sber-green) !important;
+}
+
+/* ---------- ВЕРХНЯЯ ПАНЕЛЬ (TITLE BAR) ---------- */
+#app-mount .titleBar-1it3bQ {
+    background: rgba(0, 0, 0, 0.3) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(33, 160, 56, 0.15);
+}
+#app-mount .winButton-3UMjdg:hover {
+    background: rgba(33, 160, 56, 0.2) !important;
+}
+#app-mount .winButtonClose-3UMjdg:hover {
     background: #ED4245 !important;
 }
 
-/* ============ НОВЫЕ СООБЩЕНИЯ ============ */
-.newMessagesBar-1hF-9G {
-    background: var(--sber-accent) !important;
-    color: var(--sber-accent-text) !important;
-    border-radius: 0 0 var(--sber-radius-sm) var(--sber-radius-sm);
-    box-shadow: var(--sber-shadow-accent);
-}
-
-/* ============ ПРИВЕТСТВЕННЫЙ ЭКРАН ============ */
-.welcomeMessage-3QYk3Y {
+/* ---------- ЛИЧНЫЕ СООБЩЕНИЯ ---------- */
+#app-mount .privateChannels-1nO12O {
     background: transparent !important;
 }
-
-/* ============ НИТИ (THREADS) ============ */
-.container-1QYk3Y {
-    background: var(--sber-glass) !important;
-    border-radius: var(--sber-radius-sm) !important;
-    border: 1px solid var(--sber-border);
+#app-mount .privateChannels-1nO12O .channel-1Shao0.selected-1dODfG {
+    background: rgba(33, 160, 56, 0.22) !important;
+    border-left: 3px solid var(--sber-green);
 }
 
-/* ============ ФОРУМ ============ */
-.container-3i3i1Q {
-    background: var(--sber-glass) !important;
-    border-radius: var(--sber-radius-sm) !important;
-    border: 1px solid var(--sber-border);
-    transition: all 0.15s ease;
-}
-.container-3i3i1Q:hover {
-    border-color: var(--sber-accent) !important;
-    box-shadow: 0 4px 16px var(--sber-accent-glow);
-}
-
-/* ============ МАГАЗИН / НИТРО ============ */
-.premiumIndicator-1QYk3Y {
-    background: linear-gradient(135deg, var(--sber-accent), var(--sber-accent-light)) !important;
-    border-radius: var(--sber-radius-sm);
-    color: var(--sber-accent-text) !important;
+/* ---------- БЭННЕР СЕРВЕРА ---------- */
+#app-mount .banner-1QYk3Y {
+    border-radius: 8px 8px 0 0;
 }
