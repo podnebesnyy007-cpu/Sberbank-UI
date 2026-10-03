@@ -1,24 +1,38 @@
 /*=============================================
-=                  ADDONS                     =
+=   ADDONS: реакции, кольца, нити, эффекты    =
 =============================================*/
 
-/* ---------- РЕАКЦИИ ---------- */
+/* ---------- РЕАКЦИИ (анимация + зелёный) ---------- */
 #app-mount .reaction-2QYk3Y {
     background: rgba(33, 160, 56, 0.12) !important;
     border-radius: 12px !important;
     border: 1px solid rgba(33, 160, 56, 0.2);
-    transition: all 0.15s ease;
+    transition: background var(--anim-fast),
+                border-color var(--anim-fast),
+                transform var(--anim-fast),
+                box-shadow var(--anim-fast);
 }
 #app-mount .reaction-2QYk3Y:hover {
     background: rgba(33, 160, 56, 0.22) !important;
     border-color: var(--sber-green);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 6px 16px rgba(33, 160, 56, 0.35);
 }
 #app-mount .reaction-2QYk3Y.reactionMe-1QYk3Y {
     background: rgba(33, 160, 56, 0.28) !important;
     border-color: var(--sber-green) !important;
+    box-shadow: 0 0 12px var(--sber-green-glow);
 }
 #app-mount .reaction-2QYk3Y.reactionMe-1QYk3Y .reactionCount-1QYk3Y {
     color: var(--sber-green-light) !important;
+}
+/* Анимация появления новой реакции */
+#app-mount .reaction-2QYk3Y {
+    animation: sber-reaction-pop 0.35s cubic-bezier(0.68, -0.55, 0.27, 1.55) both;
+}
+@keyframes sber-reaction-pop {
+    0%   { transform: scale(0.5); opacity: 0; }
+    100% { transform: scale(1);   opacity: 1; }
 }
 
 /* ---------- УПОМИНАНИЯ ---------- */
@@ -29,31 +43,56 @@
     border-radius: 4px;
     font-weight: 600;
     padding: 0 3px;
-    transition: all 0.15s ease;
+    transition: all var(--anim-fast);
 }
 #app-mount .mention-1QYk3Y:hover,
 #app-mount .mention:hover {
     background: var(--sber-green) !important;
     color: #fff !important;
+    box-shadow: 0 0 8px var(--sber-green-glow);
 }
 
 /* ---------- ВЛОЖЕНИЯ / EMBEDS ---------- */
 #app-mount .attachment-1PZZB2,
 #app-mount .embedFull-1QYk3Y {
     background: rgba(0, 0, 0, 0.3) !important;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     border-radius: 12px !important;
     border: 1px solid rgba(33, 160, 56, 0.2) !important;
     border-left: 3px solid var(--sber-green) !important;
+    transition: border-color var(--anim-fast),
+                box-shadow var(--anim-fast),
+                transform var(--anim-fast);
+}
+#app-mount .embedFull-1QYk3Y:hover {
+    border-color: var(--sber-green) !important;
+    box-shadow: 0 4px 16px rgba(33, 160, 56, 0.2);
+    transform: translateY(-1px);
 }
 #app-mount .embedFull-1QYk3Y .embedAuthorName-3mnGvk {
     color: var(--sber-green-light) !important;
 }
 
-/* ---------- КОЛЬЦА ВОКРУГ АВАТАРА АКТИВНОГО ЮЗЕРА ---------- */
+/* ---------- КОЛЬЦА ВОКРУГ АВАТАРА (говорящий) ---------- */
 #app-mount .avatarWrapper-3y0XJY.speaking-1QYk3Y .avatar-1BDn8e,
 #app-mount .voiceUser-1QYk3Y.speaking-1QYk3Y .avatar-1BDn8e {
     box-shadow: 0 0 0 3px var(--sber-green),
-                0 0 12px rgba(33, 160, 56, 0.7) !important;
+                0 0 16px var(--sber-green-glow) !important;
+    animation: sber-speaking 1.4s ease-in-out infinite;
+}
+@keyframes sber-speaking {
+    0%, 100% { box-shadow: 0 0 0 3px var(--sber-green), 0 0 12px var(--sber-green-glow); }
+    50%      { box-shadow: 0 0 0 4px var(--sber-green-light), 0 0 24px var(--sber-green-glow); }
+}
+
+/* ---------- АВАТАРЫ — ЗЕЛЁНОЕ КОЛЬЦО ПРИ ХОВЕРЕ ---------- */
+#app-mount .avatar-1BDn8e {
+    transition: box-shadow var(--anim-base), transform var(--anim-base);
+}
+#app-mount .avatarWrapper-3y0XJY:hover .avatar-1BDn8e {
+    box-shadow: 0 0 0 2px var(--sber-green);
+    transform: scale(1.05);
 }
 
 /* ---------- ГОЛОСОВОЙ КАНАЛ ---------- */
@@ -61,31 +100,40 @@
     border-radius: 12px;
     background: rgba(33, 160, 56, 0.08) !important;
     border: 1px solid rgba(33, 160, 56, 0.18);
+    transition: border-color var(--anim-base), box-shadow var(--anim-base);
 }
 #app-mount .voiceUser-1QYk3Y.speaking-1QYk3Y {
     border-color: var(--sber-green) !important;
     box-shadow: 0 0 0 2px rgba(33, 160, 56, 0.4);
 }
 
-/* ---------- НОВЫЕ СООБЩЕНИЯ (плашка сверху) ---------- */
+/* ---------- НОВЫЕ СООБЩЕНИЯ (плашка) ---------- */
 #app-mount .newMessagesBar-1hF-9G {
     background: var(--sber-green) !important;
     color: #fff !important;
     border-radius: 0 0 12px 12px;
-    box-shadow: 0 6px 20px rgba(33, 160, 56, 0.5);
+    box-shadow: 0 6px 20px var(--sber-green-glow);
+    animation: sber-slide-down var(--anim-base) both;
+}
+@keyframes sber-slide-down {
+    from { transform: translateY(-100%); opacity: 0; }
+    to   { transform: translateY(0);     opacity: 1; }
 }
 
-/* ---------- НИТИ (THREADS) ---------- */
+/* ---------- НИТИ / ФОРУМ ---------- */
 #app-mount .container-1QYk3Y,
 #app-mount .container-3i3i1Q {
     background: rgba(33, 160, 56, 0.08) !important;
     border-radius: 12px !important;
     border: 1px solid rgba(33, 160, 56, 0.2);
-    transition: all 0.15s ease;
+    transition: border-color var(--anim-base),
+                box-shadow var(--anim-base),
+                transform var(--anim-base);
 }
 #app-mount .container-3i3i1Q:hover {
     border-color: var(--sber-green) !important;
-    box-shadow: 0 4px 16px rgba(33, 160, 56, 0.35);
+    box-shadow: 0 6px 20px rgba(33, 160, 56, 0.35);
+    transform: translateY(-2px);
 }
 
 /* ---------- ЗВУКОВАЯ ВОЛНА ---------- */
@@ -101,12 +149,15 @@
 /* ---------- ВЕРХНЯЯ ПАНЕЛЬ (TITLE BAR) ---------- */
 #app-mount .titleBar-1it3bQ {
     background: rgba(0, 0, 0, 0.3) !important;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(12px) saturate(140%);
+    -webkit-backdrop-filter: blur(12px) saturate(140%);
     border-bottom: 1px solid rgba(33, 160, 56, 0.15);
 }
+#app-mount .winButton-3UMjdg {
+    transition: background var(--anim-fast);
+}
 #app-mount .winButton-3UMjdg:hover {
-    background: rgba(33, 160, 56, 0.2) !important;
+    background: rgba(33, 160, 56, 0.25) !important;
 }
 #app-mount .winButtonClose-3UMjdg:hover {
     background: #ED4245 !important;
@@ -116,12 +167,84 @@
 #app-mount .privateChannels-1nO12O {
     background: transparent !important;
 }
+#app-mount .privateChannels-1nO12O .channel-1Shao0 {
+    border-radius: 10px;
+    transition: background var(--anim-fast), transform var(--anim-fast);
+}
+#app-mount .privateChannels-1nO12O .channel-1Shao0:hover {
+    background: rgba(33, 160, 56, 0.12) !important;
+    transform: translateX(2px);
+}
 #app-mount .privateChannels-1nO12O .channel-1Shao0.selected-1dODfG {
     background: rgba(33, 160, 56, 0.22) !important;
     border-left: 3px solid var(--sber-green);
+    box-shadow: inset 0 0 0 1px rgba(33, 160, 56, 0.25);
 }
 
 /* ---------- БЭННЕР СЕРВЕРА ---------- */
 #app-mount .banner-1QYk3Y {
     border-radius: 8px 8px 0 0;
+}
+
+/*=============================================
+=   КРАСИВЫЕ ДОПОЛНИТЕЛЬНЫЕ ЭЛЕМЕНТЫ           =
+=============================================*/
+
+/* ---------- ПУЛЬСИРУЮЩАЯ ЗЕЛЁНАЯ ТОЧКА "В СЕТИ" ---------- */
+#app-mount .status-1f8c9d[style*="background-color: rgb(35, 165, 90)"],
+#app-mount .status-1f8c9d[class*="online"] {
+    position: relative;
+    box-shadow: 0 0 0 0 var(--sber-green-glow);
+    animation: sber-online-pulse 2s infinite;
+}
+@keyframes sber-online-pulse {
+    0%   { box-shadow: 0 0 0 0   var(--sber-green-glow); }
+    70%  { box-shadow: 0 0 0 8px rgba(33, 160, 56, 0); }
+    100% { box-shadow: 0 0 0 0   rgba(33, 160, 56, 0); }
+}
+
+/* ---------- БЛИК ПО АКТИВНОМУ СЕРВЕРУ ---------- */
+#app-mount .guilds-2JjMmN .wrapper-3kahwR.selected-1JQ0ks::after,
+#app-mount .guilds-2JjMmN .wrapper-3kahwR.selected-3LIHYU::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(135deg,
+        rgba(255, 255, 255, 0.25),
+        transparent 50%);
+    pointer-events: none;
+    animation: sber-shine 3s ease-in-out infinite;
+}
+@keyframes sber-shine {
+    0%, 100% { opacity: 0.4; }
+    50%      { opacity: 0.9; }
+}
+
+/* ---------- ПЛАВНОЕ ПОЯВЛЕНИЕ КАНАЛОВ ---------- */
+#app-mount .sidebar-1tnWFu .containerDefault-YUSmu3,
+#app-mount .sidebar-1tnWFu .wrapper-1S43wL {
+    animation: sber-fade-in 0.3s ease both;
+}
+@keyframes sber-fade-in {
+    from { opacity: 0; transform: translateX(-6px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+/* ---------- HOVER-GLOW НА КНОПКАХ ПАНЕЛИ ЮЗЕРА ---------- */
+#app-mount .panels-3wFtMD .button-12Fmur {
+    transition: background var(--anim-fast), transform var(--anim-fast);
+}
+#app-mount .panels-3wFtMD .button-12Fmur:hover {
+    background: rgba(33, 160, 56, 0.18) !important;
+    transform: scale(1.08);
+}
+
+/* ---------- ПЛАВНОЕ ПОЯВЛЕНИЕ КАНАЛА ПРИ ПЕРЕКЛЮЧЕНИИ ---------- */
+#app-mount .chatContent-3KubbW .messagesWrapper-Rn5jGi {
+    animation: sber-chat-in 0.35s ease both;
+}
+@keyframes sber-chat-in {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
