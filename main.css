@@ -579,3 +579,92 @@ iframe {
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
 }
+
+/* ============================================================
+   6. ФИНАЛЬНЫЙ ФИКС — ТОПБАР, ПОЛЕ ВВОДА, АКТИВНОСТЬ
+   Работает с любой сборкой Discord (универсальные селекторы)
+   ============================================================ */
+
+/* ---------- ТОПБАР КАНАЛА ---------- */
+[class*="chatHeaderBar_"],
+[class*="upperContainer_"],
+[class*="headerBar_"],
+[class*="channelHeader_"] {
+    background: rgba(var(--color2), 0.25) !important;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}
+
+/* Тулбар с иконками (закреп, уведомления, участники, поиск) */
+[class*="toolbar_"] {
+    background: transparent !important;
+}
+
+/* Кнопка поиска справа */
+[class*="searchBar_"],
+[class*="searchBarComponent_"],
+[class*="search_"]:has(input[type="text"]) {
+    background: rgba(var(--color2), 0.35) !important;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border-radius: 8px;
+}
+
+/* ---------- ПОЛЕ ВВОДА СООБЩЕНИЯ ---------- */
+[class*="channelTextArea_"],
+[class*="scrollableContainer_"],
+[class*="themedBackground_"] {
+    background: rgba(var(--color2), 0.3) !important;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border-radius: 12px;
+}
+
+/* Внутренние части поля — прозрачные */
+[class*="slateTextArea_"],
+[class*="textArea_"],
+[class*="placeholder_"],
+[class*="buttons_"],
+[class*="attachWrapper_"],
+[class*="attachButton_"],
+[class*="emojiButton_"],
+[class*="stackedBars_"],
+[class*="channelAttachmentArea_"] {
+    background: transparent !important;
+    backdrop-filter: none !important;
+}
+
+/* ---------- ПРАВАЯ ПАНЕЛЬ "АКТИВНОСТЬ" ---------- */
+[class*="nowPlayingColumn_"],
+[class*="nowPlayingScroller_"],
+[class*="scroller_"]:has([class*="section_"]),
+[class*="outer_"]:has([class*="section_"]) {
+    background: rgba(var(--color2), 0.15) !important;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}
+
+/* Карточки игр внутри — прозрачнее */
+[class*="section_"],
+[class*="emptyCard_"],
+[class*="card_"]:has([class*="gameIcon_"]) {
+    background: rgba(var(--color2), 0.25) !important;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border-radius: 8px;
+}
+
+/* ---------- ЛЁГКАЯ ПЛАВНОСТЬ (без лагов) ---------- */
+[class*="chatHeaderBar_"],
+[class*="channelTextArea_"],
+[class*="nowPlayingColumn_"] {
+    transition: background-color 0.2s ease;
+}
+
+/* Убираем blur с мелких иконок — снижает нагрузку на GPU */
+[class*="toolbar_"] *,
+[class*="buttons_"] *,
+[class*="attachWrapper_"] * {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
