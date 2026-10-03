@@ -1,8 +1,9 @@
 /*=============================================
-=   SBERBANK UI — ЯДРО (на базе Translucence) =
+=   SBERBANK UI — ЯДРО                        =
+=   (прозрачность + анимации + стекло)        =
 =============================================*/
 
-/* ---------- ФОН APP-MOUNT ---------- */
+/* ---------- ФОН APP-MOUNT + МЯГКАЯ ПУЛЬСАЦИЯ ---------- */
 #app-mount::before,
 #app-mount::after {
     content: "";
@@ -11,60 +12,118 @@
     pointer-events: none;
     z-index: -1;
 }
-
 #app-mount::before {
     background: var(--app-bg) center / cover no-repeat fixed;
     z-index: -2;
+    animation: sber-bg-pan 30s ease-in-out infinite alternate;
 }
-
 #app-mount::after {
     backdrop-filter: blur(var(--app-blur)) saturate(120%);
     -webkit-backdrop-filter: blur(var(--app-blur)) saturate(120%);
     background: rgba(0, 0, 0, 0.35);
 }
+@keyframes sber-bg-pan {
+    0%   { transform: scale(1)    translate(0, 0); }
+    100% { transform: scale(1.06) translate(-10px, -10px); }
+}
 
-/* ---------- ОБЩИЕ КОНТЕЙНЕРЫ ---------- */
+/* ---------- ГЛАВНЫЙ КОНТЕЙНЕР ---------- */
 #app-mount .app-2CXKsg,
 #app-mount .app-3xd6d0 {
     background: transparent !important;
 }
 
-/* ---------- ЛЕВАЯ ПАНЕЛЬ СЕРВЕРОВ ---------- */
+/*=============================================
+=        ЛЕВАЯ ПАНЕЛЬ СЕРВЕРОВ (прозрачность) =
+=============================================*/
 #app-mount .guilds-2JjMmN {
     background: var(--sidebar-color) !important;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(12px) saturate(140%);
+    -webkit-backdrop-filter: blur(12px) saturate(140%);
     border-radius: var(--app-radius);
     margin: 8px 0 8px 8px;
     padding: 8px 0;
     border: 1px solid rgba(33, 160, 56, 0.15);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    transition: box-shadow var(--anim-base);
+}
+#app-mount .guilds-2JjMmN:hover {
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05),
+                0 0 0 1px rgba(33, 160, 56, 0.3);
 }
 
-/* Активный сервер — зелёная полоса */
+/* Иконки серверов — плавный подъём */
+#app-mount .guilds-2JjMmN .wrapper-3kahwR {
+    transition: transform var(--anim-base), border-radius var(--anim-base);
+}
+#app-mount .guilds-2JjMmN .wrapper-3kahwR:hover {
+    transform: translateY(-2px) scale(1.05);
+}
+
+/* Активный сервер — зелёная полоса + пульс */
 #app-mount .guilds-2JjMmN .pill-2R7F1Q .item-2LIpTv {
     background: var(--sber-green) !important;
-    box-shadow: 0 0 12px rgba(33, 160, 56, 0.5);
+    box-shadow: 0 0 12px var(--sber-green-glow);
+    animation: sber-pulse 2s ease-in-out infinite;
+}
+@keyframes sber-pulse {
+    0%, 100% { box-shadow: 0 0 8px var(--sber-green-glow); }
+    50%      { box-shadow: 0 0 18px var(--sber-green-glow); }
 }
 
-/* Домашняя иконка */
+/* Домашняя иконка — зелёная с glow */
 #app-mount .guilds-2JjMmN .homeIcon-FB7lBf {
     color: var(--sber-green) !important;
+    filter: drop-shadow(0 0 6px var(--sber-green-glow));
+    transition: filter var(--anim-base);
+}
+#app-mount .guilds-2JjMmN .wrapper-3kahwR:hover .homeIcon-FB7lBf {
+    filter: drop-shadow(0 0 12px var(--sber-green-glow));
 }
 
-/* ---------- КАНАЛЫ (SIDEBAR) ---------- */
+/*=============================================
+=        КАНАЛЫ (прозрачность + анимации)    =
+=============================================*/
 #app-mount .sidebar-1tnWFu {
     background: var(--sidebar-color) !important;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(12px) saturate(140%);
+    -webkit-backdrop-filter: blur(12px) saturate(140%);
     border-radius: var(--app-radius);
     border: 1px solid rgba(33, 160, 56, 0.12);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
     margin: 8px 0;
+    overflow: hidden;
 }
 
-/* Активный канал — зелёный фон и полоса */
+#app-mount .sidebar-1tnWFu .header-3OsQeK {
+    background: transparent !important;
+    border-bottom: 1px solid rgba(33, 160, 56, 0.15);
+    box-shadow: none;
+    transition: background var(--anim-base);
+}
+#app-mount .sidebar-1tnWFu .header-3OsQeK:hover {
+    background: rgba(33, 160, 56, 0.08) !important;
+}
+
+/* Каналы — плавный сдвиг и зелёный индикатор */
+#app-mount .sidebar-1tnWFu .wrapper-1S43wL {
+    border-radius: 10px;
+    transition: background var(--anim-fast),
+                transform var(--anim-fast),
+                box-shadow var(--anim-fast);
+}
+#app-mount .sidebar-1tnWFu .wrapper-1S43wL:hover {
+    background: rgba(33, 160, 56, 0.12) !important;
+    transform: translateX(2px);
+}
 #app-mount .sidebar-1tnWFu .wrapper-1S43wL.modeSelected-1zApJ_,
 #app-mount .sidebar-1tnWFu .wrapper-1S43wL.selected-1dODfG {
     background: rgba(33, 160, 56, 0.22) !important;
+    transform: translateX(2px);
+    box-shadow: inset 0 0 0 1px rgba(33, 160, 56, 0.25);
 }
 #app-mount .sidebar-1tnWFu .wrapper-1S43wL.modeSelected-1zApJ_::before {
     content: "";
@@ -75,68 +134,90 @@
     width: 3px;
     background: var(--sber-green);
     border-radius: 0 3px 3px 0;
-    box-shadow: 0 0 8px rgba(33, 160, 56, 0.8);
+    box-shadow: 0 0 10px var(--sber-green-glow);
+    animation: sber-bar-in var(--anim-base) both;
+}
+@keyframes sber-bar-in {
+    from { height: 0; top: 50%; bottom: 50%; opacity: 0; }
+    to   { height: auto; top: 10%; bottom: 10%; opacity: 1; }
 }
 
-/* Ховер канала */
-#app-mount .sidebar-1tnWFu .wrapper-1S43wL:hover {
-    background: rgba(33, 160, 56, 0.12) !important;
-}
-
-/* Иконка и текст активного канала */
+/* Иконка/текст активного канала */
 #app-mount .sidebar-1tnWFu .wrapper-1S43wL.modeSelected-1zApJ_ .icon-2W8DHg,
 #app-mount .sidebar-1tnWFu .wrapper-1S43wL.modeSelected-1zApJ_ .name-28HaxV {
     color: var(--sber-green-light) !important;
+    transition: color var(--anim-fast);
 }
 
-/* Заголовок сервера */
-#app-mount .sidebar-1tnWFu .header-3OsQeK {
-    background: transparent !important;
-    border-bottom: 1px solid rgba(33, 160, 56, 0.15);
-    box-shadow: none;
-}
-
-/* ---------- ОСНОВНОЙ ЧАТ ---------- */
+/*=============================================
+=        ЧАТ (прозрачность + анимации)       =
+=============================================*/
 #app-mount .chat-2ZfjoI,
 #app-mount .chatContent-3KubbW {
     background: var(--main-content-color) !important;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(12px) saturate(140%);
+    -webkit-backdrop-filter: blur(12px) saturate(140%);
     border-radius: var(--app-radius);
     border: 1px solid rgba(33, 160, 56, 0.12);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
     margin: 8px 0;
 }
 
-/* Верхняя панель чата */
 #app-mount .chat-2ZfjoI .title-31SJ6t,
 #app-mount .chat-2ZfjoI .header-3OsQeK {
     background: transparent !important;
     border-bottom: 1px solid rgba(33, 160, 56, 0.15);
     box-shadow: none;
+    transition: background var(--anim-base);
+}
+#app-mount .chat-2ZfjoI .title-31SJ6t:hover {
+    background: rgba(33, 160, 56, 0.06) !important;
 }
 
-/* ---------- СООБЩЕНИЯ ---------- */
+/*=============================================
+=        СООБЩЕНИЯ (появление + ховер)       =
+=============================================*/
 #app-mount .message-2CShn3 {
     background: var(--message-color) !important;
     border-radius: var(--message-radius);
     margin: 2px 8px;
     padding: var(--message-padding-top) var(--message-padding-side);
-    transition: background 0.15s ease;
+    transition: background var(--anim-fast),
+                transform var(--anim-fast),
+                box-shadow var(--anim-fast);
+    animation: sber-msg-in 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes sber-msg-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 #app-mount .message-2CShn3:hover {
     background: var(--message-color-hover) !important;
+    transform: translateX(2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
 }
 
-/* Упоминание — зелёная подсветка */
+/* Упоминание — зелёная подсветка с пульсом */
 #app-mount .message-2CShn3.mentioned-Tre-dv {
     background: rgba(33, 160, 56, 0.18) !important;
     border-left: 3px solid var(--sber-green);
+    box-shadow: 0 0 20px rgba(33, 160, 56, 0.25);
+    animation: sber-mention-pulse 2s ease-in-out infinite;
+}
+@keyframes sber-mention-pulse {
+    0%, 100% { box-shadow: 0 0 12px rgba(33, 160, 56, 0.2); }
+    50%      { box-shadow: 0 0 24px rgba(33, 160, 56, 0.45); }
 }
 
 /* Никнейм автора — зелёный */
 #app-mount .message-2CShn3 .username-h_Y3Us,
 #app-mount .message-2CShn3 .headerText-3Uvj1Y .username-h_Y3Us {
     color: var(--sber-green-light) !important;
+    transition: color var(--anim-fast);
+}
+#app-mount .message-2CShn3:hover .username-h_Y3Us {
+    color: var(--sber-green) !important;
 }
 
 /* Код-блоки */
@@ -145,57 +226,133 @@
     background: rgba(0, 0, 0, 0.5) !important;
     border: 1px solid rgba(33, 160, 56, 0.35);
     border-radius: var(--message-radius);
+    transition: border-color var(--anim-fast);
+}
+#app-mount .markup-eYLPri pre:hover {
+    border-color: var(--sber-green);
 }
 
-/* ---------- ПОЛЕ ВВОДА ---------- */
+/*=============================================
+=        ПОЛЕ ВВОДА (стекло + glow)          =
+=============================================*/
 #app-mount .channelTextArea-1FufC0,
 #app-mount .channelTextArea-2VhZ6z {
     background: rgba(33, 160, 56, var(--textarea-alpha)) !important;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     border-radius: var(--textarea-radius) !important;
     border: 1px solid rgba(33, 160, 56, 0.25);
-    transition: background 0.15s ease, border-color 0.15s ease;
+    transition: background var(--anim-base),
+                border-color var(--anim-base),
+                box-shadow var(--anim-base),
+                transform var(--anim-base);
+}
+#app-mount .channelTextArea-1FufC0:hover,
+#app-mount .channelTextArea-2VhZ6z:hover {
+    background: rgba(33, 160, 56, calc(var(--textarea-alpha) + 0.05)) !important;
 }
 #app-mount .channelTextArea-1FufC0:focus-within,
 #app-mount .channelTextArea-2VhZ6z:focus-within {
     background: rgba(33, 160, 56, var(--textarea-alpha-focus)) !important;
     border-color: var(--sber-green) !important;
-    box-shadow: 0 0 0 2px rgba(33, 160, 56, 0.25);
+    box-shadow: 0 0 0 3px rgba(33, 160, 56, 0.25),
+                0 0 24px rgba(33, 160, 56, 0.35);
+    transform: translateY(-1px);
 }
 
-/* ---------- ПРАВАЯ ПАНЕЛЬ УЧАСТНИКОВ ---------- */
+/*=============================================
+=        ПРАВАЯ ПАНЕЛЬ (прозрачность)        =
+=============================================*/
 #app-mount .container-2o3qEW,
 #app-mount .members-3WRCEx {
     background: var(--sidebar-color) !important;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(12px) saturate(140%);
+    -webkit-backdrop-filter: blur(12px) saturate(140%);
     border-radius: var(--app-radius);
     border: 1px solid rgba(33, 160, 56, 0.12);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
     margin: 8px 8px 8px 0;
 }
 
-/* ---------- ПАНЕЛЬ ПОЛЬЗОВАТЕЛЯ ---------- */
-#app-mount .panels-3wFtMD {
-    background: var(--sidebar-color) !important;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-top: 1px solid rgba(33, 160, 56, 0.15);
+/* Участник — плавный ховер */
+#app-mount .member-2gU6Ar {
+    border-radius: 10px;
+    transition: background var(--anim-fast), transform var(--anim-fast);
+}
+#app-mount .member-2gU6Ar:hover {
+    background: rgba(33, 160, 56, 0.12) !important;
+    transform: translateX(2px);
 }
 
-/* ---------- КНОПКИ ---------- */
+/*=============================================
+=        ПАНЕЛЬ ПОЛЬЗОВАТЕЛЯ                 =
+=============================================*/
+#app-mount .panels-3wFtMD {
+    background: var(--sidebar-color) !important;
+    backdrop-filter: blur(12px) saturate(140%);
+    -webkit-backdrop-filter: blur(12px) saturate(140%);
+    border-top: 1px solid rgba(33, 160, 56, 0.15);
+    box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.3);
+}
+#app-mount .panels-3wFtMD .avatarWrapper-3y0XJY {
+    border-radius: 10px;
+    transition: background var(--anim-fast), transform var(--anim-fast);
+}
+#app-mount .panels-3wFtMD .avatarWrapper-3y0XJY:hover {
+    background: rgba(33, 160, 56, 0.15) !important;
+    transform: scale(1.05);
+}
+
+/*=============================================
+=        КНОПКИ (анимация + glow)            =
+=============================================*/
 #app-mount .lookFilled-1H2Jvj.colorBrand-2M3O3N,
 #app-mount .lookFilled-1H2Jvj.colorGreen-3J2YFF {
     background: var(--sber-green) !important;
     color: var(--accent-text-color) !important;
     border-radius: var(--button-radius) !important;
-    transition: all 0.15s ease;
+    transition: background var(--anim-fast),
+                transform var(--anim-fast),
+                box-shadow var(--anim-base);
+    position: relative;
+    overflow: hidden;
 }
 #app-mount .lookFilled-1H2Jvj.colorBrand-2M3O3N:hover,
 #app-mount .lookFilled-1H2Jvj.colorGreen-3J2YFF:hover {
     background: var(--sber-green-hover) !important;
-    box-shadow: 0 6px 20px rgba(33, 160, 56, 0.4);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(33, 160, 56, 0.45);
+}
+#app-mount .lookFilled-1H2Jvj.colorBrand-2M3O3N:active,
+#app-mount .lookFilled-1H2Jvj.colorGreen-3J2YFF:active {
+    transform: translateY(0) scale(0.98);
+}
+/* Блик по кнопке */
+#app-mount .lookFilled-1H2Jvj.colorBrand-2M3O3N::after,
+#app-mount .lookFilled-1H2Jvj.colorGreen-3J2YFF::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -75%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(120deg,
+        transparent,
+        rgba(255, 255, 255, 0.35),
+        transparent);
+    transform: skewX(-20deg);
+    transition: left 0.6s ease;
+    pointer-events: none;
+}
+#app-mount .lookFilled-1H2Jvj.colorBrand-2M3O3N:hover::after,
+#app-mount .lookFilled-1H2Jvj.colorGreen-3J2YFF:hover::after {
+    left: 125%;
 }
 
-/* ---------- СКРОЛЛБАР ---------- */
+/*=============================================
+=        СКРОЛЛБАР (зелёный)                 =
+=============================================*/
 #app-mount ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
@@ -206,21 +363,28 @@
 #app-mount ::-webkit-scrollbar-thumb {
     background: rgba(33, 160, 56, 0.35);
     border-radius: 8px;
+    transition: background var(--anim-fast);
 }
 #app-mount ::-webkit-scrollbar-thumb:hover {
     background: var(--sber-green);
+    box-shadow: 0 0 8px var(--sber-green-glow);
 }
 
-/* ---------- ССЫЛКИ ---------- */
+/*=============================================
+=        ССЫЛКИ                              =
+=============================================*/
 #app-mount a,
 #app-mount .anchor-1MIwyf {
     color: var(--sber-green-light) !important;
+    transition: color var(--anim-fast);
 }
 #app-mount a:hover {
     color: var(--sber-green) !important;
 }
 
-/* ---------- РАЗДЕЛИТЕЛИ НОВЫХ СООБЩЕНИЙ ---------- */
+/*=============================================
+=        РАЗДЕЛИТЕЛИ НОВЫХ СООБЩЕНИЙ         =
+=============================================*/
 #app-mount .divider-2rZFJK {
     border-color: rgba(33, 160, 56, 0.35) !important;
 }
@@ -228,4 +392,5 @@
     background: var(--sber-green) !important;
     color: #fff !important;
     border-radius: 8px;
+    box-shadow: 0 0 12px var(--sber-green-glow);
 }
