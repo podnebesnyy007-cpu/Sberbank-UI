@@ -2,7 +2,7 @@
  * @name Sberbank UI Main — Lite
  * @author ru1.0
  * @description Main theme — без лагов, без blur
- * @version 0.7 lite
+ * @version 0.8 lite
  */
 
 /* ============================================================
@@ -15,8 +15,40 @@
     --FrameGap: 8px;
     --FrameRadius: 16px;
 
-    --PanelOpacity: 0.55;       /* прозрачность панелей (без blur) */
-    --PanelOpacityStrong: 0.65; /* топбар, поле ввода */
+    --PanelOpacity: 0.55;
+    --PanelOpacityStrong: 0.65;
+}
+
+/* ============================================================
+   ГЛОБАЛЬНАЯ ОПТИМИЗАЦИЯ
+   ============================================================ */
+
+/* Убираем ВСЕ тяжёлые эффекты глобально */
+*,
+*::before,
+*::after {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+/* GPU-ускорение для скролл-контейнеров */
+[class*="scroller_"],
+[class*="chatContent_"],
+[class*="members_"],
+[class*="membersWrap_"],
+[class*="guilds_"],
+[class*="sidebar_"]:not([class*="sidebarRegion"]) {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+/* Убираем лишние фильтры в списках */
+[class*="chatContent_"] *,
+[class*="members_"] *,
+[class*="guilds_"] *,
+[class*="sidebar_"] * {
+    filter: none !important;
+    text-shadow: none !important;
 }
 
 /* ============================================================
@@ -38,7 +70,6 @@ body,
     background-size: cover !important;
     background-position: center !important;
     background-repeat: no-repeat !important;
-    /* background-attachment: fixed УБРАН — это главный источник лагов */
     position: relative;
 }
 
@@ -51,10 +82,12 @@ body,
     z-index: 0;
 }
 
-iframe { background: transparent !important; }
+iframe {
+    background: transparent !important;
+}
 
 /* ============================================================
-   БАЗОВАЯ ПРОЗРАЧНОСТЬ — БЕЗ BLUR
+   ПРОЗРАЧНОСТЬ ПАНЕЛЕЙ
    ============================================================ */
 [class*="guilds_"],
 [class*="sidebar_"]:not([class*="sidebarRegion"]),
@@ -70,10 +103,7 @@ iframe { background: transparent !important; }
 
 [class*="chatHeaderBar"],
 [class*="headerBar"],
-[class*="upperContainer"] {
-    background-color: rgba(var(--color2), var(--PanelOpacityStrong)) !important;
-}
-
+[class*="upperContainer"],
 [class*="channelTextArea"],
 [class*="form_"]:has([class*="textArea"]) {
     background-color: rgba(var(--color2), var(--PanelOpacityStrong)) !important;
@@ -82,7 +112,6 @@ iframe { background: transparent !important; }
 /* ============================================================
    ЕДИНЫЙ ФРЕЙМ
    ============================================================ */
-
 [class*="guilds_"] {
     border-radius: var(--FrameRadius) !important;
     margin: var(--FrameGap) 0 var(--FrameGap) var(--FrameGap) !important;
@@ -128,7 +157,9 @@ iframe { background: transparent !important; }
     border: 1px solid rgba(var(--color3), 0.15) !important;
 }
 
-/* Поле ввода — без скруглений */
+/* ============================================================
+   ПОЛЕ ВВОДА — без скруглений
+   ============================================================ */
 [class*="channelTextArea"],
 [class*="form_"]:has([class*="textArea"]) {
     border-radius: 0 !important;
@@ -137,7 +168,6 @@ iframe { background: transparent !important; }
     box-shadow: none !important;
 }
 
-/* Внутренние части поля */
 [class*="slateTextArea"],
 [class*="textArea_"],
 [class*="placeholder_"],
@@ -151,9 +181,7 @@ iframe { background: transparent !important; }
     border-radius: 0 !important;
 }
 
-/* ============================================================
-   ТОПБАР
-   ============================================================ */
+/* Топбар — дети прозрачные */
 [class*="chatHeaderBar"] *,
 [class*="headerBar"] *,
 [class*="upperContainer"] * {
@@ -167,10 +195,8 @@ iframe { background: transparent !important; }
 }
 
 /* ============================================================
-   HOVER — минимальный, но заметный
+   HOVER — объединённые правила
    ============================================================ */
-
-/* Сервера */
 [class*="guilds_"] [class*="listItem"]:hover [class*="childWrapper"],
 [class*="guilds_"] [class*="listItem"]:hover [class*="wrapper_"] {
     transform: scale(1.05);
@@ -184,13 +210,11 @@ iframe { background: transparent !important; }
     background: rgba(var(--color3), 0.3) !important;
 }
 
-/* Каналы */
 [class*="sidebar_"] [class*="modeSelected"] [class*="link_"],
 [class*="sidebar_"] [class*="modeSelected"] [class*="wrapper_"] {
     background: rgba(var(--color3), 0.3) !important;
 }
 
-/* Участники */
 [class*="members_"] [class*="member_"]:hover [class*="memberInner"] {
     transform: translateX(6px);
     background: rgba(var(--color3), 0.2) !important;
@@ -201,17 +225,13 @@ iframe { background: transparent !important; }
     transform: scale(1.15);
 }
 
-/* Профиль */
-[class*="avatarWrapper"]:hover {
-    background-color: rgba(var(--color3), 0.15) !important;
-}
-
+[class*="avatarWrapper"]:hover,
 [class*="panels_"] [class*="button_"]:hover {
     background-color: rgba(var(--color3), 0.2) !important;
 }
 
 /* ============================================================
-   ПЛАВНОСТЬ — только там где нужно
+   ПЛАВНОСТЬ HOVER
    ============================================================ */
 [class*="guilds_"] [class*="listItem"],
 [class*="sidebar_"] [class*="channel_"],
@@ -223,7 +243,7 @@ iframe { background: transparent !important; }
 }
 
 /* ============================================================
-   МОДАЛКИ И ПОПАУТЫ — без blur
+   МОДАЛКИ И ПОПАУТЫ
    ============================================================ */
 [class*="root_"][class*="modal"],
 [class*="modal_"] [class*="content_"],
@@ -233,7 +253,7 @@ iframe { background: transparent !important; }
 }
 
 /* ============================================================
-   СКРОЛЛБАР
+   СКРОЛЛБАР — объединённый
    ============================================================ */
 [class*="scroller_"]::-webkit-scrollbar,
 [class*="chatContent_"]::-webkit-scrollbar,
@@ -262,36 +282,8 @@ iframe { background: transparent !important; }
 }
 
 /* ============================================================
-   ГЛОБАЛЬНАЯ ОПТИМИЗАЦИЯ — ЖЁСТКО
+   АНИМАЦИЯ СООБЩЕНИЙ — минимальная
    ============================================================ */
-
-/* Убираем ВСЕ backdrop-filter по всему интерфейсу */
-* {
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-}
-
-/* Убираем filter на всех элементах списков */
-[class*="chatContent_"] *,
-[class*="members_"] *,
-[class*="guilds_"] *,
-[class*="sidebar_"] * {
-    filter: none !important;
-    text-shadow: none !important;
-}
-
-/* GPU-ускорение только на скролл-контейнерах */
-[class*="scroller_"],
-[class*="chatContent_"],
-[class*="members_"],
-[class*="membersWrap_"],
-[class*="guilds_"],
-[class*="sidebar_"]:not([class*="sidebarRegion"]) {
-    transform: translateZ(0);
-    backface-visibility: hidden;
-}
-
-/* Анимация сообщений — минимальная */
 @keyframes sber-message-appear {
     0%   { opacity: 0; }
     100% { opacity: 1; }
@@ -301,7 +293,9 @@ iframe { background: transparent !important; }
     animation: sber-message-appear 0.2s ease-out both;
 }
 
-/* Reduced motion */
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
 @media (prefers-reduced-motion: reduce) {
     * {
         animation: none !important;
