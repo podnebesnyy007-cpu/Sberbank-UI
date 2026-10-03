@@ -1,151 +1,128 @@
 /*=============================================
-=              КОНТЕКСТНЫЕ МЕНЮ               =
+=         МЕНЮ / ПОПАУТЫ / МОДАЛКИ            =
 =============================================*/
 
-/* Основное меню */
-.menu-1QYk3Y,
-.menu-2QYk3Y {
-    background: rgba(15, 25, 20, 0.85) !important;
-    backdrop-filter: blur(16px) saturate(140%);
-    -webkit-backdrop-filter: blur(16px) saturate(140%);
-    border-radius: var(--sber-radius) !important;
-    border: 1px solid var(--sber-border);
-    box-shadow: var(--sber-shadow);
+/* ---------- КОНТЕКСТНОЕ МЕНЮ ---------- */
+#app-mount .menu-1QYk3Y,
+#app-mount .root-2QYk3Y {
+    background: var(--popout-color) !important;
+    backdrop-filter: blur(var(--popout-blur)) saturate(140%);
+    -webkit-backdrop-filter: blur(var(--popout-blur)) saturate(140%);
+    border-radius: var(--popout-radius) !important;
+    border: 1px solid rgba(33, 160, 56, 0.2);
+    box-shadow: var(--popout-shadow);
     padding: 6px;
 }
 
-/* Пункт меню */
-.menu-1QYk3Y .item-1OdjEJ,
-.menu-2QYk3Y .item-1OdjEJ {
-    border-radius: var(--sber-radius-sm);
-    color: var(--sber-text) !important;
-    transition: all 0.15s ease;
-    margin: 1px 0;
+#app-mount .menu-1QYk3Y .item-1OdjEJ {
+    border-radius: 12px;
+    color: var(--text-default) !important;
+    transition: all 0.12s ease;
 }
-.menu-1QYk3Y .item-1OdjEJ:hover,
-.menu-2QYk3Y .item-1OdjEJ:hover {
-    background: var(--sber-glass-hover) !important;
+#app-mount .menu-1QYk3Y .item-1OdjEJ:hover {
+    background: rgba(33, 160, 56, 0.22) !important;
+    color: #fff !important;
 }
-.menu-1QYk3Y .item-1OdjEJ.colorDanger-2YLzLC:hover,
-.menu-2QYk3Y .item-1OdjEJ.colorDanger-2YLzLC:hover {
-    background: rgba(237, 66, 69, 0.2) !important;
+#app-mount .menu-1QYk3Y .item-1OdjEJ.colorDanger-2YLzLC:hover {
+    background: rgba(237, 66, 69, 0.22) !important;
     color: #ED4245 !important;
 }
 
-/* Разделитель */
-.menu-1QYk3Y .separator-1So4YB,
-.menu-2QYk3Y .separator-1So4YB {
-    background: var(--sber-border) !important;
+/* Разделитель в меню */
+#app-mount .menu-1QYk3Y .separator-1So4YB {
+    background: rgba(33, 160, 56, 0.2) !important;
     margin: 4px 8px;
 }
 
-/* ============ СЕРВЕРНОЕ МЕНЮ (правый клик на сервере) ============ */
-.menu-1QYk3Y .item-1OdjEJ.colorBrand-2M3O3N {
-    color: var(--sber-accent-light) !important;
+/* ---------- ЮЗЕР-ПОПАУТ (клик по аватару) ---------- */
+#app-mount .userPopout-3YAwnI {
+    background: var(--popout-color) !important;
+    backdrop-filter: blur(var(--popout-blur)) saturate(140%);
+    -webkit-backdrop-filter: blur(var(--popout-blur)) saturate(140%);
+    border-radius: var(--popout-radius) !important;
+    border: 1px solid rgba(33, 160, 56, 0.2);
+    box-shadow: var(--popout-shadow);
 }
-.menu-1QYk3Y .item-1OdjEJ.colorBrand-2M3O3N:hover {
-    background: var(--sber-glass-active) !important;
+#app-mount .userPopout-3YAwnI .headerNormal-T_seeN,
+#app-mount .userPopout-3YAwnI .headerTop-3C2Zn0 {
+    background: var(--sber-green) !important;
+    border-radius: var(--popout-radius) var(--popout-radius) 0 0;
 }
-
-/* ============ МЕНЮ ПОЛЬЗОВАТЕЛЯ ============ */
-.userPopout-3YAwnI {
-    background: rgba(15, 25, 20, 0.85) !important;
-    backdrop-filter: blur(16px) saturate(140%);
-    -webkit-backdrop-filter: blur(16px) saturate(140%);
-    border-radius: var(--sber-radius) !important;
-    border: 1px solid var(--sber-border);
-    box-shadow: var(--sber-shadow);
-}
-.userPopout-3YAwnI .headerNormal-T_seeN {
-    background: var(--sber-accent) !important;
-    border-radius: var(--sber-radius) var(--sber-radius) 0 0;
-}
-.userPopout-3YAwnI .headerNormal-T_seeN .headerText-3Uvj1Y {
-    color: var(--sber-accent-text) !important;
+#app-mount .userPopout-3YAwnI .headerNormal-T_seeN .headerText-3Uvj1Y,
+#app-mount .userPopout-3YAwnI .headerNormal-T_seeN .headerTag-3F5f6k {
+    color: #fff !important;
 }
 
-/* ============ МЕНЮ СЕРВЕРА (popout) ============ */
-.serverInfo-2Tq6pg {
-    background: rgba(15, 25, 20, 0.85) !important;
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-radius: var(--sber-radius) !important;
-    border: 1px solid var(--sber-border);
-}
-
-/* ============ ПОИСК / QUICK SWITCHER ============ */
-.quickswitcher-2QYk3Y {
-    background: rgba(15, 25, 20, 0.9) !important;
+/* ---------- QUICK SWITCHER (Ctrl+K) ---------- */
+#app-mount .quickswitcher-2QYk3Y {
+    background: rgba(9, 18, 24, 0.92) !important;
     backdrop-filter: blur(20px) saturate(140%);
     -webkit-backdrop-filter: blur(20px) saturate(140%);
-    border-radius: var(--sber-radius) !important;
-    border: 1px solid var(--sber-border-accent);
-    box-shadow: var(--sber-shadow-accent);
+    border-radius: var(--popout-radius) !important;
+    border: 1px solid rgba(33, 160, 56, 0.35);
+    box-shadow: 0 20px 60px rgba(33, 160, 56, 0.35);
 }
-.quickswitcher-2QYk3Y .input-2QYk3Y {
-    background: var(--sber-glass) !important;
-    border-radius: var(--sber-radius-sm) !important;
-    border: 1px solid var(--sber-border);
+#app-mount .quickswitcher-2QYk3Y .input-2QYk3Y {
+    background: rgba(33, 160, 56, 0.15) !important;
+    border-radius: 12px !important;
+    border: 1px solid rgba(33, 160, 56, 0.25);
 }
-.quickswitcher-2QYk3Y .result-2QYk3Y {
-    border-radius: var(--sber-radius-sm);
-}
-.quickswitcher-2QYk3Y .result-2QYk3Y:hover,
-.quickswitcher-2QYk3Y .result-2QYk3Y.selected-2QYk3Y {
-    background: var(--sber-glass-active) !important;
+#app-mount .quickswitcher-2QYk3Y .result-2QYk3Y:hover,
+#app-mount .quickswitcher-2QYk3Y .result-2QYk3Y.selected-2QYk3Y {
+    background: rgba(33, 160, 56, 0.25) !important;
+    border-radius: 10px;
 }
 
-/* ============ ЭМОДЗИ-ПИКЕР ============ */
-.emojiPicker-6YC1cb {
-    background: rgba(15, 25, 20, 0.9) !important;
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-radius: var(--sber-radius) !important;
-    border: 1px solid var(--sber-border);
+/* ---------- ЭМОДЗИ-ПИКЕР ---------- */
+#app-mount .emojiPicker-6YC1cb {
+    background: var(--popout-color) !important;
+    backdrop-filter: blur(var(--popout-blur));
+    -webkit-backdrop-filter: blur(var(--popout-blur));
+    border-radius: var(--popout-radius) !important;
+    border: 1px solid rgba(33, 160, 56, 0.2);
 }
-.emojiPicker-6YC1cb .emojiItem-277VFM.emojiItemSelected-2Lg50V {
-    background: var(--sber-glass-active) !important;
-    border-radius: var(--sber-radius-sm);
-}
-
-/* ============ ПАНЕЛЬ ПОИСКА ============ */
-.searchBar-3TnChZ {
-    background: var(--sber-glass) !important;
-    border-radius: var(--sber-radius-sm) !important;
-    border: 1px solid var(--sber-border);
-    transition: border-color 0.2s ease;
-}
-.searchBar-3TnChZ:focus-within {
-    border-color: var(--sber-accent) !important;
-    box-shadow: 0 0 0 3px var(--sber-accent-glow);
+#app-mount .emojiPicker-6YC1cb .emojiItem-277VFM.emojiItemSelected-2Lg50V {
+    background: rgba(33, 160, 56, 0.28) !important;
+    border-radius: 10px;
 }
 
-/* ============ TOOLTIP ============ */
-.tooltip-14MtrL {
-    background: rgba(15, 25, 20, 0.95) !important;
+/* ---------- TOOLTIP ---------- */
+#app-mount .tooltip-14MtrL {
+    background: rgba(9, 18, 24, 0.96) !important;
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-    border-radius: var(--sber-radius-sm) !important;
-    border: 1px solid var(--sber-border-accent);
-    color: var(--sber-text) !important;
-    box-shadow: var(--sber-shadow-sm);
+    border-radius: 10px !important;
+    border: 1px solid rgba(33, 160, 56, 0.35);
+    color: #fff !important;
 }
-.tooltip-14MtrL.tooltipBrand-2QYk3Y {
-    background: var(--sber-accent) !important;
-    color: var(--sber-accent-text) !important;
+#app-mount .tooltip-14MtrL.tooltipBrand-2QYk3Y,
+#app-mount .tooltip-14MtrL.tooltipPrimary-3qLMbS {
+    background: var(--sber-green) !important;
+    color: #fff !important;
 }
 
-/* ============ МОДАЛЬНЫЕ ОКНА ============ */
-.root-2QYk3Y,
-.modal-2QYk3Y {
-    background: rgba(15, 25, 20, 0.9) !important;
+/* ---------- МОДАЛЬНЫЕ ОКНА ---------- */
+#app-mount .modal-2QYk3Y .root-2QYk3Y,
+#app-mount .root-2QYk3Y .modal-2QYk3Y {
+    background: rgba(9, 18, 24, 0.92) !important;
     backdrop-filter: blur(20px) saturate(140%);
     -webkit-backdrop-filter: blur(20px) saturate(140%);
-    border-radius: var(--sber-radius-lg) !important;
-    border: 1px solid var(--sber-border);
-    box-shadow: var(--sber-shadow);
+    border-radius: var(--popout-radius) !important;
+    border: 1px solid rgba(33, 160, 56, 0.25);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
 }
-.modal-2QYk3Y .footer-2QYk3Y {
+#app-mount .modal-2QYk3Y .footer-2QYk3Y {
     background: transparent !important;
-    border-top: 1px solid var(--sber-border);
+    border-top: 1px solid rgba(33, 160, 56, 0.15);
+}
+
+/* ---------- ПОИСК ---------- */
+#app-mount .searchBar-3TnChZ {
+    background: rgba(33, 160, 56, 0.12) !important;
+    border-radius: 12px !important;
+    border: 1px solid rgba(33, 160, 56, 0.2);
+}
+#app-mount .searchBar-3TnChZ:focus-within {
+    border-color: var(--sber-green) !important;
+    box-shadow: 0 0 0 2px rgba(33, 160, 56, 0.25);
 }
