@@ -1,7 +1,7 @@
 /**
  * @name Sberbank UI
- * @version 2.0.0
- * @description Тема Discord в стиле СберБанк UI — зелёный, стекло, анимации
+ * @version 3.0.0
+ * @description Тема Discord в стиле СберБанк UI — полная прозрачность, зелёный, анимации
  * @author podnebesnyy007-cpu
  * @source https://github.com/podnebesnyy007-cpu/Sberbank-UI
  */
@@ -11,71 +11,46 @@
 @import url(https://raw.githubusercontent.com/podnebesnyy007-cpu/Sberbank-UI/refs/heads/main/css/addons.css);
 
 :root {
-    /* ---------- APP ELEMENTS ---------- */
+    /* ---------- ФОН ---------- */
     --app-bg: url(https://i.imgur.com/LZ0UO8z.png);
-    --app-blur: 6px;
+    --app-blur: 8px;
+    --app-dim: 0.4;                  /* затемнение фона: 0–1 */
     --app-margin: 24px;
-    --app-radius: 8px;
+    --app-radius: 12px;
 
-    /* ---------- ACCENT HSL — зелёный Сбера #21A038 → hsl(129,66%,38%) ---------- */
-    --accent-hue: 129;
-    --accent-saturation: 66%;
-    --accent-lightness: 38%;
-    --accent-opacity: 0.85;
-    --accent-text-color: hsl(0, 0%, 100%);
+    /* ---------- ПРОЗРАЧНОСТЬ ПАНЕЛЕЙ ---------- */
+    --glass-sidebar: hsla(0, 0%, 0%, 0.35);
+    --glass-chat: hsla(0, 0%, 0%, 0.30);
+    --glass-members: hsla(0, 0%, 0%, 0.35);
+    --glass-popout: hsla(0, 0%, 0%, 0.55);
+    --glass-blur: 16px;
 
-    /* ---------- SIDEBARS / CHAT ---------- */
-    --sidebar-color: hsl(0, 0%, 0%, 0.34);
-    --main-content-color: hsl(0, 0%, 0%, 0.27);
-
-    /* ---------- MESSAGES ---------- */
-    --message-color: hsl(0, 0%, 0%, 0.19);
-    --message-color-hover: hsl(0, 0%, 0%, 0.28);
-    --message-radius: 18px;
-    --message-padding-top: 8px;
-    --message-padding-side: 8px;
-
-    /* ---------- REPLY — светлый зелёный ---------- */
-    --reply-hue: 129;
-    --reply-saturation: 55%;
-    --reply-lightness: 55%;
-    --reply-opacity: 1;
-
-    /* ---------- TEXTAREA ---------- */
-    --textarea-color: 33, 160, 56;
-    --textarea-alpha: 0.125;
-    --textarea-alpha-focus: 0.165;
-    --textarea-text-color: hsl(0, 0%, 100%);
-    --textarea-radius: 28px;
-
-    /* ---------- CARDS ---------- */
-    --card-color: hsl(0, 0%, 100%, 0.14);
-    --card-color-hover: hsl(0, 0%, 100%, 0.18);
-    --card-color-select: hsl(0, 0%, 100%, 0.21);
-    --card-radius: 18px;
-
-    /* ---------- BUTTONS ---------- */
-    --button-height: 32px;
-    --button-padding: 16px;
-    --button-action-color: hsl(0, 0%, 0%);
-    --button-radius: 16px;
-
-    /* ---------- POPOUTS ---------- */
-    --popout-color: hsl(0, 0%, 0%, 0.46);
-    --popout-blur: 6px;
-    --popout-radius: 18px;
-    --popout-shadow: 0 20px 40px hsl(0, 0%, 0%, 0.44);
-    --popout-shadow-border: inset 0 1px 1px hsl(0, 100%, 100%, 0.35),
-                            inset 0 -1px 2px hsl(0, 0%, 0%, 0.25),
-                            inset 0 0 0 1px hsl(0, 100%, 100%, 0.04);
-
-    /* ---------- SBER PALETTE ---------- */
+    /* ---------- ЗЕЛЁНЫЙ СБЕРА ---------- */
     --sber-green: #21A038;
     --sber-green-hover: #1B8530;
     --sber-green-light: #4FBF60;
     --sber-green-glow: rgba(33, 160, 56, 0.55);
+    --sber-green-soft: rgba(33, 160, 56, 0.18);
 
-    /* ---------- ANIMATIONS ---------- */
+    /* ---------- ACCENT HSL ---------- */
+    --accent-hue: 129;
+    --accent-saturation: 66%;
+    --accent-lightness: 38%;
+    --accent-opacity: 0.9;
+    --accent-text-color: hsl(0, 0%, 100%);
+
+    /* ---------- СООБЩЕНИЯ ---------- */
+    --message-color: hsla(0, 0%, 0%, 0.18);
+    --message-color-hover: hsla(0, 0%, 0%, 0.28);
+    --message-radius: 18px;
+    --message-padding: 8px;
+
+    /* ---------- ПОЛЕ ВВОДА ---------- */
+    --textarea-alpha: 0.14;
+    --textarea-alpha-focus: 0.20;
+    --textarea-radius: 28px;
+
+    /* ---------- АНИМАЦИИ ---------- */
     --anim-fast: 0.15s ease;
     --anim-base: 0.25s cubic-bezier(0.22, 1, 0.36, 1);
     --anim-slow: 0.4s cubic-bezier(0.22, 1, 0.36, 1);
@@ -84,30 +59,32 @@
 
 @supports (color: color-mix(in lch, red, blue)) {
     .theme-dark {
-        --text-primary: hsl(0, 0%, 100%);
-        --text-secondary: hsl(0, 0%, 77%);
-        --text-default: hsl(0, 0%, 86%);
-        --text-muted: hsl(0, 0%, 72%);
-        --channels-default: hsl(0, 0%, 73%);
-        --channel-icon: hsl(0, 0%, 73%);
-        --text-strong: hsl(0, 0%, 100%);
-
-        --icon-primary: hsl(0, 0%, 96%);
-        --icon-secondary: hsl(0, 0%, 84%);
-        --icon-tertiary: hsl(0, 0%, 71%);
-
-        --interactive-normal: hsl(0, 0%, 79%);
-        --interactive-hover: hsl(0, 0%, 91%);
-        --interactive-active: hsl(0, 0%, 100%);
-        --interactive-muted: hsl(0, 0%, 43%);
-
-        --background-modifier-hover: hsl(129, 66%, 38%, 0.12);
-        --background-modifier-active: hsl(129, 66%, 38%, 0.18);
-        --background-modifier-selected: hsl(129, 66%, 38%, 0.25);
-        --background-modifier-accent: hsl(0, 0%, 100%, 0.175);
         --background-primary: transparent;
+        --background-secondary: transparent;
+        --background-secondary-alt: transparent;
+        --background-tertiary: transparent;
+        --background-floating: var(--glass-popout);
+        --background-accent: var(--sber-green);
 
-        --text-brand: hsl(var(--accent-hsl));
-        --text-link: hsl(var(--accent-hsl));
+        --text-primary: hsl(0, 0%, 100%);
+        --text-secondary: hsl(0, 0%, 80%);
+        --text-default: hsl(0, 0%, 88%);
+        --text-muted: hsl(0, 0%, 72%);
+        --text-strong: hsl(0, 0%, 100%);
+        --text-link: var(--sber-green-light);
+        --text-brand: var(--sber-green);
+
+        --channels-default: hsl(0, 0%, 75%);
+        --channel-icon: hsl(0, 0%, 75%);
+
+        --interactive-normal: hsl(0, 0%, 80%);
+        --interactive-hover: hsl(0, 0%, 95%);
+        --interactive-active: hsl(0, 0%, 100%);
+        --interactive-muted: hsl(0, 0%, 45%);
+
+        --background-modifier-hover: rgba(33, 160, 56, 0.12);
+        --background-modifier-active: rgba(33, 160, 56, 0.18);
+        --background-modifier-selected: rgba(33, 160, 56, 0.25);
+        --background-modifier-accent: rgba(255, 255, 255, 0.1);
     }
 }
