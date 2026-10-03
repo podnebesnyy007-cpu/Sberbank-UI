@@ -1,51 +1,74 @@
 /*=============================================
-=         МЕНЮ / ПОПАУТЫ / МОДАЛКИ            =
+=   МЕНЮ / ПОПАУТЫ / МОДАЛКИ (прозрачность)   =
 =============================================*/
 
 /* ---------- КОНТЕКСТНОЕ МЕНЮ ---------- */
 #app-mount .menu-1QYk3Y,
 #app-mount .root-2QYk3Y {
     background: var(--popout-color) !important;
-    backdrop-filter: blur(var(--popout-blur)) saturate(140%);
-    -webkit-backdrop-filter: blur(var(--popout-blur)) saturate(140%);
+    backdrop-filter: blur(16px) saturate(160%);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
     border-radius: var(--popout-radius) !important;
-    border: 1px solid rgba(33, 160, 56, 0.2);
-    box-shadow: var(--popout-shadow);
+    border: 1px solid rgba(33, 160, 56, 0.25);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5),
+                0 0 0 1px rgba(33, 160, 56, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.06);
     padding: 6px;
+    animation: sber-menu-in var(--anim-base) both;
+    transform-origin: top left;
+}
+@keyframes sber-menu-in {
+    from { opacity: 0; transform: scale(0.94) translateY(-6px); }
+    to   { opacity: 1; transform: scale(1)    translateY(0); }
 }
 
 #app-mount .menu-1QYk3Y .item-1OdjEJ {
     border-radius: 12px;
     color: var(--text-default) !important;
-    transition: all 0.12s ease;
+    transition: background var(--anim-fast),
+                color var(--anim-fast),
+                padding-left var(--anim-fast),
+                transform var(--anim-fast);
+    position: relative;
 }
 #app-mount .menu-1QYk3Y .item-1OdjEJ:hover {
     background: rgba(33, 160, 56, 0.22) !important;
     color: #fff !important;
+    padding-left: 14px;
+    transform: translateX(2px);
 }
 #app-mount .menu-1QYk3Y .item-1OdjEJ.colorDanger-2YLzLC:hover {
     background: rgba(237, 66, 69, 0.22) !important;
     color: #ED4245 !important;
 }
 
-/* Разделитель в меню */
+/* Разделитель */
 #app-mount .menu-1QYk3Y .separator-1So4YB {
-    background: rgba(33, 160, 56, 0.2) !important;
+    background: rgba(33, 160, 56, 0.25) !important;
     margin: 4px 8px;
 }
 
-/* ---------- ЮЗЕР-ПОПАУТ (клик по аватару) ---------- */
+/* ---------- ЮЗЕР-ПОПАУТ ---------- */
 #app-mount .userPopout-3YAwnI {
     background: var(--popout-color) !important;
-    backdrop-filter: blur(var(--popout-blur)) saturate(140%);
-    -webkit-backdrop-filter: blur(var(--popout-blur)) saturate(140%);
+    backdrop-filter: blur(16px) saturate(160%);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
     border-radius: var(--popout-radius) !important;
-    border: 1px solid rgba(33, 160, 56, 0.2);
-    box-shadow: var(--popout-shadow);
+    border: 1px solid rgba(33, 160, 56, 0.25);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5),
+                0 0 0 1px rgba(33, 160, 56, 0.1);
+    animation: sber-popout-in var(--anim-base) both;
+    overflow: hidden;
+}
+@keyframes sber-popout-in {
+    from { opacity: 0; transform: scale(0.95) translateY(-8px); }
+    to   { opacity: 1; transform: scale(1)    translateY(0); }
 }
 #app-mount .userPopout-3YAwnI .headerNormal-T_seeN,
 #app-mount .userPopout-3YAwnI .headerTop-3C2Zn0 {
-    background: var(--sber-green) !important;
+    background: linear-gradient(135deg,
+        var(--sber-green),
+        var(--sber-green-light)) !important;
     border-radius: var(--popout-radius) var(--popout-radius) 0 0;
 }
 #app-mount .userPopout-3YAwnI .headerNormal-T_seeN .headerText-3Uvj1Y,
@@ -56,34 +79,51 @@
 /* ---------- QUICK SWITCHER (Ctrl+K) ---------- */
 #app-mount .quickswitcher-2QYk3Y {
     background: rgba(9, 18, 24, 0.92) !important;
-    backdrop-filter: blur(20px) saturate(140%);
-    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    backdrop-filter: blur(24px) saturate(160%);
+    -webkit-backdrop-filter: blur(24px) saturate(160%);
     border-radius: var(--popout-radius) !important;
     border: 1px solid rgba(33, 160, 56, 0.35);
-    box-shadow: 0 20px 60px rgba(33, 160, 56, 0.35);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6),
+                0 0 40px rgba(33, 160, 56, 0.25);
+    animation: sber-menu-in var(--anim-base) both;
 }
 #app-mount .quickswitcher-2QYk3Y .input-2QYk3Y {
     background: rgba(33, 160, 56, 0.15) !important;
     border-radius: 12px !important;
     border: 1px solid rgba(33, 160, 56, 0.25);
+    transition: border-color var(--anim-fast), box-shadow var(--anim-fast);
+}
+#app-mount .quickswitcher-2QYk3Y .input-2QYk3Y:focus {
+    border-color: var(--sber-green);
+    box-shadow: 0 0 0 3px rgba(33, 160, 56, 0.25);
+}
+#app-mount .quickswitcher-2QYk3Y .result-2QYk3Y {
+    border-radius: 10px;
+    transition: background var(--anim-fast), transform var(--anim-fast);
 }
 #app-mount .quickswitcher-2QYk3Y .result-2QYk3Y:hover,
 #app-mount .quickswitcher-2QYk3Y .result-2QYk3Y.selected-2QYk3Y {
     background: rgba(33, 160, 56, 0.25) !important;
-    border-radius: 10px;
+    transform: translateX(3px);
 }
 
 /* ---------- ЭМОДЗИ-ПИКЕР ---------- */
 #app-mount .emojiPicker-6YC1cb {
     background: var(--popout-color) !important;
-    backdrop-filter: blur(var(--popout-blur));
-    -webkit-backdrop-filter: blur(var(--popout-blur));
+    backdrop-filter: blur(16px) saturate(160%);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
     border-radius: var(--popout-radius) !important;
-    border: 1px solid rgba(33, 160, 56, 0.2);
+    border: 1px solid rgba(33, 160, 56, 0.25);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    animation: sber-menu-in var(--anim-base) both;
+}
+#app-mount .emojiPicker-6YC1cb .emojiItem-277VFM {
+    transition: background var(--anim-fast), transform var(--anim-fast);
 }
 #app-mount .emojiPicker-6YC1cb .emojiItem-277VFM.emojiItemSelected-2Lg50V {
     background: rgba(33, 160, 56, 0.28) !important;
     border-radius: 10px;
+    transform: scale(1.15);
 }
 
 /* ---------- TOOLTIP ---------- */
@@ -94,22 +134,34 @@
     border-radius: 10px !important;
     border: 1px solid rgba(33, 160, 56, 0.35);
     color: #fff !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    animation: sber-tooltip-in 0.2s ease both;
+}
+@keyframes sber-tooltip-in {
+    from { opacity: 0; transform: translateY(4px) scale(0.96); }
+    to   { opacity: 1; transform: translateY(0)   scale(1); }
 }
 #app-mount .tooltip-14MtrL.tooltipBrand-2QYk3Y,
 #app-mount .tooltip-14MtrL.tooltipPrimary-3qLMbS {
     background: var(--sber-green) !important;
     color: #fff !important;
+    box-shadow: 0 8px 24px var(--sber-green-glow);
 }
 
 /* ---------- МОДАЛЬНЫЕ ОКНА ---------- */
 #app-mount .modal-2QYk3Y .root-2QYk3Y,
 #app-mount .root-2QYk3Y .modal-2QYk3Y {
     background: rgba(9, 18, 24, 0.92) !important;
-    backdrop-filter: blur(20px) saturate(140%);
-    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    backdrop-filter: blur(24px) saturate(160%);
+    -webkit-backdrop-filter: blur(24px) saturate(160%);
     border-radius: var(--popout-radius) !important;
     border: 1px solid rgba(33, 160, 56, 0.25);
     box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+    animation: sber-modal-in 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes sber-modal-in {
+    from { opacity: 0; transform: scale(0.9); }
+    to   { opacity: 1; transform: scale(1); }
 }
 #app-mount .modal-2QYk3Y .footer-2QYk3Y {
     background: transparent !important;
@@ -119,10 +171,16 @@
 /* ---------- ПОИСК ---------- */
 #app-mount .searchBar-3TnChZ {
     background: rgba(33, 160, 56, 0.12) !important;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     border-radius: 12px !important;
     border: 1px solid rgba(33, 160, 56, 0.2);
+    transition: border-color var(--anim-base),
+                box-shadow var(--anim-base),
+                background var(--anim-base);
 }
 #app-mount .searchBar-3TnChZ:focus-within {
+    background: rgba(33, 160, 56, 0.18) !important;
     border-color: var(--sber-green) !important;
-    box-shadow: 0 0 0 2px rgba(33, 160, 56, 0.25);
+    box-shadow: 0 0 0 3px rgba(33, 160, 56, 0.25);
 }
