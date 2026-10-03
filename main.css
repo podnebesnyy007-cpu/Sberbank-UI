@@ -1,315 +1,60 @@
 /**
- * @name Sberbank UI Main
- * @author ru1.0
- * @description Main theme — optimized, no blur, no lag
- * @version 1.0
+ * @name Sberbank UI
+ * @version 1.0.0
+ * @description Тема Discord в стиле СберБанк UI
+ * @author podnebesnyy007-cpu
+ * @authorId 000000000000000000
+ * @source https://github.com/podnebesnyy007-cpu/Sberbank-UI
  */
 
-/* ============================================================
-   ПЕРЕМЕННЫЕ
-   ============================================================ */
+/* Импорты с GitHub (raw-ссылки) */
+@import url(https://raw.githubusercontent.com/podnebesnyy007-cpu/Sberbank-UI/main/Cores/preload.css);
+@import url(https://raw.githubusercontent.com/podnebesnyy007-cpu/Sberbank-UI/main/menu.css);
+@import url(https://raw.githubusercontent.com/podnebesnyy007-cpu/Sberbank-UI/main/betterdiscordaddon.css);
+
+/*=============================================
+=              ГЛАВНЫЕ НАСТРОЙКИ              =
+=============================================*/
 :root {
-    --DarkBG: url("https://i.imgur.com/LZ0UO8z.png");
-    --LightBG: url("https://i.imgur.com/LZ0UO8z.png");
+    /* ФОН */
+    --sber-bg: url(https://i.imgur.com/LZ0UO8z.png);
+    --sber-bg-blur: 8px;
+    --sber-bg-brightness: 0.75;
+    --sber-bg-size: cover;
+    --sber-bg-position: center;
 
-    --FrameGap: 8px;
-    --FrameRadius: 16px;
+    /* ОТСТУПЫ И СКРУГЛЕНИЯ */
+    --sber-margin: 16px;
+    --sber-radius: 16px;
+    --sber-radius-sm: 10px;
+    --sber-radius-lg: 24px;
 
-    --PanelOpacity: 0.45;
-    --PanelOpacityStrong: 0.55;
-}
+    /* АКЦЕНТ (фирменный зелёный Сбера) */
+    --sber-accent: #21A038;
+    --sber-accent-hover: #1B8530;
+    --sber-accent-light: #4FBF60;
+    --sber-accent-glow: rgba(33, 160, 56, 0.45);
+    --sber-accent-text: #FFFFFF;
 
-/* ============================================================
-   ГЛОБАЛЬНАЯ ОПТИМИЗАЦИЯ — в начале, чтобы перебить всё
-   ============================================================ */
+    /* СТЕКЛО */
+    --sber-glass: rgba(15, 25, 20, 0.55);
+    --sber-glass-light: rgba(255, 255, 255, 0.08);
+    --sber-glass-hover: rgba(255, 255, 255, 0.12);
+    --sber-glass-active: rgba(33, 160, 56, 0.18);
+    --sber-glass-blur: 12px;
 
-/* Убираем ВСЕ backdrop-filter глобально — главный источник лагов */
-*,
-*::before,
-*::after {
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-}
+    /* ТЕКСТ */
+    --sber-text: #FFFFFF;
+    --sber-text-secondary: #B8C4BB;
+    --sber-text-muted: #7A8A7E;
+    --sber-text-link: #4FBF60;
 
-/* GPU-ускорение только для скролл-контейнеров */
-[class*="scroller_"],
-[class*="chatContent_"],
-[class*="members_"],
-[class*="membersWrap_"],
-[class*="guilds_"],
-[class*="sidebar_"]:not([class*="sidebarRegion"]) {
-    transform: translateZ(0);
-    backface-visibility: hidden;
-}
+    /* ГРАНИЦЫ */
+    --sber-border: rgba(255, 255, 255, 0.08);
+    --sber-border-accent: rgba(33, 160, 56, 0.35);
 
-/* Убираем фильтры и тени в списках */
-[class*="chatContent_"] *,
-[class*="members_"] *,
-[class*="guilds_"] *,
-[class*="sidebar_"] * {
-    filter: none !important;
-    text-shadow: none !important;
-}
-
-/* ============================================================
-   ФОН — без затемнения, на всю яркость
-   ============================================================ */
-html,
-body,
-#app-mount,
-.appMount__51fd7,
-[class*="app_"],
-[class*="appMount_"],
-[class*="layers_"],
-[class*="bg_"] {
-    background: transparent !important;
-}
-
-#app-mount {
-    background-image: var(--DarkBG) !important;
-    background-size: cover !important;
-    background-position: center !important;
-    background-repeat: no-repeat !important;
-    position: relative;
-}
-
-/* Затемнение убрано полностью — фон яркий */
-#app-mount::after {
-    display: none !important;
-}
-
-iframe {
-    background: transparent !important;
-}
-
-/* ============================================================
-   ПРОЗРАЧНОСТЬ ПАНЕЛЕЙ
-   ============================================================ */
-[class*="guilds_"],
-[class*="sidebar_"]:not([class*="sidebarRegion"]),
-[class*="sidebarRegion"],
-[class*="chatContent_"],
-[class*="members_"],
-[class*="membersWrap_"],
-[class*="nowPlayingColumn"],
-[class*="nowPlaying"],
-[class*="panels_"] {
-    background-color: rgba(var(--color2), var(--PanelOpacity)) !important;
-}
-
-[class*="chatHeaderBar"],
-[class*="headerBar"],
-[class*="upperContainer"],
-[class*="channelTextArea"],
-[class*="form_"]:has([class*="textArea"]) {
-    background-color: rgba(var(--color2), var(--PanelOpacityStrong)) !important;
-}
-
-/* ============================================================
-   ЕДИНЫЙ ФРЕЙМ
-   ============================================================ */
-[class*="guilds_"] {
-    border-radius: var(--FrameRadius) !important;
-    margin: var(--FrameGap) 0 var(--FrameGap) var(--FrameGap) !important;
-    padding: 6px 0 !important;
-    border: 1px solid rgba(var(--color3), 0.15) !important;
-}
-
-[class*="sidebar_"]:not([class*="sidebarRegion"]),
-[class*="sidebarRegion"] {
-    border-radius: var(--FrameRadius) !important;
-    margin: var(--FrameGap) 0 !important;
-    border: 1px solid rgba(var(--color3), 0.15) !important;
-}
-
-[class*="chatContent_"] {
-    border-radius: var(--FrameRadius) !important;
-    margin: var(--FrameGap) 0 !important;
-    border: 1px solid rgba(var(--color3), 0.15) !important;
-    overflow: hidden !important;
-}
-
-[class*="chatHeaderBar"],
-[class*="headerBar"],
-[class*="upperContainer"] {
-    border-top-left-radius: var(--FrameRadius) !important;
-    border-top-right-radius: var(--FrameRadius) !important;
-    border: none !important;
-}
-
-[class*="members_"],
-[class*="membersWrap_"],
-[class*="nowPlayingColumn"],
-[class*="nowPlaying"] {
-    border-radius: var(--FrameRadius) !important;
-    margin: var(--FrameGap) var(--FrameGap) var(--FrameGap) 0 !important;
-    border: 1px solid rgba(var(--color3), 0.15) !important;
-}
-
-[class*="panels_"] {
-    background-color: rgba(var(--color2), 0.5) !important;
-    border-radius: var(--FrameRadius) !important;
-    margin: 0 0 var(--FrameGap) var(--FrameGap) !important;
-    border: 1px solid rgba(var(--color3), 0.15) !important;
-}
-
-/* ============================================================
-   ПОЛЕ ВВОДА — БЕЗ КРУГОВ
-   ============================================================ */
-[class*="channelTextArea"],
-[class*="form_"]:has([class*="textArea"]) {
-    border-radius: 0 !important;
-    margin: 0 !important;
-    border: none !important;
-    box-shadow: none !important;
-}
-
-[class*="slateTextArea"],
-[class*="textArea_"],
-[class*="placeholder_"],
-[class*="buttons_"],
-[class*="attachWrapper"],
-[class*="attachButton"],
-[class*="emojiButton"],
-[class*="stackedBars_"],
-[class*="channelAttachmentArea_"] {
-    background: transparent !important;
-    border-radius: 0 !important;
-}
-
-/* ============================================================
-   ТОПБАР
-   ============================================================ */
-[class*="chatHeaderBar"] *,
-[class*="headerBar"] *,
-[class*="upperContainer"] * {
-    background-color: transparent !important;
-}
-
-[class*="searchBar"],
-[class*="searchBarComponent_"] {
-    background-color: rgba(var(--color2), 0.5) !important;
-    border-radius: 8px !important;
-}
-
-/* ============================================================
-   HOVER — сервера, каналы, участники, профиль
-   ============================================================ */
-
-/* Сервера */
-[class*="guilds_"] [class*="listItem"]:hover [class*="childWrapper"],
-[class*="guilds_"] [class*="listItem"]:hover [class*="wrapper_"] {
-    transform: scale(1.05);
-}
-
-[class*="listItem_"]:has([class*="selected_"]) [class*="childWrapper"] {
-    background: rgba(var(--color3), 0.55) !important;
-}
-
-[class*="guildSeparator_"] {
-    background: rgba(var(--color3), 0.3) !important;
-}
-
-/* Каналы */
-[class*="sidebar_"] [class*="modeSelected"] [class*="link_"],
-[class*="sidebar_"] [class*="modeSelected"] [class*="wrapper_"] {
-    background: rgba(var(--color3), 0.3) !important;
-}
-
-/* Участники */
-[class*="members_"] [class*="member_"]:hover [class*="memberInner"] {
-    transform: translateX(6px);
-    background: rgba(var(--color3), 0.2) !important;
-    border-radius: 8px;
-}
-
-[class*="members_"] [class*="member_"]:hover img {
-    transform: scale(1.15);
-}
-
-/* Профиль и кнопки */
-[class*="avatarWrapper"]:hover,
-[class*="panels_"] [class*="button_"]:hover {
-    background-color: rgba(var(--color3), 0.2) !important;
-}
-
-/* ============================================================
-   ПЛАВНОСТЬ HOVER
-   ============================================================ */
-[class*="guilds_"] [class*="listItem"],
-[class*="sidebar_"] [class*="channel_"],
-[class*="sidebar_"] [class*="link_"],
-[class*="members_"] [class*="member_"],
-[class*="panels_"] [class*="button_"],
-[class*="avatarWrapper"] {
-    transition: transform 0.15s ease, background-color 0.15s ease !important;
-}
-
-/* ============================================================
-   МОДАЛКИ И ПОПАУТЫ
-   ============================================================ */
-[class*="root_"][class*="modal"],
-[class*="modal_"] [class*="content_"],
-[class*="popout_"],
-[class*="menu_"] {
-    background-color: rgba(var(--color1), 0.95) !important;
-}
-
-/* ============================================================
-   СКРОЛЛБАР
-   ============================================================ */
-[class*="scroller_"]::-webkit-scrollbar,
-[class*="chatContent_"]::-webkit-scrollbar,
-[class*="members_"]::-webkit-scrollbar,
-[class*="guilds_"]::-webkit-scrollbar,
-[class*="sidebar_"]::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-}
-
-[class*="scroller_"]::-webkit-scrollbar-track,
-[class*="chatContent_"]::-webkit-scrollbar-track,
-[class*="members_"]::-webkit-scrollbar-track,
-[class*="guilds_"]::-webkit-scrollbar-track,
-[class*="sidebar_"]::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-[class*="scroller_"]::-webkit-scrollbar-thumb,
-[class*="chatContent_"]::-webkit-scrollbar-thumb,
-[class*="members_"]::-webkit-scrollbar-thumb,
-[class*="guilds_"]::-webkit-scrollbar-thumb,
-[class*="sidebar_"]::-webkit-scrollbar-thumb {
-    background: rgba(var(--color3), 0.5);
-    border-radius: 3px;
-}
-
-[class*="scroller_"]::-webkit-scrollbar-thumb:hover,
-[class*="chatContent_"]::-webkit-scrollbar-thumb:hover,
-[class*="members_"]::-webkit-scrollbar-thumb:hover,
-[class*="guilds_"]::-webkit-scrollbar-thumb:hover,
-[class*="sidebar_"]::-webkit-scrollbar-thumb:hover {
-    background: rgba(var(--color3), 0.9);
-}
-
-/* ============================================================
-   АНИМАЦИЯ СООБЩЕНИЙ — только входящие, без повторного скачка
-   ============================================================ */
-@keyframes sber-message-appear {
-    0%   { opacity: 0; transform: translateY(-6px); }
-    100% { opacity: 1; transform: translateY(0); }
-}
-
-.messageListItem__5126c:not([class*="local"]):not(:has([class*="local"])):not(:has([class*="optimistic"])) {
-    animation: sber-message-appear 0.3s ease-out both;
-}
-
-/* ============================================================
-   REDUCED MOTION
-   ============================================================ */
-@media (prefers-reduced-motion: reduce) {
-    * {
-        animation: none !important;
-        transition: none !important;
-    }
+    /* ТЕНИ */
+    --sber-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+    --sber-shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.35);
+    --sber-shadow-accent: 0 8px 28px rgba(33, 160, 56, 0.35);
 }
