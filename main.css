@@ -195,46 +195,23 @@ iframe {
 @keyframes sber-message-appear {
     0% {
         opacity: 0;
-        transform: translateY(16px) scale(0.97);
-        filter: blur(6px);
-    }
-    60% {
-        opacity: 1;
-        transform: translateY(-3px) scale(1.008);
-        filter: blur(0);
+        transform: translateY(12px);
     }
     100% {
         opacity: 1;
-        transform: translateY(0) scale(1);
-        filter: blur(0);
+        transform: translateY(0);
     }
 }
 
-/* --- Базовая анимация для всех сообщений --- */
 .messageListItem__5126c {
-    animation: sber-message-appear 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation: sber-message-appear 0.35s ease-out both;
 }
 
-/* --- ОТКЛЮЧАЕМ анимацию для своих отправленных сообщений --- */
+/* Свои сообщения — без анимации */
 .messageListItem__5126c.local__5126c,
-.messageListItem__5126c .local__5126c,
-.messageListItem__5126c:has(.message__5126c[class*="local"]),
-.messageListItem__5126c:has(.message__5126c[class*="optimistic"]),
-.messageListItem__5126c:has(.message__5126c[class*="pending"]) {
+.messageListItem__5126c .local__5126c {
     animation: none !important;
 }
-
-/* --- Задержка для последовательного появления --- */
-.messageListItem__5126c:nth-child(1)  { animation-delay: 0s; }
-.messageListItem__5126c:nth-child(2)  { animation-delay: 0.03s; }
-.messageListItem__5126c:nth-child(3)  { animation-delay: 0.06s; }
-.messageListItem__5126c:nth-child(4)  { animation-delay: 0.09s; }
-.messageListItem__5126c:nth-child(5)  { animation-delay: 0.12s; }
-.messageListItem__5126c:nth-child(6)  { animation-delay: 0.15s; }
-.messageListItem__5126c:nth-child(7)  { animation-delay: 0.18s; }
-.messageListItem__5126c:nth-child(8)  { animation-delay: 0.21s; }
-.messageListItem__5126c:nth-child(9)  { animation-delay: 0.24s; }
-.messageListItem__5126c:nth-child(10) { animation-delay: 0.27s; }
 
 @media (prefers-reduced-motion: reduce) {
     .messageListItem__5126c {
