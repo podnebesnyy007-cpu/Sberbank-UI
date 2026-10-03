@@ -1,30 +1,29 @@
 /**
  * @name Sberbank UI Main
  * @author ru1.0
- * @description Main theme — components, chat, panels
- * @version 0.5 beta
+ * @description Main theme — components, chat, panels (optimized)
+ * @version 0.6
  */
 
 /* ============================================================
-   BACKGROUND — IMGUR
+   ПЕРЕМЕННЫЕ
    ============================================================ */
 :root {
     --DarkBG:  url("https://i.imgur.com/LZ0UO8z.png");
     --LightBG: url("https://i.imgur.com/LZ0UO8z.png");
-    --OpacityBG: 60%;
-    --BlurBG: 0px;
+
+    --FrameGap: 8px;
+    --FrameRadius: 16px;
+
+    --BlurPanel: 10px;   /* blur для больших панелей */
+    --BlurSmall: 4px;    /* blur для мелких элементов */
+    --PanelOpacity: 0.15;
+    --PanelOpacityStrong: 0.25;
 }
 
 /* ============================================================
-   BACKGROUND — FIX для iframe-сборки Discord
+   ФОН — через #app-mount, работает везде
    ============================================================ */
-
-:root {
-    --DarkBG:  url("https://i.imgur.com/LZ0UO8z.png");
-    --LightBG: url("https://i.imgur.com/LZ0UO8z.png");
-}
-
-/* Убираем все фоны сверху донизу */
 html,
 body,
 #app-mount,
@@ -36,181 +35,199 @@ body,
     background: transparent !important;
 }
 
-/* Фон — на body::before, поверх всего кроме UI */
-body::before {
+#app-mount {
+    background-image: var(--DarkBG) !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-attachment: fixed !important;
+    background-repeat: no-repeat !important;
+    position: relative;
+}
+
+/* Затемняющий слой */
+#app-mount::after {
     content: "";
     position: fixed;
     inset: 0;
-    background: var(--DarkBG) center/cover no-repeat fixed;
-    background-size: cover;
-    z-index: -2;
+    background: rgba(var(--color2), 0.55);
     pointer-events: none;
-    filter: brightness(0.65);
+    z-index: 0;
 }
 
-/* Затемнение поверх фона */
-body::after {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background: rgba(var(--color2), 0.5);
-    z-index: -1;
-    pointer-events: none;
-}
-
-/* iframe — прозрачный */
-iframe {
-    background: transparent !important;
-    color-scheme: normal !important;
-}
-/* ============================================================
-   1. ПРОЗРАЧНОСТЬ ЭЛЕМЕНТОВ — УСИЛЕННАЯ
-   ============================================================ */
-
-/* --- Левая панель каналов --- */
-.sidebar__5e434,
-.sidebarRegion__23e6b,
-.sidebarRegionScroller__23e6b,
-.container__2637a,
-.privateChannels__35f6a,
-.scroller__629e4,
-.channel__8dbd0,
-.containerDefault__23cdd,
-.wrapper__290d4 {
-    background: rgba(var(--color2), 0.15) !important;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-}
-
-/* --- Выбранный канал --- */
-.modeSelected__2ea32 .link__2ea32,
-.modeSelected__2ea32:hover .link__2ea32 {
-    background: rgba(var(--color3), 0.25) !important;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-}
-
-/* --- Панель участников --- */
-.container_c8ffbb,
-.members_c8ffbb,
-.membersWrap_c8ffbb {
-    background: rgba(var(--color2), 0.15) !important;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-}
-
-.member__5d473,
-.memberInner__5d473 {
-    background: transparent !important;
-}
-
-/* --- Чат --- */
-.chat_f75fb0 { background: transparent !important; }
-.chatContent_f75fb0,
-.scroller_f35c3c,
-.noChannel__01d5c {
-    background: rgba(var(--color2), 0.2) !important;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-}
-
-.chatHeaderBar_dc83f5,
-.chatHeaderBar_a5700d {
-    background: rgba(var(--color2), 0.3) !important;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-}
-
-/* --- Модалка настроек --- */
-.root__49fc1,
-.container__8a031 {
-    background: rgba(var(--color1), 0.35) !important;
-    backdrop-filter: blur(28px) saturate(140%);
-    -webkit-backdrop-filter: blur(28px) saturate(140%);
-}
-
-.contentRegion__23e6b,
-.contentRegionScroller__23e6b,
-.sidebarRegion__23e6b,
-.scroller__629e4,
-.contentColumn__23e6b,
-.contentColumnDefault__23e6b,
-.customColumn__23e6b,
-.customScroller__23e6b,
-.toolsContainer__23e6b {
-    background: transparent !important;
-}
-
-/* --- Карточки в настройках --- */
-.card__6df1a,
-.container__19cf2,
-.container__5682d,
-.blockedIgnoredSettingsNotice__6811a,
-.channelRow_e4503a,
-.optionButtonWrapper__270d7,
-.profileCard__5d7c9,
-.accountProfileCard__1fed1,
-.background__1fed1,
-.fieldList__1fed1,
-.field__1fed1 {
-    background: rgba(var(--color1), 0.25) !important;
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border-radius: 12px;
-}
-
-/* --- Sidebar настроек --- */
-.side_bc05d6 .item_bc05d6.selected_bc05d6,
-.side_bc05d6 .item_bc05d6:hover {
-    background: rgba(var(--color3), 0.25) !important;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border-radius: 8px;
-}
-
-/* --- Поля модалки --- */
-.header__23e6b,
-.top__23e6b,
-.bottom__23e6b {
-    background: transparent !important;
-}
-
-/* --- Кнопки "Изменить" --- */
-.button__201d5.lookFilled__201d5.colorBrand__201d5,
-.button__201d5.lookFilled__201d5.colorPrimary__201d5,
-.lookFilled__201d5.colorBrand__201d5 {
-    background: rgba(var(--color3), 0.85) !important;
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-}
-.lookFilled__201d5.colorBrand__201d5:hover {
-    background: rgba(var(--color3), 1) !important;
-}
-
+iframe { background: transparent !important; }
 
 /* ============================================================
-   2. АНИМАЦИЯ ПОЯВЛЕНИЯ СООБЩЕНИЙ
+   БАЗОВАЯ ПРОЗРАЧНОСТЬ ПАНЕЛЕЙ
+   ============================================================ */
+[class*="guilds_"],
+[class*="sidebar_"]:not([class*="sidebarRegion"]),
+[class*="sidebarRegion"],
+[class*="chatContent_"],
+[class*="members_"],
+[class*="membersWrap_"],
+[class*="nowPlayingColumn"],
+[class*="nowPlaying"],
+[class*="chatHeaderBar"],
+[class*="headerBar"],
+[class*="upperContainer"],
+[class*="channelTextArea"],
+[class*="panels_"],
+[class*="scroller_"]:has([class*="message_"]) {
+    background-color: rgba(var(--color2), var(--PanelOpacity)) !important;
+    backdrop-filter: blur(var(--BlurPanel)) !important;
+    -webkit-backdrop-filter: blur(var(--BlurPanel)) !important;
+}
+
+/* ============================================================
+   ЕДИНЫЙ ФРЕЙМ — скругления и отступы
    ============================================================ */
 
+/* Сервера */
+[class*="guilds_"] {
+    border-radius: var(--FrameRadius) !important;
+    margin: var(--FrameGap) 0 var(--FrameGap) var(--FrameGap) !important;
+    padding: 6px 0 !important;
+    border: 1px solid rgba(var(--color3), 0.1) !important;
+}
+
+/* Сайдбар каналов */
+[class*="sidebar_"]:not([class*="sidebarRegion"]),
+[class*="sidebarRegion"] {
+    border-radius: var(--FrameRadius) !important;
+    margin: var(--FrameGap) 0 !important;
+    border: 1px solid rgba(var(--color3), 0.1) !important;
+}
+
+/* Чат */
+[class*="chatContent_"] {
+    border-radius: var(--FrameRadius) !important;
+    margin: var(--FrameGap) 0 !important;
+    border: 1px solid rgba(var(--color3), 0.1) !important;
+    overflow: hidden !important;
+}
+
+/* Топбар — скруглён сверху как часть чата */
+[class*="chatHeaderBar"],
+[class*="headerBar"],
+[class*="upperContainer"] {
+    background-color: rgba(var(--color2), var(--PanelOpacityStrong)) !important;
+    border-top-left-radius: var(--FrameRadius) !important;
+    border-top-right-radius: var(--FrameRadius) !important;
+    border: none !important;
+}
+
+/* Панель участников / активности */
+[class*="members_"],
+[class*="membersWrap_"],
+[class*="nowPlayingColumn"],
+[class*="nowPlaying"] {
+    border-radius: var(--FrameRadius) !important;
+    margin: var(--FrameGap) var(--FrameGap) var(--FrameGap) 0 !important;
+    border: 1px solid rgba(var(--color3), 0.1) !important;
+}
+
+/* Профиль снизу слева */
+[class*="panels_"] {
+    background-color: rgba(var(--color2), 0.2) !important;
+    border-radius: var(--FrameRadius) !important;
+    margin: 0 0 var(--FrameGap) var(--FrameGap) !important;
+    border: 1px solid rgba(var(--color3), 0.1) !important;
+    border-top: 1px solid rgba(var(--color3), 0.15) !important;
+}
+
+/* Поле ввода — БЕЗ скруглений */
+[class*="channelTextArea"],
+[class*="form_"]:has([class*="textArea"]) {
+    background-color: rgba(var(--color2), var(--PanelOpacityStrong)) !important;
+    border-radius: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    backdrop-filter: blur(var(--BlurPanel)) !important;
+    -webkit-backdrop-filter: blur(var(--BlurPanel)) !important;
+}
+
+/* Внутренние части поля — прозрачные */
+[class*="slateTextArea"],
+[class*="textArea_"],
+[class*="placeholder_"],
+[class*="buttons_"],
+[class*="attachWrapper"],
+[class*="attachButton"],
+[class*="emojiButton"],
+[class*="stackedBars_"],
+[class*="channelAttachmentArea_"] {
+    background: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border-radius: 0 !important;
+}
+
+/* ============================================================
+   ТОПБАР — детали
+   ============================================================ */
+[class*="chatHeaderBar"] *,
+[class*="headerBar"] *,
+[class*="upperContainer"] * {
+    background-color: transparent !important;
+    backdrop-filter: none !important;
+}
+
+[class*="toolbar_"] {
+    background-color: transparent !important;
+}
+
+[class*="searchBar"],
+[class*="searchBarComponent_"] {
+    background-color: rgba(var(--color2), 0.3) !important;
+    border-radius: 8px !important;
+}
+
+/* ============================================================
+   СЕРВЕРА — hover
+   ============================================================ */
+[class*="guilds_"] [class*="listItem"],
+[class*="guilds_"] [class*="wrapper_"] {
+    transition: transform 0.15s ease !important;
+}
+
+[class*="guilds_"] [class*="listItem"]:hover [class*="childWrapper"],
+[class*="guilds_"] [class*="listItem"]:hover [class*="wrapper_"] {
+    transform: scale(1.06) !important;
+}
+
+[class*="listItem_"]:has([class*="selected_"]) [class*="childWrapper"],
+[class*="listItem_"].selected [class*="childWrapper"] {
+    background: rgba(var(--color3), 0.5) !important;
+}
+
+[class*="guildSeparator_"] {
+    background: rgba(var(--color3), 0.3) !important;
+}
+
+/* ============================================================
+   КАНАЛЫ — hover
+   ============================================================ */
+[class*="sidebar_"] [class*="channel_"],
+[class*="sidebar_"] [class*="link_"] {
+    transition: background-color 0.15s ease, transform 0.15s ease !important;
+}
+
+[class*="sidebar_"] [class*="modeSelected"] [class*="link_"],
+[class*="sidebar_"] [class*="modeSelected"] [class*="wrapper_"] {
+    background: rgba(var(--color3), 0.25) !important;
+}
+
+/* ============================================================
+   АНИМАЦИЯ СООБЩЕНИЙ — только для входящих
+   ============================================================ */
 @keyframes sber-message-appear {
-    0% {
-        opacity: 0;
-        transform: translateY(12px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    0%   { opacity: 0; transform: translateY(-6px); }
+    100% { opacity: 1; transform: translateY(0); }
 }
 
-.messageListItem__5126c {
-    animation: sber-message-appear 0.35s ease-out both;
-}
-
-/* Свои сообщения — без анимации */
-.messageListItem__5126c.local__5126c,
-.messageListItem__5126c .local__5126c {
-    animation: none !important;
+.messageListItem__5126c:not([class*="local"]):not(:has([class*="local"])):not(:has([class*="optimistic"])) {
+    animation: sber-message-appear 0.3s ease-out both;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -220,1129 +237,179 @@ iframe {
 }
 
 /* ============================================================
-   3. HOVER НА ПРОФИЛЬ — МАКСИМАЛЬНО ЗАМЕТНЫЙ И ПЛАВНЫЙ
+   УЧАСТНИКИ — hover
    ============================================================ */
-
-.member__5d473,
-.memberInner__5d473 {
-    transition:
-        transform 0.6s cubic-bezier(0.19, 1, 0.22, 1),
-        background-color 0.5s ease,
-        box-shadow 0.5s ease,
-        padding 0.5s ease,
-        margin 0.5s ease;
-    will-change: transform;
+[class*="members_"] [class*="member_"] {
+    transition: transform 0.3s cubic-bezier(0.19, 1, 0.22, 1),
+                background-color 0.3s ease !important;
 }
 
-.member__5d473:hover .memberInner__5d473 {
-    transform: translateX(14px) scale(1.06);
+[class*="members_"] [class*="member_"]:hover [class*="memberInner"] {
+    transform: translateX(10px) scale(1.03);
     background: linear-gradient(
         90deg,
-        rgba(var(--color3), 0.35) 0%,
-        rgba(var(--color3), 0.15) 100%
+        rgba(var(--color3), 0.3) 0%,
+        rgba(var(--color3), 0.1) 100%
     ) !important;
-    border-radius: 12px;
-    box-shadow:
-        0 8px 24px rgba(var(--color3), 0.35),
-        0 0 0 1px rgba(var(--color3), 0.5),
-        inset 0 0 12px rgba(var(--color3), 0.1);
-    padding-left: 10px;
-    padding-right: 10px;
-    margin: 2px 0;
-}
-
-/* --- Имя: зелёный + жирный + лёгкий сдвиг --- */
-.member__5d473:hover .memberInner__5d473 .name__91a9d,
-.member__5d473:hover .nameContainer__703b9 {
-    color: rgb(var(--color3)) !important;
-    font-weight: 700;
-    transform: translateX(6px);
-    text-shadow: 0 0 8px rgba(var(--color3), 0.6);
-    transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
-}
-
-/* --- Аватар: рост + светящееся кольцо --- */
-.member__5d473 .avatar__991e2,
-.member__5d473 .avatar_c19a55,
-.member__5d473 img {
-    transition:
-        transform 0.6s cubic-bezier(0.19, 1, 0.22, 1),
-        box-shadow 0.5s ease;
-}
-
-.member__5d473:hover .avatar__991e2,
-.member__5d473:hover .avatar_c19a55,
-.member__5d473:hover img {
-    transform: scale(1.3) rotate(-3deg);
-    box-shadow:
-        0 0 0 3px rgb(var(--color3)),
-        0 0 20px rgba(var(--color3), 0.7),
-        0 0 40px rgba(var(--color3), 0.4);
-}
-
-/* --- Кнопки управления (микро, звонок и т.д.) плавно появляются --- */
-.member__5d473 .button__8f7a2 {
-    opacity: 0;
-    transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
-    transform: translateX(-4px);
-}
-.member__5d473:hover .button__8f7a2 {
-    opacity: 1;
-    transform: translateX(0);
-}
-
-/* --- Плавный попап профиля при клике --- */
-.userPopout__7b7de,
-.outer_c0bea0 {
-    animation: sber-popout-appear 0.45s cubic-bezier(0.19, 1, 0.22, 1) both;
-}
-
-@keyframes sber-popout-appear {
-    from {
-        opacity: 0;
-        transform: translateY(16px) scale(0.9);
-        filter: blur(6px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-        filter: blur(0);
-    }
-}
-/* --- Имя плавно сдвигается --- */
-.member__5d473 .nameContainer__703b9 {
-    transition: color 0.3s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.member__5d473:hover .nameContainer__703b9 {
-    transform: translateX(4px);
-}
-
-/* --- Друзья в списке --- */
-.peopleListItem_d51464 {
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.peopleListItem_d51464:hover,
-.peopleListItem_d51464.active_d51464 {
-    background: rgba(var(--color3), 0.15) !important;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border-radius: 12px;
-    transform: translateX(6px);
-    box-shadow: 0 4px 16px rgba(var(--color3), 0.2);
-}
-
-/* ===== ТЕСТ ФОНА ===== */
-#app-mount {
-    background-image: url("https://i.imgur.com/LZ0UO8z.png") !important;
-    background-size: cover !important;
-    background-position: center !important;
-    background-attachment: fixed !important;
-    background-repeat: no-repeat !important;
-}
-
-#app-mount::before {
-    display: none !important;
-}
-
-#app-mount::after {
-    display: none !important;
-}
-
-/* ============================================================
-   4. ПРОЗРАЧНОСТЬ — ПОЛЕ ВВОДА, ТОПБАР, СПИСОК СЕРВЕРОВ
-   ============================================================ */
-
-/* --- Панель ввода сообщения (скриншот 1) --- */
-.form_f75fb0,
-.formWithLoadedChatInput_f75fb0,
-.channelTextArea__74017,
-.channelTextArea_f75fb0,
-.themedBackground__74017,
-.stackedBars__74017,
-.scrollableContainer__74017,
-.channelAttachmentArea_b77158,
-.buttons__74017,
-.attachWrapper__74017,
-.attachButton__74017,
-.emojiButton__74017,
-.expression-picker-container,
-.buttons_ce4a36 {
-    background: rgba(var(--color2), 0.25) !important;
-    backdrop-filter: blur(14px) saturate(140%);
-    -webkit-backdrop-filter: blur(14px) saturate(140%);
-    border-radius: 12px;
-}
-
-/* --- Само поле ввода (внутренний textarea) --- */
-.slateTextArea__74017,
-.textArea__74017,
-.placeholder__74017 {
-    background: transparent !important;
-}
-
-/* --- Панель «Написать # | чат» — placeholder --- */
-.placeholder__74017 {
-    color: rgba(var(--text2), 0.8) !important;
-}
-
-/* ============================================================
-   Топбар канала (скриншот 2)
-   ============================================================ */
-.chatHeaderBar_dc83f5,
-.chatHeaderBar_a5700d,
-.upperContainer__9293f,
-.children__9293f,
-.toolbar__9293f,
-.toolbar_bba883,
-.header__9293f,
-.title__9293f,
-.channelName__9293f,
-.channelNameParent__9293f,
-.titleWrapper__9293f,
-.topic__6ec1a,
-.iconWrapper__9293f,
-.icon__9293f,
-.divider__9293f,
-.searchBar__9293f,
-.searchBarComponent__35e86,
-.searchBar_c0e32c,
-.search__35e86,
-.searchBarComponent__62b2a,
-.searchBar__5ec2f {
-    background: rgba(var(--color2), 0.25) !important;
-    backdrop-filter: blur(14px) saturate(140%);
-    -webkit-backdrop-filter: blur(14px) saturate(140%);
-}
-
-/* Тулбар в топбаре (иконки: закреплённые, уведомления, участники, поиск) */
-.toolbar__9293f,
-.toolbar_bba883 {
     border-radius: 10px;
+    box-shadow: 0 4px 16px rgba(var(--color3), 0.25);
+    padding-left: 8px;
+    padding-right: 8px;
 }
 
-/* --- Кнопка поиска --- */
-.searchBar__9293f,
-.searchBar__5ec2f,
-.searchBarComponent__35e86 {
-    border-radius: 10px;
-}
-
-/* ============================================================
-   Список серверов (скриншот 3)
-   ============================================================ */
-.guilds__5e434,
-.guilds_a3002d,
-.wrapper_ef3116,
-.wrapper__216eb,
-.guildsWrapper__5e434,
-.scroller__629e4,
-.tree__7f2be,
-.folderGroup__48115,
-.guildsError__5e434,
-.container__48115,
-.expandedFolderBackground__48115,
-.folder__48115,
-.folderIconWrapper__48115,
-.listItem__5e434,
-.listItemWrapper__91816,
-.guildSeparator__5e434,
-.guild__5e434,
-.wrapper__6e9f8,
-.svg__5e434,
-.childWrapper__6e9f8 {
-    background: transparent !important;
-}
-
-/* --- Общий фон списка серверов --- */
-.guilds__5e434,
-.guilds_a3002d,
-.wrapper_ef3116,
-.wrapper__216eb {
-    background: rgba(var(--color2), 0.15) !important;
-    backdrop-filter: blur(12px) saturate(140%);
-    -webkit-backdrop-filter: blur(12px) saturate(140%);
-}
-
-/* --- Кнопка "Домой" (иконка Discord) --- */
-.wrapper__6e9f8 .childWrapper__6e9f8,
-.circleIconButton__5e434,
-.homeIcon__5e434,
-.childWrapper__6e9f8 {
-    background: rgba(var(--color2), 0.4) !important;
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    transition: all 0.3s ease;
-}
-
-.wrapper__6e9f8:hover .childWrapper__6e9f8,
-.circleIconButton__5e434:hover {
-    background: rgba(var(--color3), 0.6) !important;
-    transform: scale(1.05);
-}
-
-/* --- Папки с серверами --- */
-.expandedFolderBackground__48115,
-.folder__48115,
-.folderGroup__48115 {
-    background: rgba(var(--color2), 0.35) !important;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border-radius: 16px;
-}
-
-/* --- Активный сервер --- */
-.listItem__5e434.selected__5e434 .wrapper__6e9f8 .childWrapper__6e9f8 {
-    background: rgba(var(--color3), 0.5) !important;
-}
-
-/* --- Разделитель --- */
-.guildSeparator__5e434 {
-    background: rgba(var(--color3), 0.3) !important;
+[class*="members_"] [class*="member_"]:hover img {
+    transform: scale(1.2);
+    box-shadow: 0 0 0 2px rgb(var(--color3));
 }
 
 /* ============================================================
-   5. ФИКС ДЛЯ IFRAME-СБОРКИ DISCORD 2025
+   ПРОФИЛЬ В УГЛУ — hover
    ============================================================ */
-
-/* --- Поле ввода сообщения --- */
-[class*="channelTextArea_"],
-[class*="form_"]:has([class*="channelTextArea_"]),
-[class*="scrollableContainer_"] {
-    background: rgba(var(--color2), 0.3) !important;
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    border-radius: 12px;
-}
-
-[class*="slateTextArea_"],
-[class*="textArea_"],
-[class*="placeholder_"],
-[class*="buttons_"],
-[class*="attachWrapper_"],
-[class*="attachButton_"],
-[class*="emojiButton_"] {
-    background: transparent !important;
-}
-
-/* --- Топбар канала --- */
-[class*="chatHeaderBar_"],
-[class*="upperContainer_"],
-[class*="children_"]:has([class*="channelName_"]),
-[class*="toolbar_"],
-[class*="title_"]:has([class*="channelName_"]),
-[class*="searchBar_"] {
-    background: rgba(var(--color2), 0.25) !important;
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-}
-
-/* --- Правая панель "Активность" --- */
-[class*="nowPlayingColumn_"],
-[class*="container_"]:has([class*="scroller_"]):has([class*="section_"]) {
-    background: rgba(var(--color2), 0.15) !important;
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-}
-
-/* ============================================================
-   6. ФИНАЛЬНЫЙ ФИКС — ТОПБАР, ПОЛЕ ВВОДА, АКТИВНОСТЬ
-   Работает с любой сборкой Discord (универсальные селекторы)
-   ============================================================ */
-
-/* ---------- ТОПБАР КАНАЛА ---------- */
-[class*="chatHeaderBar_"],
-[class*="upperContainer_"],
-[class*="headerBar_"],
-[class*="channelHeader_"] {
-    background: rgba(var(--color2), 0.25) !important;
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-}
-
-/* Тулбар с иконками (закреп, уведомления, участники, поиск) */
-[class*="toolbar_"] {
-    background: transparent !important;
-}
-
-/* Кнопка поиска справа */
-[class*="searchBar_"],
-[class*="searchBarComponent_"],
-[class*="search_"]:has(input[type="text"]) {
-    background: rgba(var(--color2), 0.35) !important;
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    border-radius: 8px;
-}
-
-/* ---------- ПОЛЕ ВВОДА СООБЩЕНИЯ ---------- */
-[class*="channelTextArea_"],
-[class*="scrollableContainer_"],
-[class*="themedBackground_"] {
-    background: rgba(var(--color2), 0.3) !important;
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    border-radius: 12px;
-}
-
-/* Внутренние части поля — прозрачные */
-[class*="slateTextArea_"],
-[class*="textArea_"],
-[class*="placeholder_"],
-[class*="buttons_"],
-[class*="attachWrapper_"],
-[class*="attachButton_"],
-[class*="emojiButton_"],
-[class*="stackedBars_"],
-[class*="channelAttachmentArea_"] {
-    background: transparent !important;
-    backdrop-filter: none !important;
-}
-
-/* ---------- ПРАВАЯ ПАНЕЛЬ "АКТИВНОСТЬ" ---------- */
-[class*="nowPlayingColumn_"],
-[class*="nowPlayingScroller_"],
-[class*="scroller_"]:has([class*="section_"]),
-[class*="outer_"]:has([class*="section_"]) {
-    background: rgba(var(--color2), 0.15) !important;
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-}
-
-/* Карточки игр внутри — прозрачнее */
-[class*="section_"],
-[class*="emptyCard_"],
-[class*="card_"]:has([class*="gameIcon_"]) {
-    background: rgba(var(--color2), 0.25) !important;
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-    border-radius: 8px;
-}
-
-/* ---------- ЛЁГКАЯ ПЛАВНОСТЬ (без лагов) ---------- */
-[class*="chatHeaderBar_"],
-[class*="channelTextArea_"],
-[class*="nowPlayingColumn_"] {
-    transition: background-color 0.2s ease;
-}
-
-/* Убираем blur с мелких иконок — снижает нагрузку на GPU */
-[class*="toolbar_"] *,
-[class*="buttons_"] *,
-[class*="attachWrapper_"] * {
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-}
-
-/* ============================================================
-   SBERBANK UI — ФИНАЛЬНЫЙ УНИВЕРСАЛЬНЫЙ ФИКС
-   Работает на любой сборке Discord (2024–2026)
-   ============================================================ */
-
-/* ---------- 1. ТОПБАР (верхняя панель канала) ---------- */
-[class*="chatHeaderBar"],
-[class*="headerBar"],
-[class*="upperContainer"],
-[class*="channelHeader"],
-[class*="chatHeader"],
-[class*="titleBar"],
-[class*="header_"][class*="chat"] {
-    background-color: rgba(var(--color2), 0.25) !important;
-    backdrop-filter: blur(6px) !important;
-    -webkit-backdrop-filter: blur(6px) !important;
-    border-bottom: none !important;
-    box-shadow: none !important;
-}
-
-/* Дети топбара — прозрачные, чтобы не создавать вложенные слои */
-[class*="chatHeaderBar"] *,
-[class*="headerBar"] *,
-[class*="upperContainer"] * {
-    background-color: transparent !important;
-}
-
-/* Тулбар с иконками — прозрачный */
-[class*="toolbar_"] {
-    background-color: transparent !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-}
-
-/* Кнопка поиска */
-[class*="searchBar"],
-[class*="search_"] {
-    background-color: rgba(var(--color2), 0.3) !important;
-    backdrop-filter: blur(6px) !important;
-    -webkit-backdrop-filter: blur(6px) !important;
-    border-radius: 8px !important;
-}
-
-/* ---------- 2. ПОЛЕ ВВОДА СООБЩЕНИЯ ---------- */
-[class*="channelTextArea"],
-[class*="scrollableContainer"]:has([class*="slateTextArea"]),
-[class*="form_"]:has([class*="textArea"]) {
-    background-color: rgba(var(--color2), 0.3) !important;
-    backdrop-filter: blur(6px) !important;
-    -webkit-backdrop-filter: blur(6px) !important;
-    border-radius: 12px !important;
-    box-shadow: none !important;
-}
-
-/* Всё внутри поля — прозрачное */
-[class*="channelTextArea"] *,
-[class*="scrollableContainer"] *,
-[class*="form_"] > * {
-    background-color: transparent !important;
-}
-
-/* Но убираем blur с внутренних мелких элементов — экономит GPU */
-[class*="buttons_"],
-[class*="attachWrapper"],
-[class*="attachButton"],
-[class*="emojiButton"],
-[class*="slateTextArea"],
-[class*="textArea_"] {
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    background-color: transparent !important;
-}
-
-/* ---------- 3. ПРАВАЯ ПАНЕЛЬ "АКТИВНОСТЬ" И УЧАСТНИКИ ---------- */
-[class*="nowPlayingColumn"],
-[class*="nowPlaying"],
-[class*="activityPanel"],
-[class*="membersWrap"],
-[class*="members_"],
-[class*="container_"]:has([class*="member_"]) {
-    background-color: rgba(var(--color2), 0.15) !important;
-    backdrop-filter: blur(6px) !important;
-    -webkit-backdrop-filter: blur(6px) !important;
-}
-
-/* Карточки внутри активности — тоже стеклянные */
-[class*="nowPlayingColumn"] [class*="card"],
-[class*="nowPlayingColumn"] [class*="section"],
-[class*="nowPlayingColumn"] [class*="empty"] {
-    background-color: rgba(var(--color2), 0.25) !important;
-    backdrop-filter: blur(4px) !important;
-    -webkit-backdrop-filter: blur(4px) !important;
-    border-radius: 8px !important;
-}
-
-/* ---------- 4. ПРОФИЛЬ В ЛЕВОМ НИЖНЕМ УГЛУ ---------- */
-[class*="panels_"],
-[class*="panel_"]:has([class*="avatarWrapper"]) {
-    background-color: rgba(var(--color2), 0.2) !important;
-    backdrop-filter: blur(8px) !important;
-    -webkit-backdrop-filter: blur(8px) !important;
-    border-top: 1px solid rgba(var(--color3), 0.15) !important;
-}
-
-/* Аватар + имя */
 [class*="avatarWrapper"] {
-    background-color: transparent !important;
     border-radius: 8px !important;
-    transition: background-color 0.2s ease, transform 0.2s ease !important;
+    transition: background-color 0.2s ease !important;
 }
 
 [class*="avatarWrapper"]:hover {
     background-color: rgba(var(--color3), 0.15) !important;
 }
 
-[class*="avatarWrapper"]:hover img,
-[class*="avatarWrapper"]:hover [class*="avatar_"] {
-    transform: scale(1.08);
-    box-shadow: 0 0 0 2px rgb(var(--color3)), 0 0 12px rgba(var(--color3), 0.5);
-    transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+[class*="avatarWrapper"]:hover img {
+    transform: scale(1.06);
+    box-shadow: 0 0 0 2px rgb(var(--color3));
+    transition: all 0.25s ease;
 }
 
-/* Кнопки микро/наушники/настройки */
-[class*="panels_"] [class*="button_"],
-[class*="panel_"] [class*="button_"] {
+[class*="panels_"] [class*="button_"] {
     background-color: transparent !important;
+    transition: background-color 0.15s ease, transform 0.15s ease !important;
     border-radius: 6px !important;
-    transition: background-color 0.2s ease, transform 0.15s ease !important;
 }
 
-[class*="panels_"] [class*="button_"]:hover,
-[class*="panel_"] [class*="button_"]:hover {
+[class*="panels_"] [class*="button_"]:hover {
     background-color: rgba(var(--color3), 0.2) !important;
     transform: scale(1.05);
 }
 
-/* ---------- 5. ЛЕВАЯ ПАНЕЛЬ КАНАЛОВ ---------- */
-[class*="sidebar_"]:not([class*="sidebarRegion"]),
-[class*="sidebarRegion"] {
-    background-color: rgba(var(--color2), 0.15) !important;
-    backdrop-filter: blur(8px) !important;
-    -webkit-backdrop-filter: blur(8px) !important;
-}
-
-/* ---------- 6. ГЛОБАЛЬНАЯ ЗАЩИТА ОТ ПЛОТНЫХ ФОНОВ ---------- */
-/* Убираем дефолтные тёмные фоны Discord везде, где они есть */
-[class*="app_"],
-[class*="appMount"],
-[class*="layers_"],
-[class*="base_"],
-[class*="container_"]:not([class*="member"]):not([class*="card"]) {
-    background-color: transparent;
-}
-
-/* Исключения — оставляем прозрачность как задано выше */
-[class*="nowPlayingColumn"],
-[class*="nowPlaying"],
-[class*="chatHeaderBar"],
-[class*="headerBar"],
-[class*="channelTextArea"],
-[class*="panels_"],
-[class*="sidebar_"],
-[class*="members_"] {
-    background-color: unset;
-}
-
-/* ---------- 7. ПЛАВНОСТЬ (без лагов) ---------- */
-[class*="chatHeaderBar"],
-[class*="channelTextArea"],
-[class*="nowPlayingColumn"],
-[class*="panels_"] {
-    transition: background-color 0.2s ease !important;
-}
-
-/* Отключаем blur на всех мелких иконках — снижает нагрузку GPU */
-[class*="toolbar_"] *,
-[class*="buttons_"] *,
-[class*="attachWrapper"] *,
-[class*="avatarWrapper"] *,
-[class*="panels_"] [class*="button_"] * {
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-}
-
-/* GPU-ускорение для тяжёлых слоёв */
-[class*="chatContent"],
-[class*="sidebar_"],
-[class*="members_"],
-[class*="guilds_"],
-[class*="panels_"] {
-    transform: translateZ(0);
-    backface-visibility: hidden;
+/* ============================================================
+   МОДАЛКИ И ПОПАУТЫ
+   ============================================================ */
+[class*="root_"][class*="modal"],
+[class*="modal_"] [class*="content_"],
+[class*="popout_"],
+[class*="menu_"] {
+    background-color: rgba(var(--color1), 0.85) !important;
+    backdrop-filter: blur(20px) saturate(140%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(140%) !important;
 }
 
 /* ============================================================
-   9. ЕДИНЫЙ ФРЕЙМ — скругления + отступы между панелями
+   СКРОЛЛБАР
    ============================================================ */
-
-/* ---------- ГЛОБАЛЬНЫЕ ОТСТУПЫ ---------- */
-:root {
-    --FrameGap: 8px;        /* отступ между панелями */
-    --FrameRadius: 16px;    /* радиус скругления */
-}
-
-/* Убираем дефолтные отступы у главного контейнера */
-#app-mount,
-[class*="appMount"],
-[class*="app_"] {
-    background-color: transparent !important;
-    padding: 0 !important;
-}
-
-/* ---------- 1. СПИСОК СЕРВЕРОВ (левая колонка) ---------- */
-[class*="guilds_"] {
-    background-color: rgba(var(--color2), 0.15) !important;
-    backdrop-filter: blur(10px) !important;
-    -webkit-backdrop-filter: blur(10px) !important;
-    border-radius: var(--FrameRadius) !important;
-    margin: var(--FrameGap) 0 var(--FrameGap) var(--FrameGap) !important;
-    padding: 6px 0 !important;
-    border: 1px solid rgba(var(--color3), 0.1) !important;
-}
-
-/* ---------- 2. ПАНЕЛЬ КАНАЛОВ (сайдбар) ---------- */
-[class*="sidebar_"]:not([class*="sidebarRegion"]),
-[class*="sidebarRegion"] {
-    background-color: rgba(var(--color2), 0.15) !important;
-    backdrop-filter: blur(10px) !important;
-    -webkit-backdrop-filter: blur(10px) !important;
-    border-radius: var(--FrameRadius) !important;
-    margin: var(--FrameGap) 0 !important;
-    border: 1px solid rgba(var(--color3), 0.1) !important;
-}
-
-/* ---------- 3. ЧАТ (центральная часть) ---------- */
-[class*="chat_"]:not([class*="chatContent"]):not([class*="chatHeaderBar"]),
-[class*="chatContent"] {
-    background-color: rgba(var(--color2), 0.12) !important;
-    backdrop-filter: blur(8px) !important;
-    -webkit-backdrop-filter: blur(8px) !important;
-    border-radius: var(--FrameRadius) !important;
-    margin: var(--FrameGap) 0 !important;
-    border: 1px solid rgba(var(--color3), 0.1) !important;
-    overflow: hidden !important;
-}
-
-/* ---------- 4. ПРАВАЯ ПАНЕЛЬ (участники / активность) ---------- */
-[class*="membersWrap"],
-[class*="members_"],
-[class*="nowPlayingColumn"],
-[class*="nowPlaying"] {
-    background-color: rgba(var(--color2), 0.15) !important;
-    backdrop-filter: blur(10px) !important;
-    -webkit-backdrop-filter: blur(10px) !important;
-    border-radius: var(--FrameRadius) !important;
-    margin: var(--FrameGap) var(--FrameGap) var(--FrameGap) 0 !important;
-    border: 1px solid rgba(var(--color3), 0.1) !important;
-}
-
-/* ---------- 5. ТОПБАР (внутри чата) ---------- */
-[class*="chatHeaderBar"],
-[class*="headerBar"],
-[class*="upperContainer"] {
-    background-color: rgba(var(--color2), 0.2) !important;
-    backdrop-filter: blur(8px) !important;
-    -webkit-backdrop-filter: blur(8px) !important;
-    border-top-left-radius: var(--FrameRadius) !important;
-    border-top-right-radius: var(--FrameRadius) !important;
-    border: none !important;
-    margin: 0 !important;
-}
-
-/* ---------- 6. ПОЛЕ ВВОДА (внутри чата) ---------- */
-[class*="channelTextArea"],
-[class*="form_"]:has([class*="textArea"]) {
-    background-color: rgba(var(--color2), 0.25) !important;
-    backdrop-filter: blur(8px) !important;
-    -webkit-backdrop-filter: blur(8px) !important;
-    border-radius: 12px !important;
-    margin: 0 var(--FrameGap) var(--FrameGap) var(--FrameGap) !important;
-    box-shadow: none !important;
-    border: 1px solid rgba(var(--color3), 0.1) !important;
-}
-
-/* ---------- 7. ПАНЕЛЬ ПРОФИЛЯ (низ слева) ---------- */
-[class*="panels_"] {
-    background-color: rgba(var(--color2), 0.2) !important;
-    backdrop-filter: blur(10px) !important;
-    -webkit-backdrop-filter: blur(10px) !important;
-    border-radius: var(--FrameRadius) !important;
-    margin: 0 0 var(--FrameGap) var(--FrameGap) !important;
-    border: 1px solid rgba(var(--color3), 0.1) !important;
-}
-
-/* ---------- 8. ВЫРАВНИВАНИЕ "СТЫКОВ" ---------- */
-/* Убираем двойные границы между панелями */
-[class*="sidebar_"] + [class*="chat_"],
-[class*="chat_"] + [class*="members_"],
-[class*="chat_"] + [class*="nowPlaying"] {
-    margin-left: calc(var(--FrameGap) / 2) !important;
-}
-
-/* Между сайдбаром и серверами — тоже gap */
-[class*="guilds_"] + [class*="sidebar_"],
-[class*="guilds_"] + [class*="sidebarRegion"] {
-    margin-left: calc(var(--FrameGap) / 2) !important;
-}
-
-/* ---------- 9. ЛЁГКАЯ ТЕНЬ ДЛЯ ГЛУБИНЫ ---------- */
-[class*="guilds_"],
-[class*="sidebar_"]:not([class*="sidebarRegion"]),
-[class*="chat_"]:not([class*="chatContent"]),
-[class*="chatContent"],
-[class*="membersWrap"],
-[class*="nowPlayingColumn"],
-[class*="panels_"] {
-    box-shadow:
-        0 4px 20px rgba(0, 0, 0, 0.25),
-        inset 0 0 0 1px rgba(var(--color3), 0.05) !important;
-}
-
-/* ---------- 10. ПЛАВНОСТЬ ---------- */
-[class*="guilds_"],
-[class*="sidebar_"]:not([class*="sidebarRegion"]),
-[class*="chat_"],
-[class*="chatContent"],
-[class*="membersWrap"],
-[class*="nowPlayingColumn"],
-[class*="panels_"] {
-    transition: box-shadow 0.3s ease, border-color 0.3s ease !important;
-}
-
-/* ============================================================
-   ФИКС СКРУГЛЕНИЙ — выравниваем радиусы
-   ============================================================ */
-
-/* Поле ввода — тот же радиус, что у чата */
-[class*="channelTextArea"],
-[class*="form_"]:has([class*="textArea"]) {
-    border-radius: var(--FrameRadius) !important;
-    margin-bottom: 0 !important;   /* убираем щель снизу */
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-}
-
-/* Нижняя часть чата — тоже скруглена снизу как фрейм */
-[class*="chat_"]:not([class*="chatContent"]),
-[class*="chatContent"] {
-    border-bottom-left-radius: var(--FrameRadius) !important;
-    border-bottom-right-radius: var(--FrameRadius) !important;
-}
-
-/* Убираем фон под полем ввода — он дублирует скругление */
-[class*="form_"] {
-    background: transparent !important;
-}
-
-/* ============================================================
-   10. ПЛАВНОСТЬ + ОПТИМИЗАЦИЯ СКРОЛЛА
-   ============================================================ */
-
-/* ---------- GPU-УСКОРЕНИЕ ДЛЯ ВСЕХ СКРОЛЛ-КОНТЕЙНЕРОВ ---------- */
-[class*="scroller_"],
-[class*="scrollerBase_"],
-[class*="auto_"],
-[class*="thin_"],
-[class*="messagesWrapper_"],
-[class*="chatContent_"],
-[class*="members_"],
-[class*="membersWrap_"],
-[class*="guilds_"],
-[class*="sidebar_"]:not([class*="sidebarRegion"]) {
-    transform: translateZ(0);
-    backface-visibility: hidden;
-    will-change: scroll-position;
-    -webkit-overflow-scrolling: touch;   /* iOS-плавность */
-    scroll-behavior: smooth;             /* плавный скролл при программных прыжках */
-}
-
-/* ---------- КАСТОМНЫЙ ТОНКИЙ СКРОЛЛБАР (не перекрывает контент) ---------- */
 [class*="scroller_"]::-webkit-scrollbar,
-[class*="scrollerBase_"]::-webkit-scrollbar,
-[class*="auto_"]::-webkit-scrollbar,
-[class*="thin_"]::-webkit-scrollbar,
-[class*="messagesWrapper_"]::-webkit-scrollbar,
 [class*="chatContent_"]::-webkit-scrollbar,
 [class*="members_"]::-webkit-scrollbar,
-[class*="membersWrap_"]::-webkit-scrollbar,
 [class*="guilds_"]::-webkit-scrollbar,
 [class*="sidebar_"]::-webkit-scrollbar {
-    width: 6px !important;
-    height: 6px !important;
+    width: 6px;
+    height: 6px;
 }
 
 [class*="scroller_"]::-webkit-scrollbar-track,
-[class*="scrollerBase_"]::-webkit-scrollbar-track,
-[class*="auto_"]::-webkit-scrollbar-track,
-[class*="thin_"]::-webkit-scrollbar-track,
-[class*="messagesWrapper_"]::-webkit-scrollbar-track,
 [class*="chatContent_"]::-webkit-scrollbar-track,
 [class*="members_"]::-webkit-scrollbar-track,
 [class*="guilds_"]::-webkit-scrollbar-track,
 [class*="sidebar_"]::-webkit-scrollbar-track {
-    background: transparent !important;
-}
-
-[class*="scroller_"]::-webkit-scrollbar-thumb,
-[class*="scrollerBase_"]::-webkit-scrollbar-thumb,
-[class*="auto_"]::-webkit-scrollbar-thumb,
-[class*="thin_"]::-webkit-scrollbar-thumb,
-[class*="messagesWrapper_"]::-webkit-scrollbar-thumb,
-[class*="chatContent_"]::-webkit-scrollbar-thumb,
-[class*="members_"]::-webkit-scrollbar-thumb,
-[class*="guilds_"]::-webkit-scrollbar-thumb,
-[class*="sidebar_"]::-webkit-scrollbar-thumb {
-    background: rgba(var(--color3), 0.5) !important;
-    border-radius: 3px !important;
-    transition: background 0.2s ease;
-}
-
-[class*="scroller_"]::-webkit-scrollbar-thumb:hover,
-[class*="auto_"]::-webkit-scrollbar-thumb:hover,
-[class*="chatContent_"]::-webkit-scrollbar-thumb:hover,
-[class*="members_"]::-webkit-scrollbar-thumb:hover,
-[class*="guilds_"]::-webkit-scrollbar-thumb:hover {
-    background: rgba(var(--color3), 0.9) !important;
-}
-
-/* ---------- ОТКЛЮЧАЕМ ЛИШНИЕ АНИМАЦИИ ВО ВРЕМЯ СКРОЛЛА ---------- */
-/* Когда пользователь скроллит — плавные переходы на элементах ОТКЛЮЧАЮТСЯ */
-[class*="scroller_"] *,
-[class*="chatContent_"] *,
-[class*="members_"] *,
-[class*="guilds_"] * {
-    transition-duration: 0.15s !important;
-    animation-duration: 0.2s !important;
-}
-
-/* ---------- ПЛАВНОСТЬ ПОЯВЛЕНИЯ СООБЩЕНИЙ ПРИ СКРОЛЛЕ ВВЕРХ ---------- */
-[class*="scroller_"] [class*="messageListItem"] {
-    animation-duration: 0.25s !important;
-    animation-timing-function: ease-out !important;
-}
-
-/* ---------- ПЛАВНЫЙ HOVER НА СЕРВЕРАХ ---------- */
-[class*="guilds_"] [class*="listItem"],
-[class*="guilds_"] [class*="wrapper_"] {
-    transition: transform 0.15s ease, background-color 0.15s ease !important;
-    will-change: transform;
-}
-
-[class*="guilds_"] [class*="listItem"]:hover [class*="wrapper_"],
-[class*="guilds_"] [class*="listItem"]:hover [class*="childWrapper"] {
-    transform: scale(1.08) !important;
-}
-
-/* ---------- ПЛАВНЫЙ HOVER НА УЧАСТНИКАХ ---------- */
-[class*="members_"] [class*="member_"] {
-    transition: transform 0.2s cubic-bezier(0.19, 1, 0.22, 1),
-                background-color 0.2s ease !important;
-    will-change: transform;
-}
-
-/* ---------- СКРОЛЛ КАНАЛОВ — ПЛАВНЫЙ ---------- */
-[class*="sidebar_"]:not([class*="sidebarRegion"]) [class*="scroller_"] {
-    scroll-behavior: smooth !important;
-}
-
-/* ---------- ОПТИМИЗАЦИЯ: ОТКЛЮЧАЕМ ТЯЖЁЛЫЕ ЭФФЕКТЫ ВО ВРЕМЯ СКРОЛЛА ---------- */
-/* Blur остаётся, но тень и фильтры временно упрощаются */
-[class*="scroller_"] [class*="message_"],
-[class*="members_"] [class*="member_"],
-[class*="guilds_"] [class*="listItem"] {
-    filter: none !important;
-    text-shadow: none !important;
-}
-
-/* ---------- ПЛАВНЫЙ СКРОЛЛ В МОДАЛКАХ И ПОПАУТАХ ---------- */
-[class*="modal"] [class*="scroller_"],
-[class*="popout"] [class*="scroller_"],
-[class*="menu_"] [class*="scroller_"] {
-    scroll-behavior: smooth !important;
-    -webkit-overflow-scrolling: touch;
-}
-
-/* ---------- УБИРАЕМ ЛАГИ ОТ АНИМАЦИЙ ПРИ СКРОЛЛЕ ---------- */
-/* Используем content-visibility для тяжёлых списков — браузер не рендерит скрытое */
-[class*="messageListItem"]:not(:hover):not(:focus-within) {
-    content-visibility: auto;
-    contain-intrinsic-size: auto 80px;
-}
-
-[class*="members_"] [class*="member_"]:not(:hover) {
-    content-visibility: auto;
-    contain-intrinsic-size: auto 44px;
-}
-
-[class*="guilds_"] [class*="listItem"]:not(:hover) {
-    content-visibility: auto;
-    contain-intrinsic-size: auto 48px;
-}
-
-/* ---------- СНИЖЕНИЕ НАГРУЗКИ НА GPU ПРИ АКТИВНОМ СКРОЛЛЕ ---------- */
-@media (prefers-reduced-motion: reduce) {
-    [class*="scroller_"],
-    [class*="chatContent_"],
-    [class*="members_"],
-    [class*="guilds_"] {
-        scroll-behavior: auto !important;
-    }
-    [class*="scroller_"] *,
-    [class*="chatContent_"] *,
-    [class*="members_"] *,
-    [class*="guilds_"] * {
-        animation: none !important;
-        transition: none !important;
-    }
-}
-
-/* ============================================================
-   ФИКС: убираем скругления у поля ввода сообщения
-   ============================================================ */
-
-/* --- Само поле ввода — без кругов --- */
-[class*="channelTextArea"],
-[class*="channelTextArea_"],
-[class*="form_"]:has([class*="textArea"]),
-[class*="scrollableContainer_"]:has([class*="slateTextArea"]) {
-    border-radius: 0 !important;
-    margin: 0 !important;
-    border: none !important;
-    box-shadow: none !important;
-    background-color: rgba(var(--color2), 0.25) !important;
-    backdrop-filter: blur(6px) !important;
-    -webkit-backdrop-filter: blur(6px) !important;
-}
-
-/* --- Контейнер формы — тоже без скруглений --- */
-[class*="form_"],
-[class*="formWithLoadedChatInput_"] {
-    border-radius: 0 !important;
-    margin: 0 !important;
-    padding: 0 !important;
-}
-
-/* --- Кнопки внутри поля (плюс, GIF, эмодзи) — без кругов --- */
-[class*="attachWrapper_"],
-[class*="attachButton_"],
-[class*="emojiButton_"],
-[class*="buttons_"] {
-    border-radius: 0 !important;
-    background: transparent !important;
-}
-
-/* --- Убираем ВСЕ скругления на дочерних элементах поля ввода --- */
-[class*="channelTextArea"] *,
-[class*="form_"] *,
-[class*="scrollableContainer_"]:has([class*="slateTextArea"]) * {
-    border-radius: 0 !important;
-}
-
-/* --- Если чат имеет скругление снизу — убираем --- */
-[class*="chat_"]:not([class*="chatContent"]),
-[class*="chatContent"] {
-    border-bottom-left-radius: 0 !important;
-    border-bottom-right-radius: 0 !important;
-}
-
-/* ============================================================
-   ФИКС КАКОЙ НЕ ЕБУ УЖЕ СУКААА
-   ============================================================ */
-
-/* Все элементы с любым из этих классов — без скруглений */
-[class*="channelTextArea"],
-[class*="channelTextArea_"],
-[class*="form_"],
-[class*="formWithLoadedChatInput"],
-[class*="scrollableContainer"],
-[class*="slateTextArea"],
-[class*="textArea"],
-[class*="themedBackground"],
-[class*="stackedBars"],
-[class*="channelAttachmentArea"],
-[class*="attachWrapper"],
-[class*="attachButton"],
-[class*="emojiButton"],
-[class*="buttons_"],
-[class*="buttons-"],
-
-/* Нижняя часть чата */
-[class*="chatContent"] > *:last-child,
-[class*="chat_"] > *:last-child,
-[class*="messagesWrapper"] + * {
-    border-radius: 0 !important;
-    border-top-left-radius: 0 !important;
-    border-top-right-radius: 0 !important;
-    border-bottom-left-radius: 0 !important;
-    border-bottom-right-radius: 0 !important;
-}
-
-/* Все дети этих элементов — тоже без кругов */
-[class*="channelTextArea"] *,
-[class*="form_"] *,
-[class*="scrollableContainer"] *,
-[class*="slateTextArea"] *,
-[class*="themedBackground"] * {
-    border-radius: 0 !important;
-}
-
-/* Убираем декоративные псевдоэлементы, если они создают круги */
-[class*="channelTextArea"]::before,
-[class*="channelTextArea"]::after,
-[class*="form_"]::before,
-[class*="form_"]::after,
-[class*="scrollableContainer"]::before,
-[class*="scrollableContainer"]::after {
-    border-radius: 0 !important;
-    display: none !important;
-}
-
-/* ============================================================
-   10. РЕАЛЬНАЯ ОПТИМИЗАЦИЯ СКРОЛЛА
-   ============================================================ */
-
-/* ---------- 1. ОТКЛЮЧАЕМ ВСЕ BLUR — ГЛАВНЫЙ ИСТОЧНИК ЛАГОВ ---------- */
-[class*="scroller_"] [class*="message_"],
-[class*="scroller_"] [class*="messageListItem_"],
-[class*="chatContent_"] [class*="message_"],
-[class*="members_"] [class*="member_"],
-[class*="membersWrap_"] [class*="member_"],
-[class*="guilds_"] [class*="listItem"],
-[class*="sidebar_"] [class*="channel_"] {
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-}
-
-/* ---------- 2. ОТКЛЮЧАЕМ BOX-SHADOW НА ЭЛЕМЕНТАХ СПИСКОВ ---------- */
-[class*="scroller_"] [class*="message_"],
-[class*="members_"] [class*="member_"],
-[class*="guilds_"] [class*="listItem"],
-[class*="sidebar_"] [class*="channel_"] {
-    box-shadow: none !important;
-}
-
-/* ---------- 3. ОТКЛЮЧАЕМ TRANSITIONS НА ВСЁМ В СПИСКАХ ---------- */
-[class*="scroller_"] *,
-[class*="chatContent_"] *,
-[class*="members_"] *,
-[class*="membersWrap_"] *,
-[class*="guilds_"] *,
-[class*="sidebar_"]:not([class*="sidebarRegion"]) * {
-    transition: none !important;
-    animation: none !important;
-}
-
-/* ---------- 4. ВОЗВРАЩАЕМ АНИМАЦИИ ТОЛЬКО ДЛЯ HOVER ---------- */
-[class*="guilds_"] [class*="listItem"]:hover [class*="wrapper_"],
-[class*="guilds_"] [class*="listItem"]:hover [class*="childWrapper"],
-[class*="members_"] [class*="member_"]:hover [class*="memberInner"],
-[class*="sidebar_"] [class*="channel_"]:hover {
-    transition: transform 0.15s ease, background-color 0.15s ease !important;
-}
-
-/* ---------- 5. GPU-УСКОРЕНИЕ ТОЛЬКО ДЛЯ СКРОЛЛ-КОНТЕЙНЕРОВ ---------- */
-[class*="scroller_"],
-[class*="chatContent_"],
-[class*="members_"],
-[class*="membersWrap_"],
-[class*="guilds_"],
-[class*="sidebar_"]:not([class*="sidebarRegion"]) {
-    transform: translateZ(0);
-    backface-visibility: hidden;
-}
-
-/* ---------- 6. СКРОЛЛБАР ТОНКИЙ И БЕЗ АНИМАЦИЙ ---------- */
-[class*="scroller_"]::-webkit-scrollbar,
-[class*="chatContent_"]::-webkit-scrollbar,
-[class*="members_"]::-webkit-scrollbar,
-[class*="guilds_"]::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-}
-
-[class*="scroller_"]::-webkit-scrollbar-track,
-[class*="chatContent_"]::-webkit-scrollbar-track,
-[class*="members_"]::-webkit-scrollbar-track,
-[class*="guilds_"]::-webkit-scrollbar-track {
     background: transparent;
 }
 
 [class*="scroller_"]::-webkit-scrollbar-thumb,
 [class*="chatContent_"]::-webkit-scrollbar-thumb,
 [class*="members_"]::-webkit-scrollbar-thumb,
-[class*="guilds_"]::-webkit-scrollbar-thumb {
-    background: rgba(var(--color3), 0.6);
-    border-radius: 4px;
+[class*="guilds_"]::-webkit-scrollbar-thumb,
+[class*="sidebar_"]::-webkit-scrollbar-thumb {
+    background: rgba(var(--color3), 0.5);
+    border-radius: 3px;
 }
 
-/* ---------- 7. УБИРАЕМ ЛАГИ ОТ hover НА АВАТАРАХ ---------- */
-[class*="guilds_"] img,
-[class*="members_"] img,
-[class*="sidebar_"] img {
+[class*="scroller_"]::-webkit-scrollbar-thumb:hover,
+[class*="chatContent_"]::-webkit-scrollbar-thumb:hover,
+[class*="members_"]::-webkit-scrollbar-thumb:hover,
+[class*="guilds_"]::-webkit-scrollbar-thumb:hover,
+[class*="sidebar_"]::-webkit-scrollbar-thumb:hover {
+    background: rgba(var(--color3), 0.9);
+}
+
+/* ============================================================
+   ОПТИМИЗАЦИЯ — главное
+   ============================================================ */
+
+/* GPU-ускорение только для контейнеров, которые реально скроллятся */
+[class*="scroller_"],
+[class*="chatContent_"],
+[class*="members_"],
+[class*="membersWrap_"],
+[class*="guilds_"],
+[class*="sidebar_"]:not([class*="sidebarRegion"]) {
     transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+/* Убираем blur со ВСЕХ элементов внутри списков — это главный источник лагов */
+[class*="chatContent_"] [class*="message_"],
+[class*="chatContent_"] [class*="messageListItem_"],
+[class*="members_"] [class*="member_"],
+[class*="membersWrap_"] [class*="member_"],
+[class*="guilds_"] [class*="listItem"],
+[class*="sidebar_"] [class*="channel_"],
+[class*="sidebar_"] [class*="link_"],
+[class*="sidebar_"] [class*="containerDefault"] {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    box-shadow: none !important;
+    filter: none !important;
+    text-shadow: none !important;
+}
+
+/* Убираем transition со всех вложенных элементов во время скролла */
+[class*="chatContent_"] *,
+[class*="members_"] *,
+[class*="guilds_"] *,
+[class*="sidebar_"]:not([class*="sidebarRegion"]) * {
     will-change: auto;
 }
 
-/* ---------- 8. ПРЕДОТВРАЩАЕМ РЕ-РЕНДЕР ПРИ HOVER ---------- */
-[class*="message_"]:hover,
-[class*="member_"]:hover,
-[class*="listItem"]:hover,
-[class*="channel_"]:hover {
-    will-change: auto;
+/* Оставляем transition только для элементов, где нужен hover */
+[class*="members_"] [class*="member_"],
+[class*="guilds_"] [class*="listItem"],
+[class*="sidebar_"] [class*="channel_"],
+[class*="panels_"] [class*="button_"],
+[class*="avatarWrapper"] {
+    will-change: transform;
+}
+
+/* ============================================================
+   ХАРДКОРНАЯ ОПТИМИЗАЦИЯ — если всё равно лагает
+   Убираем blur на мелких элементах полностью
+   ============================================================ */
+[class*="toolbar_"] *,
+[class*="buttons_"] *,
+[class*="attachWrapper"] *,
+[class*="avatarWrapper"] *,
+[class*="member_"] *,
+[class*="listItem"] *,
+[class*="channel_"] * {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+    }
 }
