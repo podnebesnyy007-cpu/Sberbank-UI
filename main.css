@@ -964,3 +964,190 @@ iframe {
 [class*="panels_"] {
     transition: box-shadow 0.3s ease, border-color 0.3s ease !important;
 }
+
+/* ============================================================
+   ФИКС СКРУГЛЕНИЙ — выравниваем радиусы
+   ============================================================ */
+
+/* Поле ввода — тот же радиус, что у чата */
+[class*="channelTextArea"],
+[class*="form_"]:has([class*="textArea"]) {
+    border-radius: var(--FrameRadius) !important;
+    margin-bottom: 0 !important;   /* убираем щель снизу */
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+/* Нижняя часть чата — тоже скруглена снизу как фрейм */
+[class*="chat_"]:not([class*="chatContent"]),
+[class*="chatContent"] {
+    border-bottom-left-radius: var(--FrameRadius) !important;
+    border-bottom-right-radius: var(--FrameRadius) !important;
+}
+
+/* Убираем фон под полем ввода — он дублирует скругление */
+[class*="form_"] {
+    background: transparent !important;
+}
+
+/* ============================================================
+   10. ПЛАВНОСТЬ + ОПТИМИЗАЦИЯ СКРОЛЛА
+   ============================================================ */
+
+/* ---------- GPU-УСКОРЕНИЕ ДЛЯ ВСЕХ СКРОЛЛ-КОНТЕЙНЕРОВ ---------- */
+[class*="scroller_"],
+[class*="scrollerBase_"],
+[class*="auto_"],
+[class*="thin_"],
+[class*="messagesWrapper_"],
+[class*="chatContent_"],
+[class*="members_"],
+[class*="membersWrap_"],
+[class*="guilds_"],
+[class*="sidebar_"]:not([class*="sidebarRegion"]) {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    will-change: scroll-position;
+    -webkit-overflow-scrolling: touch;   /* iOS-плавность */
+    scroll-behavior: smooth;             /* плавный скролл при программных прыжках */
+}
+
+/* ---------- КАСТОМНЫЙ ТОНКИЙ СКРОЛЛБАР (не перекрывает контент) ---------- */
+[class*="scroller_"]::-webkit-scrollbar,
+[class*="scrollerBase_"]::-webkit-scrollbar,
+[class*="auto_"]::-webkit-scrollbar,
+[class*="thin_"]::-webkit-scrollbar,
+[class*="messagesWrapper_"]::-webkit-scrollbar,
+[class*="chatContent_"]::-webkit-scrollbar,
+[class*="members_"]::-webkit-scrollbar,
+[class*="membersWrap_"]::-webkit-scrollbar,
+[class*="guilds_"]::-webkit-scrollbar,
+[class*="sidebar_"]::-webkit-scrollbar {
+    width: 6px !important;
+    height: 6px !important;
+}
+
+[class*="scroller_"]::-webkit-scrollbar-track,
+[class*="scrollerBase_"]::-webkit-scrollbar-track,
+[class*="auto_"]::-webkit-scrollbar-track,
+[class*="thin_"]::-webkit-scrollbar-track,
+[class*="messagesWrapper_"]::-webkit-scrollbar-track,
+[class*="chatContent_"]::-webkit-scrollbar-track,
+[class*="members_"]::-webkit-scrollbar-track,
+[class*="guilds_"]::-webkit-scrollbar-track,
+[class*="sidebar_"]::-webkit-scrollbar-track {
+    background: transparent !important;
+}
+
+[class*="scroller_"]::-webkit-scrollbar-thumb,
+[class*="scrollerBase_"]::-webkit-scrollbar-thumb,
+[class*="auto_"]::-webkit-scrollbar-thumb,
+[class*="thin_"]::-webkit-scrollbar-thumb,
+[class*="messagesWrapper_"]::-webkit-scrollbar-thumb,
+[class*="chatContent_"]::-webkit-scrollbar-thumb,
+[class*="members_"]::-webkit-scrollbar-thumb,
+[class*="guilds_"]::-webkit-scrollbar-thumb,
+[class*="sidebar_"]::-webkit-scrollbar-thumb {
+    background: rgba(var(--color3), 0.5) !important;
+    border-radius: 3px !important;
+    transition: background 0.2s ease;
+}
+
+[class*="scroller_"]::-webkit-scrollbar-thumb:hover,
+[class*="auto_"]::-webkit-scrollbar-thumb:hover,
+[class*="chatContent_"]::-webkit-scrollbar-thumb:hover,
+[class*="members_"]::-webkit-scrollbar-thumb:hover,
+[class*="guilds_"]::-webkit-scrollbar-thumb:hover {
+    background: rgba(var(--color3), 0.9) !important;
+}
+
+/* ---------- ОТКЛЮЧАЕМ ЛИШНИЕ АНИМАЦИИ ВО ВРЕМЯ СКРОЛЛА ---------- */
+/* Когда пользователь скроллит — плавные переходы на элементах ОТКЛЮЧАЮТСЯ */
+[class*="scroller_"] *,
+[class*="chatContent_"] *,
+[class*="members_"] *,
+[class*="guilds_"] * {
+    transition-duration: 0.15s !important;
+    animation-duration: 0.2s !important;
+}
+
+/* ---------- ПЛАВНОСТЬ ПОЯВЛЕНИЯ СООБЩЕНИЙ ПРИ СКРОЛЛЕ ВВЕРХ ---------- */
+[class*="scroller_"] [class*="messageListItem"] {
+    animation-duration: 0.25s !important;
+    animation-timing-function: ease-out !important;
+}
+
+/* ---------- ПЛАВНЫЙ HOVER НА СЕРВЕРАХ ---------- */
+[class*="guilds_"] [class*="listItem"],
+[class*="guilds_"] [class*="wrapper_"] {
+    transition: transform 0.15s ease, background-color 0.15s ease !important;
+    will-change: transform;
+}
+
+[class*="guilds_"] [class*="listItem"]:hover [class*="wrapper_"],
+[class*="guilds_"] [class*="listItem"]:hover [class*="childWrapper"] {
+    transform: scale(1.08) !important;
+}
+
+/* ---------- ПЛАВНЫЙ HOVER НА УЧАСТНИКАХ ---------- */
+[class*="members_"] [class*="member_"] {
+    transition: transform 0.2s cubic-bezier(0.19, 1, 0.22, 1),
+                background-color 0.2s ease !important;
+    will-change: transform;
+}
+
+/* ---------- СКРОЛЛ КАНАЛОВ — ПЛАВНЫЙ ---------- */
+[class*="sidebar_"]:not([class*="sidebarRegion"]) [class*="scroller_"] {
+    scroll-behavior: smooth !important;
+}
+
+/* ---------- ОПТИМИЗАЦИЯ: ОТКЛЮЧАЕМ ТЯЖЁЛЫЕ ЭФФЕКТЫ ВО ВРЕМЯ СКРОЛЛА ---------- */
+/* Blur остаётся, но тень и фильтры временно упрощаются */
+[class*="scroller_"] [class*="message_"],
+[class*="members_"] [class*="member_"],
+[class*="guilds_"] [class*="listItem"] {
+    filter: none !important;
+    text-shadow: none !important;
+}
+
+/* ---------- ПЛАВНЫЙ СКРОЛЛ В МОДАЛКАХ И ПОПАУТАХ ---------- */
+[class*="modal"] [class*="scroller_"],
+[class*="popout"] [class*="scroller_"],
+[class*="menu_"] [class*="scroller_"] {
+    scroll-behavior: smooth !important;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* ---------- УБИРАЕМ ЛАГИ ОТ АНИМАЦИЙ ПРИ СКРОЛЛЕ ---------- */
+/* Используем content-visibility для тяжёлых списков — браузер не рендерит скрытое */
+[class*="messageListItem"]:not(:hover):not(:focus-within) {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 80px;
+}
+
+[class*="members_"] [class*="member_"]:not(:hover) {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 44px;
+}
+
+[class*="guilds_"] [class*="listItem"]:not(:hover) {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 48px;
+}
+
+/* ---------- СНИЖЕНИЕ НАГРУЗКИ НА GPU ПРИ АКТИВНОМ СКРОЛЛЕ ---------- */
+@media (prefers-reduced-motion: reduce) {
+    [class*="scroller_"],
+    [class*="chatContent_"],
+    [class*="members_"],
+    [class*="guilds_"] {
+        scroll-behavior: auto !important;
+    }
+    [class*="scroller_"] *,
+    [class*="chatContent_"] *,
+    [class*="members_"] *,
+    [class*="guilds_"] * {
+        animation: none !important;
+        transition: none !important;
+    }
+}
