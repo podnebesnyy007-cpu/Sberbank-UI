@@ -1,311 +1,100 @@
 /**
- * @name Sberbank UI for Discord
+ * @name Sberbank UI Main
  * @author ru1.0
- * @version 0.3 beta
- * @description Discord theme based on Sberbank UI style
+ * @description Main theme — components, chat, panels
+ * @version 0.4 beta
  */
 
-/* ===== АНИМАЦИИ ===== */
-@keyframes sber-channel-select {
-    from { right: 100%; }
-    to { right: 0; }
+/* ============================================================
+   BACKGROUND / APP
+   ============================================================ */
+:is(html, body, .appMount__51fd7) { background: none; }
+.app_a3002d { background: var(--opacity02); color: transparent; }
+.app__160d8 {
+    background: rgba(var(--color2), calc(var(--ColorOpacity) * 0.1));
 }
-@keyframes sber-card-loading {
-    0% { opacity: .66; }
-    50% { opacity: .33; }
-    100% { opacity: .66; }
+.bg__960e4 {
+    background: var(--DarkBG) center/cover no-repeat;
+    background-attachment: fixed;
+    z-index: -1;
 }
-
-/* ===== ПАЛИТРА ===== */
-:root {
-    /* Основные цвета Sberbank */
-    --hsl-main-color: 145 76% 39%;
-    --hsl-hover-color: 145 76% 32%;
-
-    /* Фон */
-    --hsl-background-shading: 220 100% 97%;
-    --background-shading-percent: 90%;
-
-    /* Компоненты */
-    --hsl-card-shading: 220 100% 99%;
-    --hsl-popout-shading: 220 100% 99%;
-    --hsl-input-shading: 220 100% 99%;
-    --hsl-input-border-shading: 220 30% 80%;
-    --hsl-modal-shading: 0 0% 100%;
-
-    /* Статусы */
-    --hsl-success-color: 145 76% 39%;
-    --hsl-danger-color: 0 84% 60%;
-    --hsl-warning-color: 38 92% 50%;
-
-    /* Нативные переменные Discord */
-    --text-link: hsl(var(--hsl-main-color));
-
-    --brand-360: hsl(var(--hsl-main-color));
-    --brand-500: hsl(var(--hsl-main-color));
-    --brand-560: hsl(var(--hsl-hover-color));
-    --brand-600: hsl(var(--hsl-hover-color));
-
-    /* Типографика */
-    --main-font: "SB Sans Text", "SB Sans Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    --code-font: "SB Sans Text", Consolas, Monaco, monospace;
+:is(.theme-light) .bg__960e4 {
+    background-image: var(--LightBG);
 }
 
-/* ===== СВЕТЛАЯ ТЕМА (Снежный Сбер) ===== */
-:is(.theme-light, .theme-dark .theme-light) {
-    --hsl-text-normal: 207 16% 24%;
-    --hsl-text-muted: 207 10% 45%;
-
-    --text-normal: hsl(var(--hsl-text-normal));
-    --text-default: hsl(var(--hsl-text-normal));
-    --text-muted: hsl(var(--hsl-text-muted));
-    --text-strong: hsl(var(--hsl-text-normal));
-    --interactive-normal: hsl(var(--hsl-text-normal));
-    --interactive-hover: hsl(var(--hsl-text-normal));
-    --icon-normal: hsl(var(--hsl-text-normal));
-    --icon-strong: hsl(var(--hsl-text-normal));
-
-    --hsl-background-shading: 220 100% 97%;
-    --hsl-card-shading: 220 100% 99%;
-    --hsl-popout-shading: 220 100% 99%;
-    --hsl-input-shading: 220 100% 99%;
-    --hsl-input-border-shading: 220 30% 80%;
-    --hsl-modal-shading: 0 0% 100%;
-
-    --background-mod-subtle: hsl(var(--hsl-main-color) / 0.08);
+/* ============================================================
+   SIDEBARS
+   ============================================================ */
+.sidebar__5e434,
+.sidebarRegion__23e6b,
+.container__2637a,
+.container_c8ffbb,
+.members_c8ffbb,
+.membersWrap_c8ffbb {
+    background: var(--opacity01a) !important;
+    backdrop-filter: blur(var(--BlurStrength));
+    -webkit-backdrop-filter: blur(var(--BlurStrength));
 }
 
-/* ===== ТЁМНАЯ ТЕМА (Графитовый Сбер) ===== */
-:is(.theme-dark, .theme-light .theme-dark) {
-    --hsl-text-normal: 210 20% 96%;
-    --hsl-text-muted: 210 15% 70%;
-
-    --text-normal: hsl(var(--hsl-text-normal));
-    --text-default: hsl(var(--hsl-text-normal));
-    --text-muted: hsl(var(--hsl-text-muted));
-    --text-strong: hsl(var(--hsl-text-normal));
-    --interactive-normal: hsl(var(--hsl-text-normal));
-    --interactive-hover: hsl(var(--hsl-text-normal));
-    --icon-normal: hsl(var(--hsl-text-normal));
-    --icon-strong: hsl(var(--hsl-text-normal));
-
-    --hsl-background-shading: 210 22% 12%;
-    --hsl-card-shading: 210 20% 16%;
-    --hsl-popout-shading: 210 20% 18%;
-    --hsl-input-shading: 210 18% 14%;
-    --hsl-input-border-shading: 210 15% 28%;
-    --hsl-modal-shading: 210 20% 16%;
-
-    --background-mod-subtle: hsl(var(--hsl-main-color) / 0.12);
+/* ============================================================
+   CHAT
+   ============================================================ */
+.chat_f75fb0 { background: transparent; }
+.chat_f75fb0[data-has-border=true] { border: none; }
+.chatContent_f75fb0,
+.scroller_f35c3c,
+.noChannel__01d5c {
+    background: rgba(var(--color2), calc(var(--ColorOpacity) * 0.4));
 }
 
-/* ===== ТЁМНАЯ (DARKER) ===== */
-:is(.theme-darker, .theme-light .theme-darker) {
-    --hsl-text-normal: 210 20% 98%;
-    --hsl-text-muted: 210 15% 72%;
-
-    --text-normal: hsl(var(--hsl-text-normal));
-    --text-default: hsl(var(--hsl-text-normal));
-    --text-muted: hsl(var(--hsl-text-muted));
-    --text-strong: hsl(var(--hsl-text-normal));
-    --interactive-normal: hsl(var(--hsl-text-normal));
-    --interactive-hover: hsl(var(--hsl-text-normal));
-    --icon-normal: hsl(var(--hsl-text-normal));
-    --icon-strong: hsl(var(--hsl-text-normal));
-
-    --hsl-background-shading: 210 24% 9%;
-    --hsl-card-shading: 210 22% 13%;
-    --hsl-popout-shading: 210 22% 15%;
-    --hsl-input-shading: 210 20% 11%;
-    --hsl-input-border-shading: 210 15% 25%;
-    --hsl-modal-shading: 210 22% 13%;
-
-    --background-mod-subtle: hsl(var(--hsl-main-color) / 0.14);
+.chatHeaderBar_dc83f5,
+.chatHeaderBar_a5700d {
+    background: var(--opacity02a) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
-/* ===== MIDNIGHT (ONYX) ===== */
-:is(.theme-midnight, .theme-light .theme-midnight) {
-    --hsl-text-normal: 210 20% 98%;
-    --hsl-text-muted: 210 15% 70%;
-
-    --text-normal: hsl(var(--hsl-text-normal));
-    --text-default: hsl(var(--hsl-text-normal));
-    --text-muted: hsl(var(--hsl-text-muted));
-    --text-strong: hsl(var(--hsl-text-normal));
-    --interactive-normal: hsl(var(--hsl-text-normal));
-    --interactive-hover: hsl(var(--hsl-text-normal));
-    --icon-normal: hsl(var(--hsl-text-normal));
-    --icon-strong: hsl(var(--hsl-text-normal));
-
-    --hsl-background-shading: 210 25% 6%;
-    --hsl-card-shading: 210 22% 10%;
-    --hsl-popout-shading: 210 22% 12%;
-    --hsl-input-shading: 210 20% 8%;
-    --hsl-input-border-shading: 210 15% 22%;
-    --hsl-modal-shading: 210 22% 10%;
-
-    --background-mod-subtle: hsl(var(--hsl-main-color) / 0.16);
+/* ============================================================
+   MESSAGE INPUT
+   ============================================================ */
+.channelTextArea__74017 {
+    background: var(--opacity01a);
+    box-shadow: 0 0 0 2px var(--opacity03a);
+    border-radius: 12px;
 }
+.channelTextArea__74017:focus-within {
+    box-shadow: 0 0 2px 2px rgb(var(--color3));
+}
+.stackedBars__74017,
+.channelAttachmentArea_b77158,
+.threadSuggestionBar__841c8,
+.themedBackground__74017 { background: transparent; }
 
-/* ===== ПРОЧЕЕ ===== */
-body, button, input, select, textarea, ::placeholder {
-    font-family: var(--main-font);
-}
-
-::selection {
-    background: hsl(var(--hsl-main-color));
-    color: white;
-}
-
-/* ===== ЛЕЙБЛ ВЕРСИИ ===== */
-.info__2debe::after {
-    content: "Sberbank UI" " " "0.3 beta";
-    color: var(--text-muted);
-    font-size: 12px;
-    font-weight: 400;
-    font-family: var(--main-font);
-}
-:is(.theme-dark, .theme-light):not(.platform-osx) .leading_c38106::before {
-    content: "Sberbank UI";
-    position: static;
-    margin-left: 10px;
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--text-default);
-    order: 2;
-    filter: drop-shadow(0 0 5px var(--hsl-main-color));
-}
-:is(.theme-dark, .theme-light):not(.platform-osx) .leading_c38106::after {
-    content: "0.3";
-    position: static;
-    margin-top: -5px;
-    margin-left: 5px;
-    font-family: var(--code-font);
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--text-muted);
-    order: 3;
-}
-
-/* ===== БАЗА ===== */
-body, button, input, select, textarea, ::placeholder {
-    font-family: var(--main-font);
-}
-code { font-family: var(--code-font); }
-::selection {
-    background: var(--hsl-main-color);
-    color: white;
-}
-
-/* ===== КНОПКИ ===== */
+/* ============================================================
+   BUTTONS
+   ============================================================ */
 .button__201d5 { border-radius: 8px; }
 .lookFilled__201d5:is(.colorBrand__201d5, .colorPrimary__201d5) {
-    background-color: var(--hsl-main-color);
+    background-color: rgb(var(--color3));
     border: none;
 }
 .lookFilled__201d5:is(.colorBrand__201d5, .colorPrimary__201d5):hover {
-    background-color: var(--hsl-hover-color);
-}
-.lookFilled__201d5:is(.colorBrand__201d5, .colorPrimary__201d5):disabled {
-    background-color: var(--hsl-main-color);
+    background-color: rgb(var(--color4));
 }
 .lookFilled__201d5.colorGreen__201d5 {
-    background-color: var(--hsl-success-color);
-    border: none;
-}
-.lookFilled__201d5.colorGreen__201d5:hover {
-    background-color: hsl(from var(--hsl-success-color) h s l / 0.8);
+    background-color: rgb(var(--color3));
 }
 .lookFilled__201d5.colorRed__201d5 {
-    background-color: var(--hsl-danger-color);
-    border: none;
-}
-.lookFilled__201d5.colorRed__201d5:hover {
-    background-color: hsl(from var(--hsl-danger-color) h s l / 0.8);
-}
-.lookFilled__201d5:is(.colorWhite__201d5, .colorBrandInverted__201d5) {
-    color: var(--hsl-main-color);
-    border: none;
-}
-.lookFilled__201d5:is(.colorWhite__201d5, .colorBrandInverted__201d5):hover {
-    color: var(--hsl-hover-color);
+    background-color: rgb(224, 68, 68);
 }
 .lookOutlined__201d5:is(.colorBrand__201d5, .colorPrimary__201d5) {
-    border-color: var(--hsl-main-color);
+    border-color: rgb(var(--color3));
 }
-.lookOutlined__201d5:is(.colorBrand__201d5, .colorPrimary__201d5):hover {
-    border-color: var(--hsl-hover-color);
-    background-color: var(--hsl-hover-color);
-}
-.lookOutlined__201d5.colorGreen__201d5 { border-color: var(--hsl-success-color); }
-.lookOutlined__201d5.colorRed__201d5 {
-    background-color: transparent;
-    border-color: var(--hsl-danger-color);
-}
-.lookLink__201d5 .contents__201d5 { background: none; }
 .lookLink__201d5:hover .contents__201d5 { text-decoration: underline; }
-:is(.theme-light, .theme-dark) .lookLink__201d5:is(.colorPrimary__201d5, .colorLink__201d5) {
-    color: var(--hsl-main-color);
-}
-.lookLink__201d5.colorBrand__201d5 { color: var(--hsl-main-color); }
-.lookLink__201d5.colorRed__201d5 { color: var(--hsl-danger-color); }
 
-/* ===== ЧЕКБОКСЫ, РАДИО, СЛАЙДЕРЫ, СВИТЧИ ===== */
-.checkboxOption__714a9[data-selected] .checkboxIndicator__714a9,
-.checkboxOption__714a9[data-selected]:hover:not([data-disabled]) .checkboxIndicator__714a9 {
-    border-color: var(--hsl-main-color);
-    background-color: transparent;
-}
-.outerRadioBase__64e61 { stroke: var(--icon-strong); stroke-width: 4; }
-:is(.radioGroupOption__64e61, .standaloneRadioIndicator__64e61)[data-selected] :is(.outerRadioBase__64e61, .outerRadioFill__64e61) {
-    fill: none;
-    stroke: var(--icon-strong);
-}
-.slider_a562c8 .bar_a562c8,
-.slider_a562c8 .markDash_a562c8 { background: var(--hsl-card-shading); }
-.slider_a562c8 .barFill_a562c8 { background: var(--hsl-main-color); }
-.slider_a562c8 .grabber_a562c8 { filter: drop-shadow(0 0 3px var(--hsl-main-color)); }
-.switchIndicator_a28278:not([style*="background-color: rgba(0, 0, 0, 0.12)"]) {
-    background: var(--hsl-main-color) !important;
-}
-
-/* ===== ТАБЫ ===== */
-.top_aa8da2 .item_aa8da2 { --selected-tab-item-color: var(--hsl-hover-color); }
-.top_aa8da2 .item_aa8da2.selected_aa8da2 {
-    --selected-tab-item-color: var(--hsl-main-color);
-    color: var(--interactive-text-active);
-}
-:is(.topPill_aa8da2, .side_aa8da2) .themed_aa8da2.item_aa8da2:hover:not(.disabled_aa8da2) {
-    background-color: var(--background-mod-subtle);
-}
-:is(.topPill_aa8da2, .side_aa8da2) .themed_aa8da2.item_aa8da2.selected_aa8da2 {
-    background-color: var(--hsl-main-color);
-}
-:is(.topPill_aa8da2, .side_aa8da2) .themed_aa8da2.item_aa8da2.selected_aa8da2:hover:not(.disabled_aa8da2) {
-    background-color: var(--hsl-main-color);
-}
-.header_aa8da2 {
-    color: var(--hsl-main-color);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.header_aa8da2::before {
-    content: "";
-    height: 2px;
-    flex-grow: 1;
-    background: linear-gradient(to left, var(--hsl-main-color) 50%, transparent);
-    margin-right: 5px;
-}
-.header_aa8da2::after {
-    content: "";
-    height: 2px;
-    flex-grow: 1;
-    background: linear-gradient(to right, var(--hsl-main-color) 50%, transparent);
-    margin-left: 5px;
-}
-
-/* ===== ПОЛЯ ВВОДА ===== */
+/* ============================================================
+   INPUTS
+   ============================================================ */
 .wrapper__72c38,
 .container_a45028,
 .container_fea832,
@@ -313,102 +102,34 @@ code { font-family: var(--code-font); }
 .searchBar__97492,
 .cardInput__8b579,
 .addFriendInputWrapper__72ba7 {
-    background: var(--hsl-input-shading);
-    border-color: var(--hsl-input-border-shading);
+    background: var(--opacity01a);
+    border-color: var(--opacity03a);
 }
 .wrapper__72c38:not([data-read-only=true]):has(input:focus, textarea:focus),
 .container_a45028:focus-within,
 .container_fea832:focus-within,
 .input_ac6cb0:focus-within,
-.searchBar__97492:focus-within,
-.cardInputFocused__8b579,
-.addFriendInputWrapper__72ba7:focus-within {
-    border-color: var(--hsl-main-color);
-    box-shadow: 0 0 2px 0 var(--hsl-main-color);
-    outline: 2px solid var(--hsl-main-color);
+.searchBar__97492:focus-within {
+    border-color: rgb(var(--color3));
+    box-shadow: 0 0 2px 0 rgb(var(--color3));
 }
-.input__0f084::placeholder { color: var(--text-muted); }
+.input__0f084::placeholder { color: var(--text02); }
 
-/* ===== ФОН И ПРИЛОЖЕНИЕ ===== */
-:is(html, body, .appMount__51fd7) { background: none; }
-.app_a3002d { background: var(--hsl-background-shading); }
-.app__160d8 { background: hsl(from var(--hsl-background-shading) h s l / calc(var(--background-shading-percent) * 0.1)); }
-.bg__960e4 {
-    background: var(--background-image) var(--background-position)/var(--background-size) no-repeat;
-    background-attachment: var(--background-attachment);
-    filter: var(--background-filter);
-    z-index: -1;
-}
-.container_a2f514 { background: var(--hsl-background-shading); }
-.wanderingCubes__46696 .item__46696 { background: var(--hsl-main-color); }
-.path__46696 { stroke: var(--hsl-main-color); }
-.wrapper__61a6b { background: var(--hsl-background-shading); }
-
-/* ===== СКРОЛЛБАРЫ ===== */
-:is(.auto__99f8c, .auto_d125d2)::-webkit-scrollbar { width: 14px; }
-:is(.auto__99f8c, .auto_d125d2)::-webkit-scrollbar-thumb,
-:is(.auto__99f8c, .auto_d125d2)::-webkit-scrollbar-track {
-    border: 3px solid transparent;
-    border-radius: 7px;
-}
-:is(.auto__99f8c, .auto_d125d2)::-webkit-scrollbar-track { background: transparent; }
-:is(.thin__99f8c, .thin_d125d2)::-webkit-scrollbar { width: 8px; }
-:is(:is(.auto__99f8c, .auto_d125d2), :is(.thin__99f8c, .thin_d125d2))::-webkit-scrollbar-thumb {
-    background-color: var(--hsl-main-color);
-}
-:is(:is(.auto__99f8c, .auto_d125d2), :is(.thin__99f8c, .thin_d125d2))::-webkit-scrollbar-thumb:active {
-    background-color: var(--hsl-hover-color);
-}
-
-/* ===== БЕЙДЖИ ===== */
-.numberBadge__463b7,
-.textBadge__463b7 {
-    background: var(--hsl-main-color) !important;
-    color: var(--text-strong);
-}
-
-/* ===== ЧАТ ===== */
-.chat_f75fb0 { background: transparent; }
-.chat_f75fb0[data-has-border=true] { border: none; }
-.chatContent_f75fb0,
-.scroller_f35c3c,
-.noChannel__01d5c {
-    background: hsl(from var(--hsl-background-shading) h s l / calc(var(--background-shading-percent) * 0.4));
-}
-.chatGradientBase__36d07 { background: none; }
-.chatHeaderBar_dc83f5 { background: transparent; }
-.role_b4b2c3 { background: hsl(from var(--hsl-main-color) h s l / 0.2); }
-
-/* ===== ПОЛЕ ВВОДА СООБЩЕНИЯ ===== */
-.channelTextArea__74017 {
-    background-color: var(--hsl-input-shading);
-    box-shadow: 0 0 0 2px var(--hsl-input-border-shading);
-    border-color: transparent;
-}
-.channelTextArea__74017:focus-within {
-    border-color: transparent;
-    box-shadow: 0 0 2px 2px var(--hsl-main-color);
-}
-.stackedBars__74017,
-.channelAttachmentArea_b77158,
-.threadSuggestionBar__841c8,
-.themedBackground__74017 { background: transparent; }
-.scrollableContainer__74017::-webkit-scrollbar-thumb { background-color: var(--hsl-main-color); }
-
-/* ===== СООБЩЕНИЯ ===== */
+/* ============================================================
+   MESSAGES
+   ============================================================ */
 .mentioned__5126c {
-    --background-mentioned: hsl(from var(--hsl-main-color) h s l / 0.1);
-    --background-mentioned-hover: hsl(from var(--hsl-hover-color) h s l / 0.1);
+    --background-mentioned: rgba(var(--color3), 0.1);
+    --background-mentioned-hover: rgba(var(--color4), 0.1);
     background: var(--background-mentioned);
 }
-.mentioned__5126c::before { background-color: var(--hsl-main-color); }
-.repliedMessageClickableSpine_c19a55 { border-color: var(--hsl-main-color); }
-.repliedMessageClickableSpine_c19a55:hover {
-    border-color: var(--hsl-hover-color);
-}
-.messageSpine_c19a55::before { border-color: var(--hsl-main-color); }
+.mentioned__5126c::before { background-color: rgb(var(--color3)); }
+.repliedMessageClickableSpine_c19a55 { border-color: rgb(var(--color3)); }
+.messageSpine_c19a55::before { border-color: rgb(var(--color3)); }
 
-/* ===== ВЛОЖЕНИЯ, КАРТОЧКИ ===== */
+/* ============================================================
+   EMBEDS / CARDS
+   ============================================================ */
 .embedFull__623de,
 .container__60fa3,
 .wrapper_d5f3cd,
@@ -424,17 +145,67 @@ code { font-family: var(--code-font); }
 .container__0be77,
 .container_ca49a1,
 .container_cec934 {
-    background: var(--hsl-card-shading);
+    background: var(--opacity01a);
     border: none;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
 }
 
-/* ===== РОЛИ ===== */
-.role__5d7c9 { background: transparent; position: relative; }
-.roleDot__5d7c9::before {
-    content: "";
-    top: -1px; right: -1px; bottom: -1px; left: -1px;
-    position: absolute;
-    background: inherit;
-    opacity: .2;
-    border-radius: 4px;
+/* ============================================================
+   POPOUTS / MODALS
+   ============================================================ */
+.menu_c1e9c4,
+.popout__76f04,
+.popout_a16aea,
+.autocomplete__13533,
+.tooltip_fa450d,
+.contentWrapper__08434,
+.emojiPicker_c0e32c,
+.messagesPopoutWrap__432f4,
+.container__16eb0,
+.popoutContainer__0f481 {
+    background: var(--opacity02) !important;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+}
+
+.root__49fc1,
+.container__8a031,
+.authBox__921c5,
+.modalBg_b824c5,
+.browser__9a792 {
+    background: rgba(var(--color1), calc(var(--ColorOpacity) * 0.8)) !important;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+
+/* ============================================================
+   SCROLLBARS
+   ============================================================ */
+:is(.auto__99f8c, .auto_d125d2)::-webkit-scrollbar { width: 14px; }
+:is(.thin__99f8c, .thin_d125d2)::-webkit-scrollbar { width: 8px; }
+:is(:is(.auto__99f8c, .auto_d125d2), :is(.thin__99f8c, .thin_d125d2))::-webkit-scrollbar-thumb {
+    background-color: rgb(var(--color3));
+    border: 3px solid transparent;
+    border-radius: 7px;
+    background-clip: content-box;
+}
+:is(:is(.auto__99f8c, .auto_d125d2), :is(.thin__99f8c, .thin_d125d2))::-webkit-scrollbar-thumb:active {
+    background-color: rgb(var(--color4));
+    background-clip: content-box;
+}
+
+/* ============================================================
+   BADGES / ROLES
+   ============================================================ */
+.numberBadge__463b7,
+.textBadge__463b7 {
+    background: rgb(var(--color3)) !important;
+    color: var(--text01);
+}
+.role_b4b2c3 {
+    background: rgba(var(--color3), 0.2);
+    border-radius: 6px;
+    padding: 2px 8px;
 }
