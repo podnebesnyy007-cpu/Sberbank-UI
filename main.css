@@ -233,11 +233,34 @@ body,
     }
 }
 
-.message__5126c,
+/* --- Анимируем ТОЛЬКО входящие сообщения (не свои) --- */
+/* Свои сообщения Discord помечает классом .hasReply или data-author-id === текущий */
+/* Проще всего — анимировать только те, что НЕ в группе "моих" */
+
+.messageListItem__5126c:not(.groupStart__5126c) .message__5126c {
+    /* Без анимации — это продолжение группы */
+}
+
+/* --- Базовая анимация для всех, но отключаемая --- */
 .messageListItem__5126c {
     animation: sber-message-appear 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
+/* --- ОТКЛЮЧАЕМ анимацию для своих отправленных сообщений --- */
+.messageListItem__5126c[data-is-author="true"],
+.messageListItem__5126c .message__5126c[data-is-author="true"],
+.messageListItem__5126c.local__5126c,
+.messageListItem__5126c .local__5126c {
+    animation: none !important;
+}
+
+/* --- ОТКЛЮЧАЕМ повторную анимацию для уже отрисованных --- */
+/* Discord помечает уже проигранные сообщения через aria или data-атрибуты */
+.messageListItem__5126c[data-list-item-id*="chat-messages"] {
+    animation-fill-mode: both;
+}
+
+/* --- Задержка для последовательного появления (соседние сообщения) --- */
 .messageListItem__5126c:nth-child(1)  { animation-delay: 0s; }
 .messageListItem__5126c:nth-child(2)  { animation-delay: 0.03s; }
 .messageListItem__5126c:nth-child(3)  { animation-delay: 0.06s; }
@@ -255,7 +278,6 @@ body,
         animation: none !important;
     }
 }
-
 
 /* ============================================================
    3. HOVER НА ПРОФИЛЬ — МАКСИМАЛЬНО ЗАМЕТНЫЙ И ПЛАВНЫЙ
@@ -384,4 +406,156 @@ body,
 
 #app-mount::after {
     display: none !important;
+}
+
+/* ============================================================
+   4. ПРОЗРАЧНОСТЬ — ПОЛЕ ВВОДА, ТОПБАР, СПИСОК СЕРВЕРОВ
+   ============================================================ */
+
+/* --- Панель ввода сообщения (скриншот 1) --- */
+.form_f75fb0,
+.formWithLoadedChatInput_f75fb0,
+.channelTextArea__74017,
+.channelTextArea_f75fb0,
+.themedBackground__74017,
+.stackedBars__74017,
+.scrollableContainer__74017,
+.channelAttachmentArea_b77158,
+.buttons__74017,
+.attachWrapper__74017,
+.attachButton__74017,
+.emojiButton__74017,
+.expression-picker-container,
+.buttons_ce4a36 {
+    background: rgba(var(--color2), 0.25) !important;
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    border-radius: 12px;
+}
+
+/* --- Само поле ввода (внутренний textarea) --- */
+.slateTextArea__74017,
+.textArea__74017,
+.placeholder__74017 {
+    background: transparent !important;
+}
+
+/* --- Панель «Написать # | чат» — placeholder --- */
+.placeholder__74017 {
+    color: rgba(var(--text2), 0.8) !important;
+}
+
+/* ============================================================
+   Топбар канала (скриншот 2)
+   ============================================================ */
+.chatHeaderBar_dc83f5,
+.chatHeaderBar_a5700d,
+.upperContainer__9293f,
+.children__9293f,
+.toolbar__9293f,
+.toolbar_bba883,
+.header__9293f,
+.title__9293f,
+.channelName__9293f,
+.channelNameParent__9293f,
+.titleWrapper__9293f,
+.topic__6ec1a,
+.iconWrapper__9293f,
+.icon__9293f,
+.divider__9293f,
+.searchBar__9293f,
+.searchBarComponent__35e86,
+.searchBar_c0e32c,
+.search__35e86,
+.searchBarComponent__62b2a,
+.searchBar__5ec2f {
+    background: rgba(var(--color2), 0.25) !important;
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+}
+
+/* Тулбар в топбаре (иконки: закреплённые, уведомления, участники, поиск) */
+.toolbar__9293f,
+.toolbar_bba883 {
+    border-radius: 10px;
+}
+
+/* --- Кнопка поиска --- */
+.searchBar__9293f,
+.searchBar__5ec2f,
+.searchBarComponent__35e86 {
+    border-radius: 10px;
+}
+
+/* ============================================================
+   Список серверов (скриншот 3)
+   ============================================================ */
+.guilds__5e434,
+.guilds_a3002d,
+.wrapper_ef3116,
+.wrapper__216eb,
+.guildsWrapper__5e434,
+.scroller__629e4,
+.tree__7f2be,
+.folderGroup__48115,
+.guildsError__5e434,
+.container__48115,
+.expandedFolderBackground__48115,
+.folder__48115,
+.folderIconWrapper__48115,
+.listItem__5e434,
+.listItemWrapper__91816,
+.guildSeparator__5e434,
+.guild__5e434,
+.wrapper__6e9f8,
+.svg__5e434,
+.childWrapper__6e9f8 {
+    background: transparent !important;
+}
+
+/* --- Общий фон списка серверов --- */
+.guilds__5e434,
+.guilds_a3002d,
+.wrapper_ef3116,
+.wrapper__216eb {
+    background: rgba(var(--color2), 0.15) !important;
+    backdrop-filter: blur(12px) saturate(140%);
+    -webkit-backdrop-filter: blur(12px) saturate(140%);
+}
+
+/* --- Кнопка "Домой" (иконка Discord) --- */
+.wrapper__6e9f8 .childWrapper__6e9f8,
+.circleIconButton__5e434,
+.homeIcon__5e434,
+.childWrapper__6e9f8 {
+    background: rgba(var(--color2), 0.4) !important;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    transition: all 0.3s ease;
+}
+
+.wrapper__6e9f8:hover .childWrapper__6e9f8,
+.circleIconButton__5e434:hover {
+    background: rgba(var(--color3), 0.6) !important;
+    transform: scale(1.05);
+}
+
+/* --- Папки с серверами --- */
+.expandedFolderBackground__48115,
+.folder__48115,
+.folderGroup__48115 {
+    background: rgba(var(--color2), 0.35) !important;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 16px;
+}
+
+/* --- Активный сервер --- */
+.listItem__5e434.selected__5e434 .wrapper__6e9f8 .childWrapper__6e9f8 {
+    background: rgba(var(--color3), 0.5) !important;
+}
+
+/* --- Разделитель --- */
+.guildSeparator__5e434 {
+    background: rgba(var(--color3), 0.3) !important;
 }
