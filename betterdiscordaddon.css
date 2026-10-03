@@ -1,52 +1,41 @@
-/*! Sberbank UI - BetterDiscord Addon v1.0.2 */
+/*! Sberbank UI - BetterDiscord Addon v0.4 beta */
 
-.visual-refresh .bd-store-card {
-    background: var(--hsl-card-shading);
+.visual-refresh .bd-store-card,
+.visual-refresh .bd-addon-store-card,
+.visual-refresh .bd-addon-card {
+    background: var(--opacity01a) !important;
     border: 1px solid transparent;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
-.visual-refresh .bd-store-card:hover {
-    background: var(--hsl-card-shading);
+.visual-refresh .bd-store-card:hover,
+.visual-refresh .bd-addon-store-card:hover,
+.visual-refresh .bd-addon-card:hover {
+    border-color: rgb(var(--color3));
     box-shadow: none;
-    border-color: var(--hsl-main-color);
-}
-.visual-refresh .bd-addon-store-card {
-    background: var(--hsl-card-shading);
-    border: 1px solid transparent;
-}
-.visual-refresh .bd-addon-store-card:hover {
-    background: var(--hsl-card-shading);
-    box-shadow: none;
-    border-color: var(--hsl-main-color);
 }
 .visual-refresh .bd-addon-store-card .bd-addon-store-card-tag {
     background: transparent;
-    border: 1px solid var(--hsl-main-color);
+    border: 1px solid rgb(var(--color3));
 }
-.visual-refresh .bd-addon-card {
-    background: var(--hsl-card-shading);
-    border: 2px solid transparent;
-}
-.visual-refresh .bd-addon-card:hover {
-    background: var(--hsl-card-shading);
-    border-color: var(--hsl-main-color);
-}
-.visual-refresh .bd-addon-header { background: var(--hsl-card-shading); }
-.visual-refresh .bd-notification { background: var(--hsl-card-shading); }
+.visual-refresh .bd-addon-header { background: var(--opacity01a); }
+.visual-refresh .bd-notification { background: var(--opacity01a); }
 .visual-refresh .bd-notification-footer { background: transparent; }
 .visual-refresh .bd-modal-root {
-    background: var(--hsl-card-shading);
-    border: 2px solid var(--hsl-main-color);
+    background: var(--opacity02) !important;
+    border: 2px solid rgb(var(--color3));
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
 }
 .visual-refresh .bd-modal-footer { background: transparent; }
 .visual-refresh .bd-button-filled.bd-button-color-primary {
     border-radius: 8px;
-    background: var(--hsl-main-color);
+    background: rgb(var(--color3));
     border-color: transparent;
 }
 .visual-refresh .bd-button-filled.bd-button-color-primary:hover,
 .visual-refresh .bd-button-filled.bd-button-color-primary:active {
-    background: var(--hsl-hover-color);
-    border-color: transparent;
+    background: rgb(var(--color4));
 }
-.visual-refresh .bd-addon-error-icon { background: var(--hsl-main-color); }
-.visual-refresh .bd-addon-error { border: 1px solid var(--hsl-main-color); }
+.visual-refresh .bd-addon-error-icon { background: rgb(var(--color3)); }
+.visual-refresh .bd-addon-error { border: 1px solid rgb(var(--color3)); }
