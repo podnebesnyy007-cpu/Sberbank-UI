@@ -1252,3 +1252,97 @@ iframe {
     border-radius: 0 !important;
     display: none !important;
 }
+
+/* ============================================================
+   10. РЕАЛЬНАЯ ОПТИМИЗАЦИЯ СКРОЛЛА
+   ============================================================ */
+
+/* ---------- 1. ОТКЛЮЧАЕМ ВСЕ BLUR — ГЛАВНЫЙ ИСТОЧНИК ЛАГОВ ---------- */
+[class*="scroller_"] [class*="message_"],
+[class*="scroller_"] [class*="messageListItem_"],
+[class*="chatContent_"] [class*="message_"],
+[class*="members_"] [class*="member_"],
+[class*="membersWrap_"] [class*="member_"],
+[class*="guilds_"] [class*="listItem"],
+[class*="sidebar_"] [class*="channel_"] {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+/* ---------- 2. ОТКЛЮЧАЕМ BOX-SHADOW НА ЭЛЕМЕНТАХ СПИСКОВ ---------- */
+[class*="scroller_"] [class*="message_"],
+[class*="members_"] [class*="member_"],
+[class*="guilds_"] [class*="listItem"],
+[class*="sidebar_"] [class*="channel_"] {
+    box-shadow: none !important;
+}
+
+/* ---------- 3. ОТКЛЮЧАЕМ TRANSITIONS НА ВСЁМ В СПИСКАХ ---------- */
+[class*="scroller_"] *,
+[class*="chatContent_"] *,
+[class*="members_"] *,
+[class*="membersWrap_"] *,
+[class*="guilds_"] *,
+[class*="sidebar_"]:not([class*="sidebarRegion"]) * {
+    transition: none !important;
+    animation: none !important;
+}
+
+/* ---------- 4. ВОЗВРАЩАЕМ АНИМАЦИИ ТОЛЬКО ДЛЯ HOVER ---------- */
+[class*="guilds_"] [class*="listItem"]:hover [class*="wrapper_"],
+[class*="guilds_"] [class*="listItem"]:hover [class*="childWrapper"],
+[class*="members_"] [class*="member_"]:hover [class*="memberInner"],
+[class*="sidebar_"] [class*="channel_"]:hover {
+    transition: transform 0.15s ease, background-color 0.15s ease !important;
+}
+
+/* ---------- 5. GPU-УСКОРЕНИЕ ТОЛЬКО ДЛЯ СКРОЛЛ-КОНТЕЙНЕРОВ ---------- */
+[class*="scroller_"],
+[class*="chatContent_"],
+[class*="members_"],
+[class*="membersWrap_"],
+[class*="guilds_"],
+[class*="sidebar_"]:not([class*="sidebarRegion"]) {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+/* ---------- 6. СКРОЛЛБАР ТОНКИЙ И БЕЗ АНИМАЦИЙ ---------- */
+[class*="scroller_"]::-webkit-scrollbar,
+[class*="chatContent_"]::-webkit-scrollbar,
+[class*="members_"]::-webkit-scrollbar,
+[class*="guilds_"]::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+[class*="scroller_"]::-webkit-scrollbar-track,
+[class*="chatContent_"]::-webkit-scrollbar-track,
+[class*="members_"]::-webkit-scrollbar-track,
+[class*="guilds_"]::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+[class*="scroller_"]::-webkit-scrollbar-thumb,
+[class*="chatContent_"]::-webkit-scrollbar-thumb,
+[class*="members_"]::-webkit-scrollbar-thumb,
+[class*="guilds_"]::-webkit-scrollbar-thumb {
+    background: rgba(var(--color3), 0.6);
+    border-radius: 4px;
+}
+
+/* ---------- 7. УБИРАЕМ ЛАГИ ОТ hover НА АВАТАРАХ ---------- */
+[class*="guilds_"] img,
+[class*="members_"] img,
+[class*="sidebar_"] img {
+    transform: translateZ(0);
+    will-change: auto;
+}
+
+/* ---------- 8. ПРЕДОТВРАЩАЕМ РЕ-РЕНДЕР ПРИ HOVER ---------- */
+[class*="message_"]:hover,
+[class*="member_"]:hover,
+[class*="listItem"]:hover,
+[class*="channel_"]:hover {
+    will-change: auto;
+}
