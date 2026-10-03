@@ -1,0 +1,216 @@
+/**
+ * @name Sberbank UI Preload
+ * @author ru1.0
+ * @description Core: colors, opacity, keyframes, loading screen
+ * @version 0.4 beta
+ */
+
+/* ============================================================
+   FONTS
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+    --font: "SB Sans Text", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --code-font: "SB Sans Text", "JetBrains Mono", Consolas, Monaco, monospace;
+}
+
+/* ============================================================
+   COLORS — SBERBANK PALETTE (raw RGB)
+   ============================================================ */
+:root {
+    --version: "Sberbank UI v0.4 beta";
+    --showversion: "Sberbank UI v0.4 beta";
+}
+
+:root {
+    --color1: 24, 32, 40;      /* Additional BG — графитовый */
+    --color2: 15, 20, 26;      /* Background — тёмный */
+    --color3: 33, 160, 56;     /* Accent — Sber Green #21A038 */
+    --color4: 23, 111, 40;     /* Gradient — тёмно-зелёный */
+
+    --text1: 240, 243, 245;    /* Accent text */
+    --text2: 160, 170, 180;    /* Muted text */
+}
+
+:root.theme-light {
+    --color1: 238, 243, 255;   /* Additional BG — Снежный Сбер */
+    --color2: 255, 255, 255;   /* Background — белый */
+    --color3: 33, 160, 56;     /* Sber Green */
+    --color4: 23, 111, 40;
+
+    --text1: 51, 63, 72;       /* Графитовый Сбер */
+    --text2: 107, 118, 128;
+}
+
+/* ============================================================
+   DERIVED COLORS
+   ============================================================ */
+:root {
+    --color01: rgb(var(--color1));
+    --color02: rgb(var(--color2));
+    --color03: rgb(var(--color3));
+    --color04: rgb(var(--color4));
+
+    --ColorOpacity: 1;
+    --DisableOpacity: 0;
+
+    /* --- Panel opacity levels --- */
+    --opacity01:  rgba(var(--color1), calc(var(--ColorOpacity)*0.9*(1 - var(--DisableOpacity)) + var(--DisableOpacity)));
+    --opacity02:  rgba(var(--color2), calc(var(--ColorOpacity)*0.9*(1 - var(--DisableOpacity)) + var(--DisableOpacity)));
+    --opacity020a: rgba(var(--color2), calc(var(--ColorOpacity)*0.8*(1 - var(--DisableOpacity)) + var(--DisableOpacity)));
+    --opacity01a: rgba(var(--color1), calc(var(--ColorOpacity)*0.6*(1 - var(--DisableOpacity)) + var(--DisableOpacity)));
+    --opacity02a: rgba(var(--color2), calc(var(--ColorOpacity)*0.6*(1 - var(--DisableOpacity)) + var(--DisableOpacity)));
+    --opacity01b: rgba(var(--color1), calc(var(--ColorOpacity)*0.4*(1 - var(--DisableOpacity)) + var(--DisableOpacity)));
+    --opacity02b: rgba(var(--color2), calc(var(--ColorOpacity)*0.4*(1 - var(--DisableOpacity)) + var(--DisableOpacity)));
+    --opacity01c: rgba(var(--color1), calc(var(--ColorOpacity)*0.2*(1 - var(--DisableOpacity)) + var(--DisableOpacity)));
+    --opacity02c: rgba(var(--color1), calc(var(--ColorOpacity)*0.2*(1 - var(--DisableOpacity)) + var(--DisableOpacity)));
+    --opacity03:  rgba(var(--color3), calc(var(--ColorOpacity)*0.5*(1 - var(--DisableOpacity)) + var(--DisableOpacity)));
+    --opacity03a: rgba(var(--color3), calc(var(--ColorOpacity)*0.2*(1 - var(--DisableOpacity)) + var(--DisableOpacity)));
+
+    /* --- Text --- */
+    --text01: rgb(var(--text1));
+    --text02: rgb(var(--text2));
+
+    /* --- Full (with lite MUI overrides) --- */
+    --full01:  var(--full01_lite_MUI,  rgba(var(--color1), calc(var(--ColorOpacity)*0.9*(1 - var(--DisableOpacity)) + var(--DisableOpacity))));
+    --full02:  var(--full02_lite_MUI,  rgba(var(--color2), calc(var(--ColorOpacity)*0.9*(1 - var(--DisableOpacity)) + var(--DisableOpacity))));
+    --full020a:var(--full020a_lite_MUI,rgba(var(--color2), calc(var(--ColorOpacity)*0.8*(1 - var(--DisableOpacity)) + var(--DisableOpacity))));
+    --full01a: var(--full01a_lite_MUI, rgba(var(--color1), calc(var(--ColorOpacity)*0.6*(1 - var(--DisableOpacity)) + var(--DisableOpacity))));
+    --full02a: var(--full02a_lite_MUI, rgba(var(--color2), calc(var(--ColorOpacity)*0.6*(1 - var(--DisableOpacity)) + var(--DisableOpacity))));
+    --full01b: var(--full01b_lite_MUI, rgba(var(--color1), calc(var(--ColorOpacity)*0.4*(1 - var(--DisableOpacity)) + var(--DisableOpacity))));
+    --full02b: var(--full02b_lite_MUI, rgba(var(--color2), calc(var(--ColorOpacity)*0.4*(1 - var(--DisableOpacity)) + var(--DisableOpacity))));
+    --full01c: var(--full01c_lite_MUI, rgba(var(--color1), calc(var(--ColorOpacity)*0.2*(1 - var(--DisableOpacity)) + var(--DisableOpacity))));
+    --full02c: var(--full02c_lite_MUI, rgba(var(--color1), calc(var(--ColorOpacity)*0.2*(1 - var(--DisableOpacity)) + var(--DisableOpacity))));
+    --full03:  var(--full03_lite_MUI,  rgba(var(--color3), calc(var(--ColorOpacity)*0.8*(1 - var(--DisableOpacity)) + var(--DisableOpacity))));
+    --full03a: var(--full03a_lite_MUI, rgba(var(--color3), calc(var(--ColorOpacity)*0.4*(1 - var(--DisableOpacity)) + var(--DisableOpacity))));
+}
+
+/* ============================================================
+   DISCORD NATIVE VARIABLES
+   ============================================================ */
+:root {
+    --text-normal: var(--text01);
+    --text-default: var(--text01);
+    --text-muted: var(--text02);
+    --text-link: rgb(var(--color3));
+    --text-strong: var(--text01);
+
+    --interactive-normal: var(--text01);
+    --interactive-hover: var(--text01);
+    --interactive-active: rgb(var(--color3));
+    --interactive-text-active: #fff;
+
+    --icon-normal: var(--text01);
+    --icon-strong: var(--text01);
+
+    --brand-360: rgb(var(--color3));
+    --brand-500: rgb(var(--color3));
+    --brand-560: rgb(var(--color4));
+    --brand-600: rgb(var(--color4));
+
+    --background-mod-subtle: rgba(var(--color3), 0.08);
+    --focus-color: rgb(var(--color3));
+}
+
+/* ============================================================
+   OPACITY CONFIG
+   ============================================================ */
+:root {
+    --ColorOpacity: 1;
+    --DisableOpacity: 0;
+    --BlurStrength: 12px;
+}
+
+/* ============================================================
+   LOADING SCREEN
+   ============================================================ */
+:root {
+    --loading-screen: 3s;
+}
+
+@keyframes sber-loading-bg {
+    0%   { box-shadow: 0 0 100px 30px inset var(--color03); }
+    50%  { box-shadow: 0 0 100px 50px inset var(--color03); filter: blur(100px); }
+    70%  { box-shadow: 0 0 30px 50px inset var(--color03); }
+    100% { box-shadow: 0; }
+}
+@keyframes sber-loading-effects {
+    0%   { filter: blur(4px);  transform: scale(1); }
+    50%  { filter: blur(25px); transform: scale(1.1); }
+}
+@keyframes sber-fade-out {
+    to { opacity: 0; }
+}
+@keyframes sber-hide {
+    to { display: none; }
+}
+@keyframes sber-title-unblur {
+    0%   { filter: blur(12px); text-shadow: 0 0 500px var(--color03); }
+    50%  { filter: blur(0);    text-shadow: 0 0 10px currentcolor, 0 0 20px currentcolor; }
+    100% { filter: blur(36px); text-shadow: 0 0 500px var(--color03); }
+}
+@keyframes sber-load-error {
+    to {
+        --version: "Sberbank UI: проверь синтаксис или переустанови тему.";
+        pointer-events: none;
+        backdrop-filter: none;
+        background: var(--opacity02b);
+    }
+}
+
+/* --- BG --- */
+.app_a3002d {
+    animation: sber-loading-effects var(--loading-screen) !important;
+}
+
+#app-mount::before {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 0 100px 30px inset var(--color03);
+    animation:
+        sber-loading-bg var(--loading-screen) alternate ease-in-out,
+        sber-fade-out   var(--loading-screen) ease-in-out forwards 1s,
+        sber-hide       var(--loading-screen) linear forwards var(--loading-screen);
+    content: "";
+    z-index: 999;
+    pointer-events: none;
+}
+
+/* --- Text --- */
+.containerTop__45edc {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: 0 !important;
+    bottom: 0 !important;
+    transform: none;
+    width: 100vw;
+    z-index: 9999;
+    font-weight: bold;
+    animation:
+        sber-fade-out var(--loading-screen) ease-in-out forwards 1s,
+        sber-hide     var(--loading-screen) linear forwards var(--loading-screen),
+        sber-load-error forwards 1s 5s !important;
+}
+
+.containerTop__45edc::after {
+    position: absolute;
+    content: var(--version);
+    font-family: var(--font);
+    font-size: 150px;
+    color: var(--color03);
+    text-shadow: 0 0 10px currentcolor, 0 0 20px currentcolor;
+    animation: sber-title-unblur 3s forwards;
+}
+
+.containerTop__45edc::before {
+    position: absolute;
+    bottom: 50px;
+    content: var(--showversion);
+    font-size: 30px;
+    color: var(--color03);
+    font-family: var(--font);
+}
