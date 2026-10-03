@@ -18,16 +18,52 @@
 
 /* ===== ПАЛИТРА ===== */
 :root {
+    /* Основные цвета Sberbank */
     --hsl-main-color: 145 76% 39%;
     --hsl-hover-color: 145 76% 32%;
+
+    /* Фон */
+    --hsl-background-shading: 220 100% 97%;
+    --background-shading-percent: 90%;
+
+    /* Компоненты */
+    --hsl-card-shading: 220 100% 99%;
+    --hsl-popout-shading: 220 100% 99%;
+    --hsl-input-shading: 220 100% 99%;
+    --hsl-input-border-shading: 220 30% 80%;
+    --hsl-modal-shading: 0 0% 100%;
+
+    /* Статусы */
     --hsl-success-color: 145 76% 39%;
     --hsl-danger-color: 0 84% 60%;
-    --hsl-streaming-color: 270 45% 40%;
+    --hsl-warning-color: 38 92% 50%;
 
-    --hsl-online-color: 145 76% 39%;
-    --hsl-idle-color: 38 92% 50%;
-    --hsl-dnd-color: 0 84% 60%;
-    --hsl-offline-color: 0 0% 50%;
+    /* Нативные переменные Discord */
+    --text-link: hsl(var(--hsl-main-color));
+
+    --brand-360: hsl(var(--hsl-main-color));
+    --brand-500: hsl(var(--hsl-main-color));
+    --brand-560: hsl(var(--hsl-hover-color));
+    --brand-600: hsl(var(--hsl-hover-color));
+
+    /* Типографика */
+    --main-font: "SB Sans Text", "SB Sans Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --code-font: "SB Sans Text", Consolas, Monaco, monospace;
+}
+
+/* ===== СВЕТЛАЯ ТЕМА (Снежный Сбер) ===== */
+:is(.theme-light, .theme-dark .theme-light) {
+    --hsl-text-normal: 207 16% 24%;
+    --hsl-text-muted: 207 10% 45%;
+
+    --text-normal: hsl(var(--hsl-text-normal));
+    --text-default: hsl(var(--hsl-text-normal));
+    --text-muted: hsl(var(--hsl-text-muted));
+    --text-strong: hsl(var(--hsl-text-normal));
+    --interactive-normal: hsl(var(--hsl-text-normal));
+    --interactive-hover: hsl(var(--hsl-text-normal));
+    --icon-normal: hsl(var(--hsl-text-normal));
+    --icon-strong: hsl(var(--hsl-text-normal));
 
     --hsl-background-shading: 220 100% 97%;
     --hsl-card-shading: 220 100% 99%;
@@ -36,41 +72,89 @@
     --hsl-input-border-shading: 220 30% 80%;
     --hsl-modal-shading: 0 0% 100%;
 
-    --hsl-text-normal: 207 16% 24%;
-    --hsl-text-muted: 207 10% 45%;
-
-    --background-shading-percent: 90%;
-    --background-image: none;
-    --background-position: center;
-    --background-size: cover;
-    --background-attachment: fixed;
-    --background-filter: saturate(calc(var(--saturation-factor, 1) * 1));
-
-    --main-font: "SB Sans Text", "SB Sans Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    --code-font: "SB Sans Text", Consolas, Monaco, monospace;
+    --background-mod-subtle: hsl(var(--hsl-main-color) / 0.08);
 }
+
+/* ===== ТЁМНАЯ ТЕМА (Графитовый Сбер) ===== */
+:is(.theme-dark, .theme-light .theme-dark) {
+    --hsl-text-normal: 210 20% 96%;
+    --hsl-text-muted: 210 15% 70%;
 
     --text-normal: hsl(var(--hsl-text-normal));
     --text-default: hsl(var(--hsl-text-normal));
     --text-muted: hsl(var(--hsl-text-muted));
-    --text-link: hsl(var(--hsl-main-color));
     --text-strong: hsl(var(--hsl-text-normal));
     --interactive-normal: hsl(var(--hsl-text-normal));
     --interactive-hover: hsl(var(--hsl-text-normal));
-    --interactive-active: hsl(var(--hsl-main-color));
     --icon-normal: hsl(var(--hsl-text-normal));
     --icon-strong: hsl(var(--hsl-text-normal));
 
-    --hsl-text-normal: 207 16% 24%;
-    --hsl-text-muted: 207 10% 45%;
+    --hsl-background-shading: 210 22% 12%;
+    --hsl-card-shading: 210 20% 16%;
+    --hsl-popout-shading: 210 20% 18%;
+    --hsl-input-shading: 210 18% 14%;
+    --hsl-input-border-shading: 210 15% 28%;
+    --hsl-modal-shading: 210 20% 16%;
 
-    --brand-360: hsl(var(--hsl-main-color));
-    --brand-500: hsl(var(--hsl-main-color));
-    --brand-560: hsl(var(--hsl-hover-color));
-    --brand-600: hsl(var(--hsl-hover-color));
+    --background-mod-subtle: hsl(var(--hsl-main-color) / 0.12);
+}
 
-    --background-mod-subtle: hsl(var(--hsl-main-color) / 0.08);
-    --focus-color: hsl(var(--hsl-main-color));
+/* ===== ТЁМНАЯ (DARKER) ===== */
+:is(.theme-darker, .theme-light .theme-darker) {
+    --hsl-text-normal: 210 20% 98%;
+    --hsl-text-muted: 210 15% 72%;
+
+    --text-normal: hsl(var(--hsl-text-normal));
+    --text-default: hsl(var(--hsl-text-normal));
+    --text-muted: hsl(var(--hsl-text-muted));
+    --text-strong: hsl(var(--hsl-text-normal));
+    --interactive-normal: hsl(var(--hsl-text-normal));
+    --interactive-hover: hsl(var(--hsl-text-normal));
+    --icon-normal: hsl(var(--hsl-text-normal));
+    --icon-strong: hsl(var(--hsl-text-normal));
+
+    --hsl-background-shading: 210 24% 9%;
+    --hsl-card-shading: 210 22% 13%;
+    --hsl-popout-shading: 210 22% 15%;
+    --hsl-input-shading: 210 20% 11%;
+    --hsl-input-border-shading: 210 15% 25%;
+    --hsl-modal-shading: 210 22% 13%;
+
+    --background-mod-subtle: hsl(var(--hsl-main-color) / 0.14);
+}
+
+/* ===== MIDNIGHT (ONYX) ===== */
+:is(.theme-midnight, .theme-light .theme-midnight) {
+    --hsl-text-normal: 210 20% 98%;
+    --hsl-text-muted: 210 15% 70%;
+
+    --text-normal: hsl(var(--hsl-text-normal));
+    --text-default: hsl(var(--hsl-text-normal));
+    --text-muted: hsl(var(--hsl-text-muted));
+    --text-strong: hsl(var(--hsl-text-normal));
+    --interactive-normal: hsl(var(--hsl-text-normal));
+    --interactive-hover: hsl(var(--hsl-text-normal));
+    --icon-normal: hsl(var(--hsl-text-normal));
+    --icon-strong: hsl(var(--hsl-text-normal));
+
+    --hsl-background-shading: 210 25% 6%;
+    --hsl-card-shading: 210 22% 10%;
+    --hsl-popout-shading: 210 22% 12%;
+    --hsl-input-shading: 210 20% 8%;
+    --hsl-input-border-shading: 210 15% 22%;
+    --hsl-modal-shading: 210 22% 10%;
+
+    --background-mod-subtle: hsl(var(--hsl-main-color) / 0.16);
+}
+
+/* ===== ПРОЧЕЕ ===== */
+body, button, input, select, textarea, ::placeholder {
+    font-family: var(--main-font);
+}
+
+::selection {
+    background: hsl(var(--hsl-main-color));
+    color: white;
 }
 
 /* ===== ЛЕЙБЛ ВЕРСИИ ===== */
