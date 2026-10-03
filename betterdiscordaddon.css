@@ -156,3 +156,21 @@
     color: #21A038 !important;
     text-shadow: 0 0 6px rgba(33, 160, 56, 0.6) !important;
 }
+
+/*=============================================
+=   BD: ПЛАВНОЕ ПОЯВЛЕНИЕ КАРТОЧЕК            =
+=============================================*/
+[class*="bd-addon-card"] {
+    animation: sber-fade-in-up 0.35s ease both !important;
+}
+@keyframes sber-fade-in-up {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* BD: переключатели — зелёные с анимацией */
+[class*="bd-switch"] input:checked + [class*="bd-switch-body"] {
+    background: #21A038 !important;
+    box-shadow: 0 0 8px rgba(33, 160, 56, 0.6) !important;
+    transition: all 0.2s ease !important;
+}
