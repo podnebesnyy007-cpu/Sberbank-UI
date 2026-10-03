@@ -1,41 +1,158 @@
-/*! Sberbank UI - BetterDiscord Addon v0.4 beta */
+/**
+ * @name Sberbank UI — BetterDiscord fixes
+ * @description BD-специфичные фиксы поверх ClearVision
+ * @author podnebesnyy007-cpu
+ */
 
-.visual-refresh .bd-store-card,
-.visual-refresh .bd-addon-store-card,
-.visual-refresh .bd-addon-card {
-    background: var(--opacity01a) !important;
-    border: 1px solid transparent;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+/*=============================================
+=   BD: ЛОГОТИП В УГЛУ (замена на Sber)        =
+=============================================*/
+
+/* Убираем встроенный брендинг ClearVision */
+.info__2debe::after {
+    content: "Sberbank UI" !important;
+    color: #4FBF60 !important;
+    font-weight: 600 !important;
+    text-shadow: 0 0 6px rgba(33, 160, 56, 0.5) !important;
 }
-.visual-refresh .bd-store-card:hover,
-.visual-refresh .bd-addon-store-card:hover,
-.visual-refresh .bd-addon-card:hover {
-    border-color: rgb(var(--color3));
-    box-shadow: none;
+
+/* Верхний титул (Windows) */
+:is(.theme-dark, .theme-light):not(.platform-osx) .leading_c38106::before {
+    content: "Sberbank UI" !important;
+    color: #4FBF60 !important;
+    filter: drop-shadow(0 0 6px rgba(33, 160, 56, 0.7)) !important;
 }
-.visual-refresh .bd-addon-store-card .bd-addon-store-card-tag {
-    background: transparent;
-    border: 1px solid rgb(var(--color3));
+
+/*=============================================
+=   BD: КНОПКИ В ХЕДЕРЕ (обновить, темы и т.д.) =
+=============================================*/
+[class*="winButton"]:hover {
+    background: rgba(33, 160, 56, 0.25) !important;
 }
-.visual-refresh .bd-addon-header { background: var(--opacity01a); }
-.visual-refresh .bd-notification { background: var(--opacity01a); }
-.visual-refresh .bd-notification-footer { background: transparent; }
-.visual-refresh .bd-modal-root {
-    background: var(--opacity02) !important;
-    border: 2px solid rgb(var(--color3));
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+[class*="winButtonClose"]:hover {
+    background: #ED4245 !important;
 }
-.visual-refresh .bd-modal-footer { background: transparent; }
-.visual-refresh .bd-button-filled.bd-button-color-primary {
-    border-radius: 8px;
-    background: rgb(var(--color3));
-    border-color: transparent;
+
+/*=============================================
+=   BD: КНОПКА НАСТРОЕК ТЕМ                    =
+=============================================*/
+[class*="bd-settings"] [class*="bd-sidebar"] [class*="bd-sidebar-item"]:hover {
+    background: rgba(33, 160, 56, 0.15) !important;
 }
-.visual-refresh .bd-button-filled.bd-button-color-primary:hover,
-.visual-refresh .bd-button-filled.bd-button-color-primary:active {
-    background: rgb(var(--color4));
+[class*="bd-settings"] [class*="bd-sidebar"] [class*="bd-sidebar-item"].selected {
+    background: rgba(33, 160, 56, 0.25) !important;
+    border-left: 3px solid #21A038 !important;
 }
-.visual-refresh .bd-addon-error-icon { background: rgb(var(--color3)); }
-.visual-refresh .bd-addon-error { border: 1px solid rgb(var(--color3)); }
+
+/*=============================================
+=   BD: КАРТОЧКИ ТЕМ / ПЛАГИНОВ                =
+=============================================*/
+[class*="bd-addon-card"] {
+    background: rgba(5, 20, 10, 0.5) !important;
+    border: 1px solid rgba(33, 160, 56, 0.2) !important;
+    border-radius: 12px !important;
+    transition: all 0.2s ease !important;
+}
+[class*="bd-addon-card"]:hover {
+    border-color: #21A038 !important;
+    box-shadow: 0 6px 20px rgba(33, 160, 56, 0.3) !important;
+    transform: translateY(-2px) !important;
+}
+
+/* Название аддона */
+[class*="bd-addon-header"] [class*="bd-addon-title"] {
+    color: #4FBF60 !important;
+}
+
+/* Автор */
+[class*="bd-addon-header"] [class*="bd-addon-author"] a {
+    color: #4FBF60 !important;
+    transition: color 0.15s ease, text-shadow 0.15s ease !important;
+}
+[class*="bd-addon-header"] [class*="bd-addon-author"] a:hover {
+    color: #21A038 !important;
+    text-shadow: 0 0 8px rgba(33, 160, 56, 0.7) !important;
+}
+
+/* Кнопки на карточке (Enable/Disable) */
+[class*="bd-addon-card"] [class*="bd-button"] {
+    background: #21A038 !important;
+    color: #fff !important;
+    border-radius: 8px !important;
+    transition: all 0.15s ease !important;
+}
+[class*="bd-addon-card"] [class*="bd-button"]:hover {
+    background: #1B8530 !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 6px 16px rgba(33, 160, 56, 0.4) !important;
+}
+
+/*=============================================
+=   BD: ВКЛАДКИ В НАСТРОЙКАХ (Themes / Plugins) =
+=============================================*/
+[class*="bd-tab-bar"] [class*="bd-tab"] {
+    transition: all 0.15s ease !important;
+    border-radius: 8px !important;
+}
+[class*="bd-tab-bar"] [class*="bd-tab"]:hover {
+    background: rgba(33, 160, 56, 0.15) !important;
+}
+[class*="bd-tab-bar"] [class*="bd-tab"].selected {
+    background: #21A038 !important;
+    color: #fff !important;
+}
+
+/*=============================================
+=   BD: ИНДИКАТОР ВКЛЮЧЁННОЙ ТЕМЫ              =
+=============================================*/
+[class*="bd-switch"] input:checked + [class*="bd-switch-body"] {
+    background: #21A038 !important;
+}
+[class*="bd-switch-body"] {
+    background: rgba(33, 160, 56, 0.3) !important;
+}
+
+/*=============================================
+=   BD: МОДАЛЬНЫЕ ОКНА (редактор CSS, тема)    =
+=============================================*/
+[class*="bd-modal"] {
+    background: rgba(5, 20, 10, 0.92) !important;
+    backdrop-filter: blur(20px) saturate(160%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(160%) !important;
+    border: 1px solid rgba(33, 160, 56, 0.3) !important;
+    border-radius: 16px !important;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6),
+                0 0 40px rgba(33, 160, 56, 0.2) !important;
+}
+
+/*=============================================
+=   BD: ИНПУТЫ / TEXTAREA В РЕДАКТОРЕ          =
+=============================================*/
+[class*="bd-modal"] textarea,
+[class*="bd-modal"] input,
+[class*="bd-modal"] [class*="bd-textarea"] {
+    background: rgba(33, 160, 56, 0.08) !important;
+    border: 1px solid rgba(33, 160, 56, 0.25) !important;
+    border-radius: 10px !important;
+    color: #fff !important;
+    transition: all 0.2s ease !important;
+}
+[class*="bd-modal"] textarea:focus,
+[class*="bd-modal"] input:focus {
+    border-color: #21A038 !important;
+    box-shadow: 0 0 0 3px rgba(33, 160, 56, 0.25) !important;
+    outline: none !important;
+}
+
+/*=============================================
+=   BD: ССЫЛКИ / РЕПОЗИТОРИЙ                   =
+=============================================*/
+[class*="bd-addon-card"] a,
+[class*="bd-addon-header"] a {
+    color: #4FBF60 !important;
+    transition: color 0.15s ease, text-shadow 0.15s ease !important;
+}
+[class*="bd-addon-card"] a:hover {
+    color: #21A038 !important;
+    text-shadow: 0 0 6px rgba(33, 160, 56, 0.6) !important;
+}
