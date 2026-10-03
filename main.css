@@ -16,21 +16,51 @@
 }
 
 /* ============================================================
-   BACKGROUND / APP
+   BACKGROUND — UNIVERSAL (работает на всех сборках)
    ============================================================ */
-:is(html, body, .appMount__51fd7) { background: none; }
-.app_a3002d { background: transparent !important; }
-.app__160d8 { background: transparent !important; }
-
-.bg__960e4 {
-    background: var(--DarkBG) center/cover no-repeat !important;
-    background-attachment: fixed !important;
-    filter: brightness(0.7);
-    z-index: -1;
+:root {
+    --DarkBG:  url("https://i.imgur.com/LZ0UO8z.png");
+    --LightBG: url("https://i.imgur.com/LZ0UO8z.png");
 }
-:is(.theme-light) .bg__960e4 {
-    background-image: var(--LightBG) !important;
-    filter: brightness(1);
+
+html, body {
+    background: none !important;
+}
+
+#app-mount {
+    background: var(--DarkBG) center/cover no-repeat fixed !important;
+    position: relative;
+}
+
+/* Слой затемнения поверх фона — чтобы UI читался */
+#app-mount::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(var(--color2), 0.55);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Все основные контейнеры — прозрачные, чтобы фон просвечивал */
+.app_a3002d,
+.app__160d8,
+.bg__960e4,
+.bg__a3002d,
+.appMount__51fd7,
+.appMount_bf6165 {
+    background: transparent !important;
+}
+
+/* Верхний слой UI — поверх затемнения */
+#app-mount > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* --- Если фон не нужен в светлой теме — убери затемнение --- */
+:is(.theme-light) #app-mount::before {
+    background: rgba(255, 255, 255, 0.4);
 }
 
 /* ============================================================
