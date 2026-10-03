@@ -209,3 +209,244 @@
     border-radius: 6px;
     padding: 2px 8px;
 }
+
+/* ============================================================
+   1. ПРОЗРАЧНОСТЬ ЭЛЕМЕНТОВ (сайдбар, настройки, участники)
+   ============================================================ */
+
+/* --- Левая панель с каналами (фото 1) --- */
+.sidebar__5e434,
+.sidebarRegion__23e6b,
+.sidebarRegionScroller__23e6b,
+.container__2637a,
+.privateChannels__35f6a,
+.scroller__629e4,
+.channel__8dbd0,
+.containerDefault__23cdd,
+.wrapper__290d4 {
+    background: transparent !important;
+}
+
+/* --- Карточка выбранного канала --- */
+.modeSelected__2ea32 .link__2ea32,
+.modeSelected__2ea32:hover .link__2ea32 {
+    background: rgba(var(--color3), 0.15) !important;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+/* --- Правая панель с участниками (фото 3) --- */
+.container_c8ffbb,
+.members_c8ffbb,
+.membersWrap_c8ffbb,
+.member__5d473,
+.memberInner__5d473 {
+    background: transparent !important;
+}
+
+/* --- Модалка настроек (фото 2) --- */
+.root__49fc1,
+.container__8a031,
+.contentRegion__23e6b,
+.contentRegionScroller__23e6b,
+.sidebarRegion__23e6b,
+.sidebar__5e434,
+.scroller__629e4,
+.contentColumn__23e6b,
+.contentColumnDefault__23e6b,
+.customColumn__23e6b,
+.customScroller__23e6b,
+.toolsContainer__23e6b {
+    background: transparent !important;
+}
+
+/* --- Правая зона настроек (карточки, блоки) --- */
+.customScroller__23e6b,
+.contentColumnDefault__23e6b,
+.card__6df1a,
+.container__19cf2,
+.container__5682d,
+.blockedIgnoredSettingsNotice__6811a,
+.channelRow_e4503a,
+.optionButtonWrapper__270d7,
+.profileCard__5d7c9,
+.accountProfileCard__1fed1,
+.background__1fed1,
+.fieldList__1fed1,
+.field__1fed1 {
+    background: rgba(var(--color1), 0.4) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 12px;
+}
+
+/* --- Сама модалка настроек — единый стеклянный блок --- */
+.root__49fc1,
+.container__8a031 {
+    background: rgba(var(--color1), 0.55) !important;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+
+/* --- Sidebar настроек — выделенные пункты --- */
+.side_bc05d6 .item_bc05d6.selected_bc05d6,
+.side_bc05d6 .item_bc05d6:hover {
+    background: rgba(var(--color3), 0.15) !important;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border-radius: 8px;
+}
+
+/* --- Заголовок и поля модалки --- */
+.header__23e6b,
+.top__23e6b,
+.bottom__23e6b,
+.accountProfileCard__1fed1,
+.field__1fed1 {
+    background: transparent !important;
+}
+
+/* --- Кнопки "Изменить" в настройках --- */
+.button__201d5.lookFilled__201d5.colorBrand__201d5,
+.button__201d5.lookFilled__201d5.colorPrimary__201d5,
+.lookFilled__201d5.colorBrand__201d5 {
+    background: rgba(var(--color3), 0.8) !important;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}
+.lookFilled__201d5.colorBrand__201d5:hover {
+    background: rgba(var(--color3), 1) !important;
+}
+
+
+/* ============================================================
+   2. АНИМАЦИЯ ПОЯВЛЕНИЯ СООБЩЕНИЙ
+   ============================================================ */
+
+/* --- Основная анимация --- */
+@keyframes sber-message-appear {
+    0% {
+        opacity: 0;
+        transform: translateY(12px) scale(0.98);
+        filter: blur(4px);
+    }
+    60% {
+        opacity: 1;
+        transform: translateY(-2px) scale(1.005);
+        filter: blur(0);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+/* --- Применяем к каждому сообщению --- */
+.message__5126c,
+.messageListItem__5126c,
+.messageListItem__5126c:not(.groupStart__5126c) .message__5126c {
+    animation: sber-message-appear 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* --- Задержка для последовательного появления (соседние сообщения) --- */
+.messageListItem__5126c:nth-child(1)  { animation-delay: 0s; }
+.messageListItem__5126c:nth-child(2)  { animation-delay: 0.02s; }
+.messageListItem__5126c:nth-child(3)  { animation-delay: 0.04s; }
+.messageListItem__5126c:nth-child(4)  { animation-delay: 0.06s; }
+.messageListItem__5126c:nth-child(5)  { animation-delay: 0.08s; }
+.messageListItem__5126c:nth-child(6)  { animation-delay: 0.10s; }
+.messageListItem__5126c:nth-child(7)  { animation-delay: 0.12s; }
+.messageListItem__5126c:nth-child(8)  { animation-delay: 0.14s; }
+.messageListItem__5126c:nth-child(9)  { animation-delay: 0.16s; }
+.messageListItem__5126c:nth-child(10) { animation-delay: 0.18s; }
+
+/* --- Отключаем анимацию для уже загруженных сообщений (при скролле вверх) --- */
+.messageListItem__5126c[data-list-item-id*="chat-messages"] {
+    animation-fill-mode: both;
+}
+
+/* --- Снижаем нагрузку, если у пользователя включен "уменьшенный motion" --- */
+@media (prefers-reduced-motion: reduce) {
+    .message__5126c,
+    .messageListItem__5126c {
+        animation: none !important;
+    }
+}
+
+
+/* ============================================================
+   3. АНИМАЦИЯ HOVER НА ПРОФИЛЬ В СПИСКЕ УЧАСТНИКОВ (фото 3)
+   ============================================================ */
+
+.member__5d473,
+.memberInner__5d473,
+.member__5d473 .childContainer__91a9d {
+    transition:
+        transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+        background-color 0.25s ease,
+        box-shadow 0.25s ease,
+        padding 0.25s ease;
+}
+
+/* --- Плавное «выезжание» вправо + подсветка --- */
+.member__5d473:hover .memberInner__5d473 {
+    transform: translateX(6px) scale(1.02);
+    background: rgba(var(--color3), 0.12) !important;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(var(--color3), 0.15);
+}
+
+.member__5d473:hover .memberInner__5d473 .name__91a9d {
+    color: rgb(var(--color3)) !important;
+    transition: color 0.2s ease;
+}
+
+/* --- Аватар: лёгкое увеличение + свечение --- */
+.member__5d473 .avatar__991e2,
+.member__5d473 .avatar_c19a55,
+.member__5d473 img {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.member__5d473:hover .avatar__991e2,
+.member__5d473:hover .avatar_c19a55,
+.member__5d473:hover img {
+    transform: scale(1.15);
+    box-shadow: 0 0 0 2px rgb(var(--color3));
+}
+
+/* --- Выезд плавающего попапа профиля (при клике) --- */
+.userPopout__7b7de,
+.outer_c0bea0 {
+    animation: sber-popout-appear 0.25s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes sber-popout-appear {
+    from {
+        opacity: 0;
+        transform: translateY(8px) scale(0.96);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* --- Плавное появление имени пользователя при hover --- */
+.member__5d473 .nameContainer__703b9 {
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+.member__5d473:hover .nameContainer__703b9 {
+    transform: translateX(2px);
+}
+
+/* --- Hover на аватаре в карточке друга --- */
+.peopleListItem_d51464:hover,
+.peopleListItem_d51464.active_d51464 {
+    background: rgba(var(--color3), 0.1) !important;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border-radius: 10px;
+    transition: all 0.25s ease;
+}
