@@ -1,6 +1,6 @@
 /**
  * @name Sberbank UI — main
- * @description Discord 2025 / Vencord — фон + прозрачность + зелёный
+ * @description Discord 2025 / Vencord — фон ПОД интерфейсом + прозрачность + зелёный
  * @author podnebesnyy007-cpu
  */
 
@@ -12,69 +12,69 @@
     --sber-green-hover: #1B8530;
     --sber-green-light: #4FBF60;
     --sber-green-glow: rgba(33, 160, 56, 0.55);
-
-    --bg-image: url(https://raw.githubusercontent.com/podnebesnyy007-cpu/Sberbank-UI/refs/heads/main/bg.png);
-    --bg-dim: rgba(5, 20, 10, 0.45);
-    --bg-blur: 3px;
-
-    --glass-panel: rgba(5, 20, 10, 0.55);
-    --glass-chat: rgba(5, 20, 10, 0.5);
-    --glass-card: rgba(5, 20, 10, 0.5);
-    --glass-menu: rgba(5, 20, 10, 0.92);
-    --glass-modal: rgba(5, 20, 10, 0.85);
-    --glass-border: rgba(33, 160, 56, 0.25);
-    --glass-border-hi: rgba(33, 160, 56, 0.4);
 }
 
 /*=============================================
-=   ФОН — ЖЁСТКО, БЕЗ ПЕРЕМЕННОЙ ВЫШЕ          =
-=   (картинка вписана напрямую — 100% работает)
+=   ФОН — ЖЁСТКО НА HTML::BEFORE (САМЫЙ НИЗ)   =
 =============================================*/
-html,
+html {
+    background: transparent !important;
+}
+
 body {
     background: transparent !important;
 }
 
-/* Слой 1: картинка */
 html::before {
     content: "";
     position: fixed;
-    inset: 0;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
     background-image: url(https://raw.githubusercontent.com/podnebesnyy007-cpu/Sberbank-UI/refs/heads/main/bg.png) !important;
     background-size: cover !important;
     background-position: center !important;
     background-repeat: no-repeat !important;
-    background-attachment: fixed !important;
     background-color: #0a1a0e !important;
-    z-index: -2;
-    pointer-events: none;
+    z-index: -9999 !important;
+    pointer-events: none !important;
 }
 
-/* Слой 2: затемнение + размытие */
 html::after {
     content: "";
     position: fixed;
-    inset: 0;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
     background: rgba(5, 20, 10, 0.45) !important;
     backdrop-filter: blur(3px) saturate(115%);
     -webkit-backdrop-filter: blur(3px) saturate(115%);
-    z-index: -1;
-    pointer-events: none;
+    z-index: -9998 !important;
+    pointer-events: none !important;
 }
 
 /*=============================================
-=   ПРИЛОЖЕНИЕ — ПРОЗРАЧНОЕ                    =
+=   ИНТЕРФЕЙС — ВЫШЕ ФОНА                      =
 =============================================*/
-#app-mount,
+#app-mount {
+    background: transparent !important;
+    position: relative !important;
+    z-index: 1 !important;
+}
+
 [class^="appMount_"],
-[class^="app_"],
 [class^="appAsidePanelWrapper_"],
 [class^="notAppAsidePanel_"],
 [class^="layers_"],
 [class^="layer_"],
 [class^="base_"],
+[class^="app_"],
 [class^="bg_"] {
     background: transparent !important;
+    position: relative !important;
+    z-index: 1 !important;
 }
 
 /*=============================================
@@ -168,8 +168,7 @@ html::after {
 }
 
 /*=============================================
-=   МОДАЛКА НАСТРОЕК (Учётная запись)          =
-=   ВАЖНО: плотный фон, иначе не читается      =
+=   МОДАЛКА НАСТРОЕК                          =
 =============================================*/
 [class^="standardSidebarView_"] {
     background: rgba(5, 20, 10, 0.85) !important;
