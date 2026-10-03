@@ -1,50 +1,71 @@
 /**
  * @name Sberbank UI
- * @version 4.0.0
- * @description Тема Discord в стиле СберБанк UI
+ * @version 5.0.0
+ * @description Тема Discord в стиле СберБанк UI — прозрачность, зелёный, анимации
  * @author podnebesnyy007-cpu
  * @source https://github.com/podnebesnyy007-cpu/Sberbank-UI
  */
 
 /*=============================================
-=                ПЕРЕМЕННЫЕ                    =
+=              ПЕРЕМЕННЫЕ                     =
 =============================================*/
 :root {
     --app-bg: url(https://i.imgur.com/LZ0UO8z.png);
-    --app-blur: 8px;
-    --app-dim: 0.45;
+    --app-blur: 6px;
+    --app-dim: 0.55;
     --app-radius: 12px;
 
-    --glass-sidebar: hsla(0, 0%, 0%, 0.35);
-    --glass-chat: hsla(0, 0%, 0%, 0.30);
-    --glass-members: hsla(0, 0%, 0%, 0.35);
-    --glass-popout: hsla(0, 0%, 0%, 0.55);
-    --glass-blur: 16px;
+    --glass-sidebar: hsla(0, 0%, 0%, 0.42);
+    --glass-chat: hsla(0, 0%, 0%, 0.38);
+    --glass-members: hsla(0, 0%, 0%, 0.42);
+    --glass-popout: hsla(0, 0%, 0%, 0.65);
+    --glass-card: hsla(0, 0%, 0%, 0.35);
+    --glass-blur: 14px;
 
     --sber-green: #21A038;
+    --sber-green-dark: #0F5A22;
     --sber-green-hover: #1B8530;
     --sber-green-light: #4FBF60;
     --sber-green-glow: rgba(33, 160, 56, 0.55);
 
-    --message-color: hsla(0, 0%, 0%, 0.18);
-    --message-color-hover: hsla(0, 0%, 0%, 0.28);
+    --message-color: hsla(0, 0%, 0%, 0.15);
+    --message-color-hover: hsla(0, 0%, 0%, 0.25);
     --message-radius: 18px;
-
-    --textarea-alpha: 0.14;
-    --textarea-alpha-focus: 0.20;
-    --textarea-radius: 28px;
 
     --anim-fast: 0.15s ease;
     --anim-base: 0.25s cubic-bezier(0.22, 1, 0.36, 1);
     --anim-bounce: 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+
+    /* Перебиваем тёмную тему Discord */
+    --background-primary: transparent !important;
+    --background-secondary: transparent !important;
+    --background-secondary-alt: transparent !important;
+    --background-tertiary: transparent !important;
+    --background-floating: var(--glass-popout) !important;
+    --background-accent: var(--sber-green) !important;
+    --background-mentioned: rgba(33, 160, 56, 0.15) !important;
+    --background-mentioned-hover: rgba(33, 160, 56, 0.25) !important;
+
+    --text-brand: var(--sber-green-light) !important;
+    --text-link: var(--sber-green-light) !important;
+
+    --brand-experiment: var(--sber-green) !important;
+    --brand-experiment-560: var(--sber-green) !important;
+    --brand-experiment-600: var(--sber-green-hover) !important;
+    --brand-500: var(--sber-green) !important;
+    --brand-560: var(--sber-green) !important;
 }
 
 /*=============================================
-=   ФОН ЧЕРЕЗ BODY (работает всегда)          =
+=        ФОН — ЖЁСТКО ЧЕРЕЗ BODY              =
+=        (BetterDiscord / Vencord — работает)  =
 =============================================*/
 html,
 body,
-#app-mount {
+#app-mount,
+.appMount-2yBXZl,
+.appMount-3lHmkl,
+[class*="appMount-"] {
     background: transparent !important;
 }
 
@@ -54,384 +75,390 @@ body {
     background-position: center !important;
     background-repeat: no-repeat !important;
     background-attachment: fixed !important;
+    background-color: #000 !important;
 }
 
-/* Затемняющий + размывающий слой */
+/* Слой размытия + затемнения */
 body::before {
     content: "";
     position: fixed;
     inset: 0;
     backdrop-filter: blur(var(--app-blur)) saturate(120%);
     -webkit-backdrop-filter: blur(var(--app-blur)) saturate(120%);
-    background: rgba(0, 0, 0, var(--app-dim));
+    background: rgba(5, 15, 8, var(--app-dim));
     z-index: 0;
     pointer-events: none;
 }
 
-/* Убеждаемся, что app-mount выше затемнения */
 #app-mount {
     position: relative;
     z-index: 1;
+    background: transparent !important;
 }
 
 /*=============================================
-=   ЖЁСТКАЯ ПРОЗРАЧНОСТЬ ВСЕХ КОНТЕЙНЕРОВ     =
-=   (по атрибуту class* — работает всегда)    =
+=        ГЛОБАЛЬНАЯ ПРОЗРАЧНОСТЬ              =
+=        ВСЕХ СТАНДАРТНЫХ КОНТЕЙНЕРОВ         =
 =============================================*/
-#app-mount [class*="app-"],
-#app-mount [class*="appAsidePanel"],
-#app-mount [class*="layers-"],
-#app-mount [class*="layer-"],
-#app-mount [class*="base-"],
-#app-mount [class*="bg-"],
-#app-mount [class*="container-"],
-#app-mount [class*="wrapper-"],
-#app-mount [class*="content-"],
-#app-mount [class*="sidebar-"],
-#app-mount [class*="chat-"],
-#app-mount [class*="chatContent-"],
-#app-mount [class*="messagesWrapper-"],
-#app-mount [class*="members-"],
-#app-mount [class*="membersWrap-"],
-#app-mount [class*="panels-"] {
+.theme-dark,
+.theme-light,
+.theme-dark [class*="app-"],
+.theme-dark [class*="layers-"],
+.theme-dark [class*="layer-"],
+.theme-dark [class*="base-"],
+.theme-dark [class*="bg-"],
+.theme-dark [class*="container-"],
+.theme-dark [class*="wrapper-"],
+.theme-dark [class*="content-"],
+.theme-dark [class*="chatContent-"],
+.theme-dark [class*="messagesWrapper-"],
+.theme-dark [class*="channel-"],
+.theme-dark [class*="channels-"],
+.theme-dark [class*="sidebar-"],
+.theme-dark [class*="panels-"] {
     background-color: transparent !important;
 }
 
 /*=============================================
-=        ЛЕВАЯ ПАНЕЛЬ СЕРВЕРОВ                =
+=   ЛЕВАЯ ПАНЕЛЬ СЕРВЕРОВ — СТЕКЛО            =
 =============================================*/
-#app-mount [class*="guilds-"] {
+[class*="guilds-"] {
     background: var(--glass-sidebar) !important;
     backdrop-filter: blur(var(--glass-blur)) saturate(140%);
     -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(140%);
     border-radius: var(--app-radius) !important;
     margin: 8px 0 8px 8px !important;
     padding: 8px 0 !important;
-    border: 1px solid rgba(33, 160, 56, 0.15);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35),
-                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(33, 160, 56, 0.18) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
 }
 
-#app-mount [class*="guilds-"] [class*="wrapper-"] {
-    transition: transform var(--anim-base), border-radius var(--anim-base);
+[class*="guilds-"] [class*="wrapper-"] {
+    transition: transform var(--anim-base), border-radius var(--anim-base) !important;
 }
-#app-mount [class*="guilds-"] [class*="wrapper-"]:hover {
-    transform: translateY(-2px) scale(1.06);
+[class*="guilds-"] [class*="wrapper-"]:hover {
+    transform: translateY(-2px) scale(1.06) !important;
 }
 
-#app-mount [class*="guilds-"] [class*="pill-"] [class*="item-"] {
+[class*="guilds-"] [class*="pill-"] [class*="item-"] {
     background: var(--sber-green) !important;
-    box-shadow: 0 0 12px var(--sber-green-glow);
+    box-shadow: 0 0 12px var(--sber-green-glow) !important;
 }
-#app-mount [class*="guilds-"] [class*="homeIcon"] {
+[class*="guilds-"] [class*="homeIcon"] {
     color: var(--sber-green) !important;
-    filter: drop-shadow(0 0 6px var(--sber-green-glow));
+    filter: drop-shadow(0 0 6px var(--sber-green-glow)) !important;
 }
 
 /*=============================================
-=        ПАНЕЛЬ КАНАЛОВ (SIDEBAR)             =
+=   ПАНЕЛЬ КАНАЛОВ — СТЕКЛО + АНИМАЦИИ        =
 =============================================*/
-#app-mount [class*="sidebar-"]:not([class*="sidebarRegion"]) {
+[class*="sidebar-"]:not([class*="sidebarRegion"]) {
     background: var(--glass-sidebar) !important;
     backdrop-filter: blur(var(--glass-blur)) saturate(140%);
     -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(140%);
     border-radius: var(--app-radius) !important;
-    border: 1px solid rgba(33, 160, 56, 0.12);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35),
-                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(33, 160, 56, 0.12) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
     margin: 8px 0 !important;
 }
 
-#app-mount [class*="sidebar-"] [class*="header-"] {
+[class*="sidebar-"] [class*="header-"] {
     background: transparent !important;
     border-bottom: 1px solid rgba(33, 160, 56, 0.15) !important;
     box-shadow: none !important;
 }
 
-#app-mount [class*="sidebar-"] [class*="wrapper-"] {
-    border-radius: 10px;
+[class*="sidebar-"] [class*="wrapper-"]:not([class*="guilds"]) {
+    border-radius: 10px !important;
     transition: background var(--anim-fast),
-                transform var(--anim-fast);
+                transform var(--anim-fast) !important;
 }
-#app-mount [class*="sidebar-"] [class*="wrapper-"]:hover {
-    background: rgba(33, 160, 56, 0.12) !important;
-    transform: translateX(3px);
+[class*="sidebar-"] [class*="wrapper-"]:not([class*="guilds"]):hover {
+    background: rgba(33, 160, 56, 0.14) !important;
+    transform: translateX(3px) !important;
 }
-#app-mount [class*="sidebar-"] [class*="modeSelected"],
-#app-mount [class*="sidebar-"] [class*="selected-"] {
-    background: rgba(33, 160, 56, 0.22) !important;
-    transform: translateX(3px);
-    box-shadow: inset 0 0 0 1px rgba(33, 160, 56, 0.25);
+[class*="sidebar-"] [class*="modeSelected"],
+[class*="sidebar-"] [class*="selected-"] {
+    background: rgba(33, 160, 56, 0.25) !important;
+    transform: translateX(3px) !important;
+    box-shadow: inset 0 0 0 1px rgba(33, 160, 56, 0.3) !important;
+}
+[class*="sidebar-"] [class*="modeSelected"] [class*="name-"],
+[class*="sidebar-"] [class*="modeSelected"] [class*="icon-"],
+[class*="sidebar-"] [class*="selected-"] [class*="name-"] {
+    color: var(--sber-green-light) !important;
 }
 
 /*=============================================
-=        ОСНОВНОЙ ЧАТ                         =
+=   ОСНОВНОЙ ЧАТ — СТЕКЛО                     =
 =============================================*/
-#app-mount [class*="chat-"]:not([class*="chatContent"]):not([class*="chatHeader"]),
-#app-mount [class*="chatContent-"] {
+[class*="chat-"]:not([class*="chatContent"]):not([class*="chatHeader"]):not([class*="chatLayer"]),
+[class*="chatContent-"] {
     background: var(--glass-chat) !important;
     backdrop-filter: blur(var(--glass-blur)) saturate(140%);
     -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(140%);
     border-radius: var(--app-radius) !important;
-    border: 1px solid rgba(33, 160, 56, 0.12);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35),
-                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(33, 160, 56, 0.12) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
 }
 
-#app-mount [class*="chat-"] [class*="title-"],
-#app-mount [class*="chat-"] [class*="header-"] {
+[class*="chat-"] [class*="title-"],
+[class*="chat-"] [class*="header-"] {
     background: transparent !important;
     border-bottom: 1px solid rgba(33, 160, 56, 0.15) !important;
     box-shadow: none !important;
 }
 
 /*=============================================
-=        СООБЩЕНИЯ                            =
+=   СООБЩЕНИЯ                                =
 =============================================*/
-#app-mount [class*="message-"] {
+[class*="message-"]:not([class*="messageContent"]):not([class*="messageListItem"]) {
     background: var(--message-color) !important;
-    border-radius: var(--message-radius);
-    margin: 2px 8px;
-    padding: 8px;
+    border-radius: var(--message-radius) !important;
+    margin: 2px 8px !important;
+    padding: 6px 8px !important;
     transition: background var(--anim-fast),
                 transform var(--anim-fast),
-                box-shadow var(--anim-fast);
+                box-shadow var(--anim-fast) !important;
 }
-#app-mount [class*="message-"]:hover {
+[class*="message-"]:hover {
     background: var(--message-color-hover) !important;
-    transform: translateX(3px);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3),
-                0 0 0 1px rgba(33, 160, 56, 0.15);
+    transform: translateX(3px) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35),
+                0 0 0 1px rgba(33, 160, 56, 0.18) !important;
 }
-#app-mount [class*="message-"][class*="mentioned"] {
+[class*="message-"][class*="mentioned"] {
     background: rgba(33, 160, 56, 0.18) !important;
-    border-left: 3px solid var(--sber-green);
+    border-left: 3px solid var(--sber-green) !important;
 }
-#app-mount [class*="message-"] [class*="username-"] {
+[class*="message-"] [class*="username-"] {
     color: var(--sber-green-light) !important;
-    transition: color var(--anim-fast), text-shadow var(--anim-fast);
+    transition: color var(--anim-fast), text-shadow var(--anim-fast) !important;
 }
-#app-mount [class*="message-"]:hover [class*="username-"] {
+[class*="message-"]:hover [class*="username-"] {
     color: var(--sber-green) !important;
-    text-shadow: 0 0 8px var(--sber-green-glow);
+    text-shadow: 0 0 8px var(--sber-green-glow) !important;
 }
 
 /*=============================================
-=        ПОЛЕ ВВОДА                           =
+=   ПОЛЕ ВВОДА — ЗЕЛЁНОЕ СТЕКЛО               =
 =============================================*/
-#app-mount [class*="channelTextArea-"],
-#app-mount [class*="textArea-"] {
-    background: rgba(33, 160, 56, var(--textarea-alpha)) !important;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-radius: var(--textarea-radius) !important;
-    border: 1px solid rgba(33, 160, 56, 0.25);
-    transition: all var(--anim-base);
+[class*="channelTextArea-"] {
+    background: rgba(33, 160, 56, 0.12) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    border-radius: 28px !important;
+    border: 1px solid rgba(33, 160, 56, 0.28) !important;
+    transition: all var(--anim-base) !important;
 }
-#app-mount [class*="channelTextArea-"]:focus-within {
-    background: rgba(33, 160, 56, var(--textarea-alpha-focus)) !important;
+[class*="channelTextArea-"]:focus-within {
+    background: rgba(33, 160, 56, 0.20) !important;
     border-color: var(--sber-green) !important;
     box-shadow: 0 0 0 3px rgba(33, 160, 56, 0.25),
-                0 0 24px rgba(33, 160, 56, 0.35);
+                0 0 24px rgba(33, 160, 56, 0.35) !important;
 }
 
 /*=============================================
-=        ПРАВАЯ ПАНЕЛЬ УЧАСТНИКОВ             =
-=        + АНИМАЦИЯ ПРИ НАВЕДЕНИИ             =
+=   ПРАВАЯ ПАНЕЛЬ УЧАСТНИКОВ + АНИМАЦИИ       =
 =============================================*/
-#app-mount [class*="membersWrap-"],
-#app-mount [class*="members-"] {
+[class*="membersWrap-"],
+[class*="members-"]:not([class*="member-"]) {
     background: var(--glass-members) !important;
     backdrop-filter: blur(var(--glass-blur)) saturate(140%);
     -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(140%);
     border-radius: var(--app-radius) !important;
-    border: 1px solid rgba(33, 160, 56, 0.12);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35),
-                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(33, 160, 56, 0.12) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
     margin: 8px 8px 8px 0 !important;
 }
 
-#app-mount [class*="member-"]:not([class*="memberInner"]) {
-    border-radius: 12px;
-    padding: 4px 6px;
+[class*="member-"]:not([class*="memberInner"]):not([class*="memberSince"]) {
+    border-radius: 12px !important;
+    padding: 4px 6px !important;
     transition: background var(--anim-base),
                 transform var(--anim-base),
                 box-shadow var(--anim-base),
-                padding-left var(--anim-base);
+                padding-left var(--anim-base) !important;
     position: relative;
 }
-#app-mount [class*="member-"]:hover {
+[class*="member-"]:hover {
     background: rgba(33, 160, 56, 0.15) !important;
-    transform: translateX(4px) scale(1.01);
+    transform: translateX(4px) scale(1.01) !important;
     box-shadow: 0 4px 16px rgba(33, 160, 56, 0.25),
-                inset 0 0 0 1px rgba(33, 160, 56, 0.3);
-    padding-left: 10px;
+                inset 0 0 0 1px rgba(33, 160, 56, 0.3) !important;
+    padding-left: 10px !important;
 }
-#app-mount [class*="member-"]:hover [class*="name-"],
-#app-mount [class*="member-"]:hover [class*="username-"] {
+[class*="member-"]:hover [class*="name-"],
+[class*="member-"]:hover [class*="username-"] {
     color: var(--sber-green-light) !important;
-    text-shadow: 0 0 8px var(--sber-green-glow);
+    text-shadow: 0 0 8px var(--sber-green-glow) !important;
 }
-#app-mount [class*="member-"] [class*="avatar-"] {
-    transition: transform var(--anim-base), box-shadow var(--anim-base);
+[class*="member-"] [class*="avatar-"] {
+    transition: transform var(--anim-base), box-shadow var(--anim-base) !important;
 }
-#app-mount [class*="member-"]:hover [class*="avatar-"] {
-    transform: scale(1.15);
+[class*="member-"]:hover [class*="avatar-"] {
+    transform: scale(1.15) !important;
     box-shadow: 0 0 0 2px var(--sber-green),
-                0 0 12px var(--sber-green-glow);
+                0 0 12px var(--sber-green-glow) !important;
 }
 
 /*=============================================
-=        ПАНЕЛЬ ПОЛЬЗОВАТЕЛЯ                  =
+=   ПАНЕЛЬ ПОЛЬЗОВАТЕЛЯ                       =
 =============================================*/
-#app-mount [class*="panels-"] {
+[class*="panels-"] {
     background: var(--glass-sidebar) !important;
     backdrop-filter: blur(var(--glass-blur)) saturate(140%);
     -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(140%);
-    border-top: 1px solid rgba(33, 160, 56, 0.15);
-    box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.3);
+    border-top: 1px solid rgba(33, 160, 56, 0.15) !important;
+    box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.35) !important;
 }
 
 /*=============================================
-=        КНОПКИ                               =
+=   КНОПКИ                                    =
 =============================================*/
-#app-mount [class*="lookFilled-"][class*="colorBrand"],
-#app-mount [class*="lookFilled-"][class*="colorGreen"],
-#app-mount button[class*="colorBrand"] {
+[class*="lookFilled-"][class*="colorBrand"],
+[class*="lookFilled-"][class*="colorGreen"],
+button[class*="colorBrand"] {
     background: var(--sber-green) !important;
     color: #fff !important;
     border-radius: 12px !important;
     transition: background var(--anim-fast),
                 transform var(--anim-fast),
-                box-shadow var(--anim-base);
+                box-shadow var(--anim-base) !important;
 }
-#app-mount [class*="lookFilled-"][class*="colorBrand"]:hover,
-#app-mount [class*="lookFilled-"][class*="colorGreen"]:hover,
-#app-mount button[class*="colorBrand"]:hover {
+[class*="lookFilled-"][class*="colorBrand"]:hover,
+[class*="lookFilled-"][class*="colorGreen"]:hover,
+button[class*="colorBrand"]:hover {
     background: var(--sber-green-hover) !important;
-    transform: translateY(-1px);
-    box-shadow: 0 8px 24px rgba(33, 160, 56, 0.45);
+    transform: translateY(-1px) !important;
+    box-shadow: 0 8px 24px rgba(33, 160, 56, 0.45) !important;
 }
 
 /*=============================================
-=        КОНТЕКСТНОЕ МЕНЮ                     =
+=   КОНТЕКСТНОЕ МЕНЮ — СТЕКЛО                 =
 =============================================*/
-#app-mount [class*="menu-"]:not([class*="menuItem"]),
-#app-mount [role="menu"] {
+[role="menu"],
+[class*="menu-"]:not([class*="menuItem"]):not([class*="menuIcon"]) {
     background: var(--glass-popout) !important;
-    backdrop-filter: blur(20px) saturate(160%);
-    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    backdrop-filter: blur(20px) saturate(160%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(160%) !important;
     border-radius: 16px !important;
-    border: 1px solid rgba(33, 160, 56, 0.25);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-    padding: 6px;
+    border: 1px solid rgba(33, 160, 56, 0.25) !important;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6) !important;
+    padding: 6px !important;
 }
-#app-mount [role="menuitem"]:hover,
-#app-mount [class*="item-"]:hover {
+[role="menuitem"]:hover,
+[class*="menuItem"]:hover {
     background: rgba(33, 160, 56, 0.22) !important;
     color: #fff !important;
 }
 
 /*=============================================
-=   ПРОФИЛЬ + АНИМАЦИЯ АВАТАРА И НИКА         =
+=   ПРОФИЛЬ + АНИМАЦИИ АВА/НИК                =
 =============================================*/
-#app-mount [class*="userPopout-"],
-#app-mount [class*="userProfileOuter"],
-#app-mount [class*="userProfileInner"] {
+[class*="userPopout-"],
+[class*="userProfileOuter"],
+[class*="userProfileInner"],
+[class*="userProfileModalOuter"] {
     background: var(--glass-popout) !important;
-    backdrop-filter: blur(24px) saturate(160%);
-    -webkit-backdrop-filter: blur(24px) saturate(160%);
+    backdrop-filter: blur(24px) saturate(160%) !important;
+    -webkit-backdrop-filter: blur(24px) saturate(160%) !important;
     border-radius: 20px !important;
-    border: 1px solid rgba(33, 160, 56, 0.3);
+    border: 1px solid rgba(33, 160, 56, 0.3) !important;
     box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6),
-                0 0 40px rgba(33, 160, 56, 0.2);
+                0 0 40px rgba(33, 160, 56, 0.2) !important;
     overflow: hidden;
 }
 
-#app-mount [class*="userPopout-"] [class*="headerNormal"],
-#app-mount [class*="userPopout-"] [class*="headerTop"],
-#app-mount [class*="userProfileInner"] [class*="header-"] {
+[class*="userPopout-"] [class*="headerNormal"],
+[class*="userPopout-"] [class*="headerTop"],
+[class*="userProfileInner"] [class*="header-"] {
     background: linear-gradient(135deg,
-        var(--sber-green) 0%,
-        var(--sber-green-light) 100%) !important;
-    border-radius: 20px 20px 0 0;
+        var(--sber-green-dark) 0%,
+        var(--sber-green) 100%) !important;
+    border-radius: 20px 20px 0 0 !important;
 }
 
-/* Аватар в профиле — ховер */
-#app-mount [class*="userPopout-"] [class*="avatarWrapper"],
-#app-mount [class*="userPopout-"] [class*="avatar-"],
-#app-mount [class*="userProfileInner"] [class*="avatarWrapper"],
-#app-mount [class*="userProfileInner"] [class*="avatar-"] {
+/* Ава в профиле — ховер */
+[class*="userPopout-"] [class*="avatarWrapper"],
+[class*="userPopout-"] [class*="avatar-"],
+[class*="userProfileInner"] [class*="avatarWrapper"],
+[class*="userProfileInner"] [class*="avatar-"] {
     transition: transform var(--anim-base),
                 box-shadow var(--anim-base),
-                filter var(--anim-base);
+                filter var(--anim-base) !important;
     cursor: pointer;
 }
-#app-mount [class*="userPopout-"] [class*="avatarWrapper"]:hover,
-#app-mount [class*="userPopout-"] [class*="avatar-"]:hover,
-#app-mount [class*="userProfileInner"] [class*="avatarWrapper"]:hover,
-#app-mount [class*="userProfileInner"] [class*="avatar-"]:hover {
-    transform: scale(1.12) rotate(-3deg);
+[class*="userPopout-"] [class*="avatarWrapper"]:hover,
+[class*="userPopout-"] [class*="avatar-"]:hover,
+[class*="userProfileInner"] [class*="avatarWrapper"]:hover,
+[class*="userProfileInner"] [class*="avatar-"]:hover {
+    transform: scale(1.12) rotate(-3deg) !important;
     box-shadow: 0 0 0 3px var(--sber-green),
-                0 0 24px var(--sber-green-glow);
-    filter: brightness(1.15);
+                0 0 24px var(--sber-green-glow) !important;
+    filter: brightness(1.15) !important;
 }
 
 /* Ник в профиле — ховер */
-#app-mount [class*="userPopout-"] [class*="nickname"],
-#app-mount [class*="userPopout-"] [class*="username"],
-#app-mount [class*="userPopout-"] [class*="headerText"],
-#app-mount [class*="userProfileInner"] [class*="nickname"],
-#app-mount [class*="userProfileInner"] [class*="username"] {
+[class*="userPopout-"] [class*="nickname"],
+[class*="userPopout-"] [class*="username"],
+[class*="userPopout-"] [class*="headerText"],
+[class*="userProfileInner"] [class*="nickname"],
+[class*="userProfileInner"] [class*="username"] {
     transition: color var(--anim-base),
                 text-shadow var(--anim-base),
-                transform var(--anim-base);
+                transform var(--anim-base) !important;
     cursor: pointer;
     display: inline-block;
 }
-#app-mount [class*="userPopout-"] [class*="nickname"]:hover,
-#app-mount [class*="userPopout-"] [class*="username"]:hover,
-#app-mount [class*="userPopout-"] [class*="headerText"]:hover,
-#app-mount [class*="userProfileInner"] [class*="nickname"]:hover,
-#app-mount [class*="userProfileInner"] [class*="username"]:hover {
+[class*="userPopout-"] [class*="nickname"]:hover,
+[class*="userPopout-"] [class*="username"]:hover,
+[class*="userPopout-"] [class*="headerText"]:hover,
+[class*="userProfileInner"] [class*="nickname"]:hover,
+[class*="userProfileInner"] [class*="username"]:hover {
     color: var(--sber-green-light) !important;
-    text-shadow: 0 0 12px var(--sber-green-glow);
-    transform: translateX(3px);
+    text-shadow: 0 0 12px var(--sber-green-glow) !important;
+    transform: translateX(3px) !important;
 }
 
 /*=============================================
-=        РЕАКЦИИ / УПОМИНАНИЯ / EMBEDS         =
+=   РЕАКЦИИ / УПОМИНАНИЯ / EMBEDS             =
 =============================================*/
-#app-mount [class*="reaction-"] {
+[class*="reaction-"]:not([class*="reactionMe"]):not([class*="reactions-"]),
+[class*="reactionMe"] {
     background: rgba(33, 160, 56, 0.12) !important;
     border-radius: 12px !important;
-    border: 1px solid rgba(33, 160, 56, 0.2);
-    transition: all var(--anim-fast);
+    border: 1px solid rgba(33, 160, 56, 0.22) !important;
+    transition: all var(--anim-fast) !important;
 }
-#app-mount [class*="reaction-"]:hover {
+[class*="reaction-"]:hover {
     background: rgba(33, 160, 56, 0.25) !important;
-    border-color: var(--sber-green);
-    transform: translateY(-2px) scale(1.05);
-    box-shadow: 0 6px 16px rgba(33, 160, 56, 0.35);
+    border-color: var(--sber-green) !important;
+    transform: translateY(-2px) scale(1.05) !important;
+    box-shadow: 0 6px 16px rgba(33, 160, 56, 0.35) !important;
 }
-#app-mount [class*="reaction-"][class*="reactionMe"] {
+[class*="reactionMe"] {
     background: rgba(33, 160, 56, 0.3) !important;
     border-color: var(--sber-green) !important;
 }
 
-#app-mount [class*="mention"] {
+[class*="mention"] {
     background: rgba(33, 160, 56, 0.25) !important;
     color: var(--sber-green-light) !important;
-    border-radius: 4px;
-    font-weight: 600;
+    border-radius: 4px !important;
+    font-weight: 600 !important;
 }
-#app-mount [class*="mention"]:hover {
+[class*="mention"]:hover {
     background: var(--sber-green) !important;
     color: #fff !important;
 }
 
-#app-mount [class*="embedFull"],
-#app-mount [class*="attachment-"] {
+[class*="embedFull"],
+[class*="attachment-"] {
     background: rgba(0, 0, 0, 0.3) !important;
     border-radius: 12px !important;
     border-left: 3px solid var(--sber-green) !important;
@@ -441,31 +468,101 @@ body::before {
 }
 
 /*=============================================
-=        СКРОЛЛБАР                            =
+=   КАРТОЧКИ (АКТИВНОСТЬ / НИТИ / ФОРУМ)      =
+=   С ЗЕЛЁНОЙ ПОДСВЕТКОЙ                     =
 =============================================*/
-#app-mount ::-webkit-scrollbar {
+[class*="card-"],
+[class*="container-"]:has([class*="activity"]),
+[class*="container-"]:has([class*="gameName"]),
+[class*="activity-"],
+[class*="gameName-"] {
+    background: var(--glass-card) !important;
+    border-radius: 14px !important;
+    border: 1px solid rgba(33, 160, 56, 0.22) !important;
+    transition: border-color var(--anim-base),
+                box-shadow var(--anim-base),
+                transform var(--anim-base) !important;
+}
+[class*="card-"]:hover,
+[class*="container-"]:has([class*="activity"]):hover {
+    border-color: var(--sber-green) !important;
+    box-shadow: 0 6px 20px rgba(33, 160, 56, 0.35) !important;
+    transform: translateY(-2px) !important;
+}
+
+/* Заголовок "Активность" — зелёный */
+[class*="activity-"] [class*="name-"],
+[class*="gameName-"] {
+    color: var(--sber-green-light) !important;
+}
+
+/*=============================================
+=   СКРОЛЛБАР                                =
+=============================================*/
+::-webkit-scrollbar {
     width: 8px;
     height: 8px;
 }
-#app-mount ::-webkit-scrollbar-track {
+::-webkit-scrollbar-track {
     background: transparent;
 }
-#app-mount ::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
     background: rgba(33, 160, 56, 0.35);
     border-radius: 8px;
 }
-#app-mount ::-webkit-scrollbar-thumb:hover {
+::-webkit-scrollbar-thumb:hover {
     background: var(--sber-green);
     box-shadow: 0 0 8px var(--sber-green-glow);
 }
 
 /*=============================================
-=        ССЫЛКИ                               =
+=   ССЫЛКИ                                    =
 =============================================*/
-#app-mount a {
+a {
     color: var(--sber-green-light) !important;
 }
-#app-mount a:hover {
+a:hover {
     color: var(--sber-green) !important;
     text-shadow: 0 0 6px var(--sber-green-glow);
+}
+
+/*=============================================
+=   ЛИЧНЫЕ СООБЩЕНИЯ (ЛС) — как на 1-м скрине =
+=============================================*/
+[class*="privateChannels-"] {
+    background: transparent !important;
+}
+[class*="privateChannels-"] [class*="channel-"] {
+    border-radius: 10px !important;
+    transition: background var(--anim-fast), transform var(--anim-fast) !important;
+}
+[class*="privateChannels-"] [class*="channel-"]:hover {
+    background: rgba(33, 160, 56, 0.14) !important;
+    transform: translateX(2px) !important;
+}
+[class*="privateChannels-"] [class*="selected-"] {
+    background: rgba(33, 160, 56, 0.25) !important;
+    border-left: 3px solid var(--sber-green) !important;
+}
+
+/*=============================================
+=   АНИМАЦИЯ ПОЯВЛЕНИЯ ЭЛЕМЕНТОВ              =
+=============================================*/
+[class*="message-"],
+[class*="member-"] {
+    animation: sber-fade-in 0.3s ease both;
+}
+@keyframes sber-fade-in {
+    from { opacity: 0; transform: translateY(4px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/*=============================================
+=   ОСОБЫЙ ФИКС ДЛЯ VENCORD / CLEARVISION     =
+=   (если фон всё ещё чёрный)                 =
+=============================================*/
+[class*="bg-"] {
+    background-image: var(--app-bg) !important;
+    background-size: cover !important;
+    background-position: center !important;
 }
