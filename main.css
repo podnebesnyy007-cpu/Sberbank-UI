@@ -368,3 +368,20 @@ body,
     transform: translateX(6px);
     box-shadow: 0 4px 16px rgba(var(--color3), 0.2);
 }
+
+/* ===== ТЕСТ ФОНА ===== */
+#app-mount {
+    background-image: url("https://i.imgur.com/LZ0UO8z.png") !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-attachment: fixed !important;
+    background-repeat: no-repeat !important;
+}
+
+#app-mount::before {
+    display: none !important;
+}
+
+#app-mount::after {
+    display: none !important;
+}
