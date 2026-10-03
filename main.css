@@ -2,219 +2,42 @@
  * @name Sberbank UI Main
  * @author ru1.0
  * @description Main theme — components, chat, panels
- * @version 0.4 beta
+ * @version 0.5 beta
  */
+
+/* ============================================================
+   BACKGROUND — IMGUR
+   ============================================================ */
+:root {
+    --DarkBG:  url("https://i.imgur.com/LZ0UO8z.png");
+    --LightBG: url("https://i.imgur.com/LZ0UO8z.png");
+    --OpacityBG: 60%;
+    --BlurBG: 0px;
+}
 
 /* ============================================================
    BACKGROUND / APP
    ============================================================ */
 :is(html, body, .appMount__51fd7) { background: none; }
-.app_a3002d { background: var(--opacity02); color: transparent; }
-.app__160d8 {
-    background: rgba(var(--color2), calc(var(--ColorOpacity) * 0.1));
-}
+.app_a3002d { background: transparent !important; }
+.app__160d8 { background: transparent !important; }
+
 .bg__960e4 {
-    background: var(--DarkBG) center/cover no-repeat;
-    background-attachment: fixed;
+    background: var(--DarkBG) center/cover no-repeat !important;
+    background-attachment: fixed !important;
+    filter: brightness(0.7);
     z-index: -1;
 }
 :is(.theme-light) .bg__960e4 {
-    background-image: var(--LightBG);
+    background-image: var(--LightBG) !important;
+    filter: brightness(1);
 }
 
 /* ============================================================
-   SIDEBARS
-   ============================================================ */
-.sidebar__5e434,
-.sidebarRegion__23e6b,
-.container__2637a,
-.container_c8ffbb,
-.members_c8ffbb,
-.membersWrap_c8ffbb {
-    background: var(--opacity01a) !important;
-    backdrop-filter: blur(var(--BlurStrength));
-    -webkit-backdrop-filter: blur(var(--BlurStrength));
-}
-
-/* ============================================================
-   CHAT
-   ============================================================ */
-.chat_f75fb0 { background: transparent; }
-.chat_f75fb0[data-has-border=true] { border: none; }
-.chatContent_f75fb0,
-.scroller_f35c3c,
-.noChannel__01d5c {
-    background: rgba(var(--color2), calc(var(--ColorOpacity) * 0.4));
-}
-
-.chatHeaderBar_dc83f5,
-.chatHeaderBar_a5700d {
-    background: var(--opacity02a) !important;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-}
-
-/* ============================================================
-   MESSAGE INPUT
-   ============================================================ */
-.channelTextArea__74017 {
-    background: var(--opacity01a);
-    box-shadow: 0 0 0 2px var(--opacity03a);
-    border-radius: 12px;
-}
-.channelTextArea__74017:focus-within {
-    box-shadow: 0 0 2px 2px rgb(var(--color3));
-}
-.stackedBars__74017,
-.channelAttachmentArea_b77158,
-.threadSuggestionBar__841c8,
-.themedBackground__74017 { background: transparent; }
-
-/* ============================================================
-   BUTTONS
-   ============================================================ */
-.button__201d5 { border-radius: 8px; }
-.lookFilled__201d5:is(.colorBrand__201d5, .colorPrimary__201d5) {
-    background-color: rgb(var(--color3));
-    border: none;
-}
-.lookFilled__201d5:is(.colorBrand__201d5, .colorPrimary__201d5):hover {
-    background-color: rgb(var(--color4));
-}
-.lookFilled__201d5.colorGreen__201d5 {
-    background-color: rgb(var(--color3));
-}
-.lookFilled__201d5.colorRed__201d5 {
-    background-color: rgb(224, 68, 68);
-}
-.lookOutlined__201d5:is(.colorBrand__201d5, .colorPrimary__201d5) {
-    border-color: rgb(var(--color3));
-}
-.lookLink__201d5:hover .contents__201d5 { text-decoration: underline; }
-
-/* ============================================================
-   INPUTS
-   ============================================================ */
-.wrapper__72c38,
-.container_a45028,
-.container_fea832,
-.input_ac6cb0,
-.searchBar__97492,
-.cardInput__8b579,
-.addFriendInputWrapper__72ba7 {
-    background: var(--opacity01a);
-    border-color: var(--opacity03a);
-}
-.wrapper__72c38:not([data-read-only=true]):has(input:focus, textarea:focus),
-.container_a45028:focus-within,
-.container_fea832:focus-within,
-.input_ac6cb0:focus-within,
-.searchBar__97492:focus-within {
-    border-color: rgb(var(--color3));
-    box-shadow: 0 0 2px 0 rgb(var(--color3));
-}
-.input__0f084::placeholder { color: var(--text02); }
-
-/* ============================================================
-   MESSAGES
-   ============================================================ */
-.mentioned__5126c {
-    --background-mentioned: rgba(var(--color3), 0.1);
-    --background-mentioned-hover: rgba(var(--color4), 0.1);
-    background: var(--background-mentioned);
-}
-.mentioned__5126c::before { background-color: rgb(var(--color3)); }
-.repliedMessageClickableSpine_c19a55 { border-color: rgb(var(--color3)); }
-.messageSpine_c19a55::before { border-color: rgb(var(--color3)); }
-
-/* ============================================================
-   EMBEDS / CARDS
-   ============================================================ */
-.embedFull__623de,
-.container__60fa3,
-.wrapper_d5f3cd,
-.file__0ccae,
-.wrapperAudio_cf09d8,
-.wrapper_cf09d8,
-.textContainer__4d95d,
-.footer__4d95d,
-.container__9271d,
-.container_a8e786,
-.embedCard__44492,
-.container_f69538,
-.container__0be77,
-.container_ca49a1,
-.container_cec934 {
-    background: var(--opacity01a);
-    border: none;
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-}
-
-/* ============================================================
-   POPOUTS / MODALS
-   ============================================================ */
-.menu_c1e9c4,
-.popout__76f04,
-.popout_a16aea,
-.autocomplete__13533,
-.tooltip_fa450d,
-.contentWrapper__08434,
-.emojiPicker_c0e32c,
-.messagesPopoutWrap__432f4,
-.container__16eb0,
-.popoutContainer__0f481 {
-    background: var(--opacity02) !important;
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    box-shadow: 0 8px 32px rgba(0,0,0,0.25);
-}
-
-.root__49fc1,
-.container__8a031,
-.authBox__921c5,
-.modalBg_b824c5,
-.browser__9a792 {
-    background: rgba(var(--color1), calc(var(--ColorOpacity) * 0.8)) !important;
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-}
-
-/* ============================================================
-   SCROLLBARS
-   ============================================================ */
-:is(.auto__99f8c, .auto_d125d2)::-webkit-scrollbar { width: 14px; }
-:is(.thin__99f8c, .thin_d125d2)::-webkit-scrollbar { width: 8px; }
-:is(:is(.auto__99f8c, .auto_d125d2), :is(.thin__99f8c, .thin_d125d2))::-webkit-scrollbar-thumb {
-    background-color: rgb(var(--color3));
-    border: 3px solid transparent;
-    border-radius: 7px;
-    background-clip: content-box;
-}
-:is(:is(.auto__99f8c, .auto_d125d2), :is(.thin__99f8c, .thin_d125d2))::-webkit-scrollbar-thumb:active {
-    background-color: rgb(var(--color4));
-    background-clip: content-box;
-}
-
-/* ============================================================
-   BADGES / ROLES
-   ============================================================ */
-.numberBadge__463b7,
-.textBadge__463b7 {
-    background: rgb(var(--color3)) !important;
-    color: var(--text01);
-}
-.role_b4b2c3 {
-    background: rgba(var(--color3), 0.2);
-    border-radius: 6px;
-    padding: 2px 8px;
-}
-
-/* ============================================================
-   1. ПРОЗРАЧНОСТЬ ЭЛЕМЕНТОВ (сайдбар, настройки, участники)
+   1. ПРОЗРАЧНОСТЬ ЭЛЕМЕНТОВ — УСИЛЕННАЯ
    ============================================================ */
 
-/* --- Левая панель с каналами (фото 1) --- */
+/* --- Левая панель каналов --- */
 .sidebar__5e434,
 .sidebarRegion__23e6b,
 .sidebarRegionScroller__23e6b,
@@ -224,33 +47,61 @@
 .channel__8dbd0,
 .containerDefault__23cdd,
 .wrapper__290d4 {
-    background: transparent !important;
+    background: rgba(var(--color2), 0.15) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
-/* --- Карточка выбранного канала --- */
+/* --- Выбранный канал --- */
 .modeSelected__2ea32 .link__2ea32,
 .modeSelected__2ea32:hover .link__2ea32 {
-    background: rgba(var(--color3), 0.15) !important;
+    background: rgba(var(--color3), 0.25) !important;
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
 }
 
-/* --- Правая панель с участниками (фото 3) --- */
+/* --- Панель участников --- */
 .container_c8ffbb,
 .members_c8ffbb,
-.membersWrap_c8ffbb,
+.membersWrap_c8ffbb {
+    background: rgba(var(--color2), 0.15) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
 .member__5d473,
 .memberInner__5d473 {
     background: transparent !important;
 }
 
-/* --- Модалка настроек (фото 2) --- */
+/* --- Чат --- */
+.chat_f75fb0 { background: transparent !important; }
+.chatContent_f75fb0,
+.scroller_f35c3c,
+.noChannel__01d5c {
+    background: rgba(var(--color2), 0.2) !important;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.chatHeaderBar_dc83f5,
+.chatHeaderBar_a5700d {
+    background: rgba(var(--color2), 0.3) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+/* --- Модалка настроек --- */
 .root__49fc1,
-.container__8a031,
+.container__8a031 {
+    background: rgba(var(--color1), 0.35) !important;
+    backdrop-filter: blur(28px) saturate(140%);
+    -webkit-backdrop-filter: blur(28px) saturate(140%);
+}
+
 .contentRegion__23e6b,
 .contentRegionScroller__23e6b,
 .sidebarRegion__23e6b,
-.sidebar__5e434,
 .scroller__629e4,
 .contentColumn__23e6b,
 .contentColumnDefault__23e6b,
@@ -260,9 +111,7 @@
     background: transparent !important;
 }
 
-/* --- Правая зона настроек (карточки, блоки) --- */
-.customScroller__23e6b,
-.contentColumnDefault__23e6b,
+/* --- Карточки в настройках --- */
 .card__6df1a,
 .container__19cf2,
 .container__5682d,
@@ -274,43 +123,33 @@
 .background__1fed1,
 .fieldList__1fed1,
 .field__1fed1 {
-    background: rgba(var(--color1), 0.4) !important;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    background: rgba(var(--color1), 0.25) !important;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
     border-radius: 12px;
 }
 
-/* --- Сама модалка настроек — единый стеклянный блок --- */
-.root__49fc1,
-.container__8a031 {
-    background: rgba(var(--color1), 0.55) !important;
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-}
-
-/* --- Sidebar настроек — выделенные пункты --- */
+/* --- Sidebar настроек --- */
 .side_bc05d6 .item_bc05d6.selected_bc05d6,
 .side_bc05d6 .item_bc05d6:hover {
-    background: rgba(var(--color3), 0.15) !important;
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
+    background: rgba(var(--color3), 0.25) !important;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     border-radius: 8px;
 }
 
-/* --- Заголовок и поля модалки --- */
+/* --- Поля модалки --- */
 .header__23e6b,
 .top__23e6b,
-.bottom__23e6b,
-.accountProfileCard__1fed1,
-.field__1fed1 {
+.bottom__23e6b {
     background: transparent !important;
 }
 
-/* --- Кнопки "Изменить" в настройках --- */
+/* --- Кнопки "Изменить" --- */
 .button__201d5.lookFilled__201d5.colorBrand__201d5,
 .button__201d5.lookFilled__201d5.colorPrimary__201d5,
 .lookFilled__201d5.colorBrand__201d5 {
-    background: rgba(var(--color3), 0.8) !important;
+    background: rgba(var(--color3), 0.85) !important;
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
 }
@@ -322,17 +161,15 @@
 /* ============================================================
    2. АНИМАЦИЯ ПОЯВЛЕНИЯ СООБЩЕНИЙ
    ============================================================ */
-
-/* --- Основная анимация --- */
 @keyframes sber-message-appear {
     0% {
         opacity: 0;
-        transform: translateY(12px) scale(0.98);
-        filter: blur(4px);
+        transform: translateY(16px) scale(0.97);
+        filter: blur(6px);
     }
     60% {
         opacity: 1;
-        transform: translateY(-2px) scale(1.005);
+        transform: translateY(-3px) scale(1.008);
         filter: blur(0);
     }
     100% {
@@ -342,31 +179,22 @@
     }
 }
 
-/* --- Применяем к каждому сообщению --- */
 .message__5126c,
-.messageListItem__5126c,
-.messageListItem__5126c:not(.groupStart__5126c) .message__5126c {
-    animation: sber-message-appear 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+.messageListItem__5126c {
+    animation: sber-message-appear 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-/* --- Задержка для последовательного появления (соседние сообщения) --- */
 .messageListItem__5126c:nth-child(1)  { animation-delay: 0s; }
-.messageListItem__5126c:nth-child(2)  { animation-delay: 0.02s; }
-.messageListItem__5126c:nth-child(3)  { animation-delay: 0.04s; }
-.messageListItem__5126c:nth-child(4)  { animation-delay: 0.06s; }
-.messageListItem__5126c:nth-child(5)  { animation-delay: 0.08s; }
-.messageListItem__5126c:nth-child(6)  { animation-delay: 0.10s; }
-.messageListItem__5126c:nth-child(7)  { animation-delay: 0.12s; }
-.messageListItem__5126c:nth-child(8)  { animation-delay: 0.14s; }
-.messageListItem__5126c:nth-child(9)  { animation-delay: 0.16s; }
-.messageListItem__5126c:nth-child(10) { animation-delay: 0.18s; }
+.messageListItem__5126c:nth-child(2)  { animation-delay: 0.03s; }
+.messageListItem__5126c:nth-child(3)  { animation-delay: 0.06s; }
+.messageListItem__5126c:nth-child(4)  { animation-delay: 0.09s; }
+.messageListItem__5126c:nth-child(5)  { animation-delay: 0.12s; }
+.messageListItem__5126c:nth-child(6)  { animation-delay: 0.15s; }
+.messageListItem__5126c:nth-child(7)  { animation-delay: 0.18s; }
+.messageListItem__5126c:nth-child(8)  { animation-delay: 0.21s; }
+.messageListItem__5126c:nth-child(9)  { animation-delay: 0.24s; }
+.messageListItem__5126c:nth-child(10) { animation-delay: 0.27s; }
 
-/* --- Отключаем анимацию для уже загруженных сообщений (при скролле вверх) --- */
-.messageListItem__5126c[data-list-item-id*="chat-messages"] {
-    animation-fill-mode: both;
-}
-
-/* --- Снижаем нагрузку, если у пользователя включен "уменьшенный motion" --- */
 @media (prefers-reduced-motion: reduce) {
     .message__5126c,
     .messageListItem__5126c {
@@ -376,77 +204,96 @@
 
 
 /* ============================================================
-   3. АНИМАЦИЯ HOVER НА ПРОФИЛЬ В СПИСКЕ УЧАСТНИКОВ (фото 3)
+   3. HOVER НА ПРОФИЛЬ УЧАСТНИКА — ЗАМЕТНЕЕ И ПЛАВНЕЕ
    ============================================================ */
 
 .member__5d473,
 .memberInner__5d473,
 .member__5d473 .childContainer__91a9d {
     transition:
-        transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
-        background-color 0.25s ease,
-        box-shadow 0.25s ease,
-        padding 0.25s ease;
+        transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+        background-color 0.4s ease,
+        box-shadow 0.4s ease,
+        padding 0.4s ease;
+    will-change: transform;
 }
 
-/* --- Плавное «выезжание» вправо + подсветка --- */
+/* --- Сдвиг + подсветка + тень --- */
 .member__5d473:hover .memberInner__5d473 {
-    transform: translateX(6px) scale(1.02);
-    background: rgba(var(--color3), 0.12) !important;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(var(--color3), 0.15);
+    transform: translateX(10px) scale(1.035);
+    background: rgba(var(--color3), 0.18) !important;
+    border-radius: 10px;
+    box-shadow:
+        0 6px 20px rgba(var(--color3), 0.25),
+        0 0 0 1px rgba(var(--color3), 0.3);
+    padding-left: 6px;
+    padding-right: 6px;
 }
 
+/* --- Имя становится зелёным --- */
 .member__5d473:hover .memberInner__5d473 .name__91a9d {
     color: rgb(var(--color3)) !important;
-    transition: color 0.2s ease;
+    transition: color 0.3s ease;
+    font-weight: 600;
 }
 
-/* --- Аватар: лёгкое увеличение + свечение --- */
+/* --- Аватар: увеличение + кольцо --- */
 .member__5d473 .avatar__991e2,
 .member__5d473 .avatar_c19a55,
 .member__5d473 img {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition:
+        transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 0.4s ease,
+        border-radius 0.4s ease;
 }
 
 .member__5d473:hover .avatar__991e2,
 .member__5d473:hover .avatar_c19a55,
 .member__5d473:hover img {
-    transform: scale(1.15);
-    box-shadow: 0 0 0 2px rgb(var(--color3));
+    transform: scale(1.22);
+    box-shadow:
+        0 0 0 2px rgb(var(--color3)),
+        0 0 12px rgba(var(--color3), 0.5);
+    border-radius: 50%;
 }
 
-/* --- Выезд плавающего попапа профиля (при клике) --- */
+/* --- Плавное появление попапа профиля --- */
 .userPopout__7b7de,
 .outer_c0bea0 {
-    animation: sber-popout-appear 0.25s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation: sber-popout-appear 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 @keyframes sber-popout-appear {
     from {
         opacity: 0;
-        transform: translateY(8px) scale(0.96);
+        transform: translateY(12px) scale(0.94);
+        filter: blur(4px);
     }
     to {
         opacity: 1;
         transform: translateY(0) scale(1);
+        filter: blur(0);
     }
 }
 
-/* --- Плавное появление имени пользователя при hover --- */
+/* --- Имя плавно сдвигается --- */
 .member__5d473 .nameContainer__703b9 {
-    transition: color 0.2s ease, transform 0.2s ease;
+    transition: color 0.3s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .member__5d473:hover .nameContainer__703b9 {
-    transform: translateX(2px);
+    transform: translateX(4px);
 }
 
-/* --- Hover на аватаре в карточке друга --- */
+/* --- Друзья в списке --- */
+.peopleListItem_d51464 {
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
 .peopleListItem_d51464:hover,
 .peopleListItem_d51464.active_d51464 {
-    background: rgba(var(--color3), 0.1) !important;
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    border-radius: 10px;
-    transition: all 0.25s ease;
+    background: rgba(var(--color3), 0.15) !important;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 12px;
+    transform: translateX(6px);
+    box-shadow: 0 4px 16px rgba(var(--color3), 0.2);
 }
