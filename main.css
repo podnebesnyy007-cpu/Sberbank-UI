@@ -16,7 +16,7 @@
 }
 
 /* ============================================================
-   BACKGROUND — UNIVERSAL (работает на всех сборках Discord)
+   BACKGROUND — FIX для iframe-сборки Discord
    ============================================================ */
 
 :root {
@@ -24,68 +24,44 @@
     --LightBG: url("https://i.imgur.com/LZ0UO8z.png");
 }
 
-/* --- Убираем все дефолтные фоны --- */
+/* Убираем все фоны сверху донизу */
 html,
 body,
 #app-mount,
-.app_a3002d,
-.app__160d8,
 .appMount__51fd7,
-.appMount_bf6165,
-.bg__960e4,
-.bg__a3002d,
-.layers__160d8,
-.layers__1c1ca,
-.container_a2f514,
-.wrapper__61a6b {
+[class*="app_"],
+[class*="appMount_"],
+[class*="layers_"],
+[class*="bg_"] {
     background: transparent !important;
 }
 
-/* --- Сам фон через ::before на #app-mount --- */
-#app-mount {
-    position: relative;
-    background: none !important;
-}
-
-#app-mount::before {
+/* Фон — на body::before, поверх всего кроме UI */
+body::before {
     content: "";
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
+    inset: 0;
     background: var(--DarkBG) center/cover no-repeat fixed;
     background-size: cover;
-    z-index: 0;
+    z-index: -2;
     pointer-events: none;
     filter: brightness(0.65);
 }
 
-/* --- Слой затемнения для читаемости UI --- */
-#app-mount::after {
+/* Затемнение поверх фона */
+body::after {
     content: "";
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
+    inset: 0;
     background: rgba(var(--color2), 0.5);
-    z-index: 0;
+    z-index: -1;
     pointer-events: none;
 }
 
-/* --- Контент — поверх фона --- */
-#app-mount > * {
-    position: relative;
-    z-index: 1;
-}
-
-/* --- Светлая тема — светлее фон и затемнение --- */
-:is(.theme-light) #app-mount::before {
-    filter: brightness(1);
-}
-:is(.theme-light) #app-mount::after {
-    background: rgba(255, 255, 255, 0.45);
+/* iframe — прозрачный */
+iframe {
+    background: transparent !important;
+    color-scheme: normal !important;
 }
 /* ============================================================
    1. ПРОЗРАЧНОСТЬ ЭЛЕМЕНТОВ — УСИЛЕННАЯ
