@@ -1,7 +1,7 @@
 /**
  * @name Sberbank UI
- * @version 3.0.0
- * @description Тема Discord в стиле СберБанк UI — полная прозрачность, зелёный акцент, анимации
+ * @version 4.0.0
+ * @description Тема Discord в стиле СберБанк UI
  * @author podnebesnyy007-cpu
  * @source https://github.com/podnebesnyy007-cpu/Sberbank-UI
  */
@@ -10,284 +10,208 @@
 =                ПЕРЕМЕННЫЕ                    =
 =============================================*/
 :root {
-    /* ---------- ФОН ---------- */
     --app-bg: url(https://i.imgur.com/LZ0UO8z.png);
     --app-blur: 8px;
-    --app-dim: 0.4;
-    --app-margin: 24px;
+    --app-dim: 0.45;
     --app-radius: 12px;
 
-    /* ---------- СТЕКЛО / ПРОЗРАЧНОСТЬ ---------- */
     --glass-sidebar: hsla(0, 0%, 0%, 0.35);
     --glass-chat: hsla(0, 0%, 0%, 0.30);
     --glass-members: hsla(0, 0%, 0%, 0.35);
     --glass-popout: hsla(0, 0%, 0%, 0.55);
     --glass-blur: 16px;
 
-    /* ---------- ЗЕЛЁНЫЙ СБЕРА ---------- */
     --sber-green: #21A038;
     --sber-green-hover: #1B8530;
     --sber-green-light: #4FBF60;
     --sber-green-glow: rgba(33, 160, 56, 0.55);
-    --sber-green-soft: rgba(33, 160, 56, 0.18);
 
-    /* ---------- ACCENT ---------- */
-    --accent-hue: 129;
-    --accent-saturation: 66%;
-    --accent-lightness: 38%;
-    --accent-text-color: hsl(0, 0%, 100%);
-
-    /* ---------- СООБЩЕНИЯ ---------- */
     --message-color: hsla(0, 0%, 0%, 0.18);
     --message-color-hover: hsla(0, 0%, 0%, 0.28);
     --message-radius: 18px;
-    --message-padding: 8px;
 
-    /* ---------- TEXTAREA ---------- */
     --textarea-alpha: 0.14;
     --textarea-alpha-focus: 0.20;
     --textarea-radius: 28px;
 
-    /* ---------- АНИМАЦИИ ---------- */
     --anim-fast: 0.15s ease;
     --anim-base: 0.25s cubic-bezier(0.22, 1, 0.36, 1);
-    --anim-slow: 0.4s cubic-bezier(0.22, 1, 0.36, 1);
     --anim-bounce: 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-
-    /* ---------- СТАНДАРТНЫЕ ПЕРЕМЕННЫЕ DISCORD ---------- */
-    --background-primary: transparent;
-    --background-secondary: transparent;
-    --background-secondary-alt: transparent;
-    --background-tertiary: transparent;
-    --background-floating: var(--glass-popout);
-    --background-accent: var(--sber-green);
-
-    --text-primary: hsl(0, 0%, 100%);
-    --text-secondary: hsl(0, 0%, 80%);
-    --text-default: hsl(0, 0%, 88%);
-    --text-muted: hsl(0, 0%, 72%);
-    --text-strong: hsl(0, 0%, 100%);
-    --text-link: var(--sber-green-light);
-    --text-brand: var(--sber-green);
-
-    --channels-default: hsl(0, 0%, 75%);
-    --channel-icon: hsl(0, 0%, 75%);
-
-    --interactive-normal: hsl(0, 0%, 80%);
-    --interactive-hover: hsl(0, 0%, 95%);
-    --interactive-active: hsl(0, 0%, 100%);
-    --interactive-muted: hsl(0, 0%, 45%);
-
-    --background-modifier-hover: rgba(33, 160, 56, 0.12);
-    --background-modifier-active: rgba(33, 160, 56, 0.18);
-    --background-modifier-selected: rgba(33, 160, 56, 0.25);
-    --background-modifier-accent: rgba(255, 255, 255, 0.1);
-
-    --scrollbar-auto-thumb: rgba(33, 160, 56, 0.35);
-    --scrollbar-auto-track: transparent;
-    --scrollbar-thin-thumb: rgba(33, 160, 56, 0.35);
-    --scrollbar-thin-track: transparent;
 }
 
 /*=============================================
-=              ФОН APP-MOUNT                  =
+=   ФОН ЧЕРЕЗ BODY (работает всегда)          =
 =============================================*/
+html,
+body,
 #app-mount {
     background: transparent !important;
 }
-#app-mount::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background: var(--app-bg) center / cover no-repeat fixed;
-    z-index: -2;
-    pointer-events: none;
-    animation: sber-bg-pan 40s ease-in-out infinite alternate;
+
+body {
+    background-image: var(--app-bg) !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    background-attachment: fixed !important;
 }
-#app-mount::after {
+
+/* Затемняющий + размывающий слой */
+body::before {
     content: "";
     position: fixed;
     inset: 0;
     backdrop-filter: blur(var(--app-blur)) saturate(120%);
     -webkit-backdrop-filter: blur(var(--app-blur)) saturate(120%);
     background: rgba(0, 0, 0, var(--app-dim));
-    z-index: -1;
+    z-index: 0;
     pointer-events: none;
 }
-@keyframes sber-bg-pan {
-    0%   { transform: scale(1)    translate(0, 0); }
-    100% { transform: scale(1.05) translate(-8px, -8px); }
+
+/* Убеждаемся, что app-mount выше затемнения */
+#app-mount {
+    position: relative;
+    z-index: 1;
 }
 
 /*=============================================
-=        ПОЛНАЯ ПРОЗРАЧНОСТЬ КОНТЕЙНЕРОВ     =
+=   ЖЁСТКАЯ ПРОЗРАЧНОСТЬ ВСЕХ КОНТЕЙНЕРОВ     =
+=   (по атрибуту class* — работает всегда)    =
 =============================================*/
-#app-mount .app-2CXKsg,
-#app-mount .app-3xd6d0,
-#app-mount .appAsidePanelWrapper-ev4hlp,
-#app-mount .content-1SgpWY,
-#app-mount .layers-OrUESM,
-#app-mount .layer-86YKbF,
-#app-mount .base-2jDfDU,
-#app-mount .container-1NXEtd,
-#app-mount .container-2RRFHK,
-#app-mount .wrapper-1_HaEi,
-#app-mount .bg-1QIAus,
-#app-mount .sidebarRegion-1VBisG,
-#app-mount .sidebarRegionScroller-FXiQOh,
-#app-mount .contentRegion-3HkfJJ,
-#app-mount .contentRegionScroller-2_GT_N {
-    background: transparent !important;
+#app-mount [class*="app-"],
+#app-mount [class*="appAsidePanel"],
+#app-mount [class*="layers-"],
+#app-mount [class*="layer-"],
+#app-mount [class*="base-"],
+#app-mount [class*="bg-"],
+#app-mount [class*="container-"],
+#app-mount [class*="wrapper-"],
+#app-mount [class*="content-"],
+#app-mount [class*="sidebar-"],
+#app-mount [class*="chat-"],
+#app-mount [class*="chatContent-"],
+#app-mount [class*="messagesWrapper-"],
+#app-mount [class*="members-"],
+#app-mount [class*="membersWrap-"],
+#app-mount [class*="panels-"] {
+    background-color: transparent !important;
 }
 
 /*=============================================
-=        ЛЕВАЯ ПАНЕЛЬ СЕРВЕРОВ — СТЕКЛО       =
+=        ЛЕВАЯ ПАНЕЛЬ СЕРВЕРОВ                =
 =============================================*/
-#app-mount .guilds-2JjMmN {
+#app-mount [class*="guilds-"] {
     background: var(--glass-sidebar) !important;
     backdrop-filter: blur(var(--glass-blur)) saturate(140%);
     -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(140%);
-    border-radius: var(--app-radius);
-    margin: 8px 0 8px 8px;
-    padding: 8px 0;
+    border-radius: var(--app-radius) !important;
+    margin: 8px 0 8px 8px !important;
+    padding: 8px 0 !important;
     border: 1px solid rgba(33, 160, 56, 0.15);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35),
                 inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
-#app-mount .guilds-2JjMmN .wrapper-3kahwR {
+
+#app-mount [class*="guilds-"] [class*="wrapper-"] {
     transition: transform var(--anim-base), border-radius var(--anim-base);
 }
-#app-mount .guilds-2JjMmN .wrapper-3kahwR:hover {
+#app-mount [class*="guilds-"] [class*="wrapper-"]:hover {
     transform: translateY(-2px) scale(1.06);
 }
-#app-mount .guilds-2JjMmN .pill-2R7F1Q .item-2LIpTv {
+
+#app-mount [class*="guilds-"] [class*="pill-"] [class*="item-"] {
     background: var(--sber-green) !important;
     box-shadow: 0 0 12px var(--sber-green-glow);
-    animation: sber-pulse 2s ease-in-out infinite;
 }
-@keyframes sber-pulse {
-    0%, 100% { box-shadow: 0 0 8px var(--sber-green-glow); }
-    50%      { box-shadow: 0 0 18px var(--sber-green-glow); }
-}
-#app-mount .guilds-2JjMmN .homeIcon-FB7lBf {
+#app-mount [class*="guilds-"] [class*="homeIcon"] {
     color: var(--sber-green) !important;
     filter: drop-shadow(0 0 6px var(--sber-green-glow));
 }
 
 /*=============================================
-=        КАНАЛЫ — СТЕКЛО + АНИМАЦИИ           =
+=        ПАНЕЛЬ КАНАЛОВ (SIDEBAR)             =
 =============================================*/
-#app-mount .sidebar-1tnWFu {
+#app-mount [class*="sidebar-"]:not([class*="sidebarRegion"]) {
     background: var(--glass-sidebar) !important;
     backdrop-filter: blur(var(--glass-blur)) saturate(140%);
     -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(140%);
-    border-radius: var(--app-radius);
+    border-radius: var(--app-radius) !important;
     border: 1px solid rgba(33, 160, 56, 0.12);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35),
                 inset 0 1px 0 rgba(255, 255, 255, 0.05);
-    margin: 8px 0;
+    margin: 8px 0 !important;
 }
-#app-mount .sidebar-1tnWFu .header-3OsQeK,
-#app-mount .sidebar-1tnWFu .header-1nHcYw {
+
+#app-mount [class*="sidebar-"] [class*="header-"] {
     background: transparent !important;
-    border-bottom: 1px solid rgba(33, 160, 56, 0.15);
-    box-shadow: none;
-    transition: background var(--anim-base);
+    border-bottom: 1px solid rgba(33, 160, 56, 0.15) !important;
+    box-shadow: none !important;
 }
-#app-mount .sidebar-1tnWFu .header-3OsQeK:hover {
-    background: rgba(33, 160, 56, 0.08) !important;
-}
-#app-mount .sidebar-1tnWFu .wrapper-1S43wL {
+
+#app-mount [class*="sidebar-"] [class*="wrapper-"] {
     border-radius: 10px;
     transition: background var(--anim-fast),
-                transform var(--anim-fast),
-                box-shadow var(--anim-fast);
+                transform var(--anim-fast);
 }
-#app-mount .sidebar-1tnWFu .wrapper-1S43wL:hover {
+#app-mount [class*="sidebar-"] [class*="wrapper-"]:hover {
     background: rgba(33, 160, 56, 0.12) !important;
     transform: translateX(3px);
 }
-#app-mount .sidebar-1tnWFu .wrapper-1S43wL.modeSelected-1zApJ_,
-#app-mount .sidebar-1tnWFu .wrapper-1S43wL.selected-1dODfG {
+#app-mount [class*="sidebar-"] [class*="modeSelected"],
+#app-mount [class*="sidebar-"] [class*="selected-"] {
     background: rgba(33, 160, 56, 0.22) !important;
     transform: translateX(3px);
     box-shadow: inset 0 0 0 1px rgba(33, 160, 56, 0.25);
 }
-#app-mount .sidebar-1tnWFu .wrapper-1S43wL.modeSelected-1zApJ_::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 10%;
-    bottom: 10%;
-    width: 3px;
-    background: var(--sber-green);
-    border-radius: 0 3px 3px 0;
-    box-shadow: 0 0 10px var(--sber-green-glow);
-}
-#app-mount .sidebar-1tnWFu .wrapper-1S43wL.modeSelected-1zApJ_ .icon-2W8DHg,
-#app-mount .sidebar-1tnWFu .wrapper-1S43wL.modeSelected-1zApJ_ .name-28HaxV {
-    color: var(--sber-green-light) !important;
-}
 
 /*=============================================
-=        ЧАТ — СТЕКЛО                         =
+=        ОСНОВНОЙ ЧАТ                         =
 =============================================*/
-#app-mount .chat-2ZfjoI,
-#app-mount .chatContent-3KubbW,
-#app-mount .messagesWrapper-Rn5jGi {
+#app-mount [class*="chat-"]:not([class*="chatContent"]):not([class*="chatHeader"]),
+#app-mount [class*="chatContent-"] {
     background: var(--glass-chat) !important;
     backdrop-filter: blur(var(--glass-blur)) saturate(140%);
     -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(140%);
-    border-radius: var(--app-radius);
+    border-radius: var(--app-radius) !important;
     border: 1px solid rgba(33, 160, 56, 0.12);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35),
                 inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
-#app-mount .chat-2ZfjoI .title-31SJ6t,
-#app-mount .chat-2ZfjoI .header-3OsQeK,
-#app-mount .chat-2ZfjoI .upperContainer-1QYk3Y {
+
+#app-mount [class*="chat-"] [class*="title-"],
+#app-mount [class*="chat-"] [class*="header-"] {
     background: transparent !important;
-    border-bottom: 1px solid rgba(33, 160, 56, 0.15);
-    box-shadow: none;
+    border-bottom: 1px solid rgba(33, 160, 56, 0.15) !important;
+    box-shadow: none !important;
 }
 
 /*=============================================
 =        СООБЩЕНИЯ                            =
 =============================================*/
-#app-mount .message-2CShn3 {
+#app-mount [class*="message-"] {
     background: var(--message-color) !important;
     border-radius: var(--message-radius);
     margin: 2px 8px;
-    padding: var(--message-padding);
+    padding: 8px;
     transition: background var(--anim-fast),
                 transform var(--anim-fast),
                 box-shadow var(--anim-fast);
-    animation: sber-msg-in 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
-@keyframes sber-msg-in {
-    from { opacity: 0; transform: translateY(8px); }
-    to   { opacity: 1; transform: translateY(0); }
-}
-#app-mount .message-2CShn3:hover {
+#app-mount [class*="message-"]:hover {
     background: var(--message-color-hover) !important;
     transform: translateX(3px);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3),
                 0 0 0 1px rgba(33, 160, 56, 0.15);
 }
-#app-mount .message-2CShn3.mentioned-Tre-dv {
+#app-mount [class*="message-"][class*="mentioned"] {
     background: rgba(33, 160, 56, 0.18) !important;
     border-left: 3px solid var(--sber-green);
-    animation: sber-mention-pulse 2s ease-in-out infinite;
 }
-@keyframes sber-mention-pulse {
-    0%, 100% { box-shadow: 0 0 12px rgba(33, 160, 56, 0.2); }
-    50%      { box-shadow: 0 0 24px rgba(33, 160, 56, 0.5); }
-}
-#app-mount .message-2CShn3 .username-h_Y3Us {
+#app-mount [class*="message-"] [class*="username-"] {
     color: var(--sber-green-light) !important;
     transition: color var(--anim-fast), text-shadow var(--anim-fast);
 }
-#app-mount .message-2CShn3:hover .username-h_Y3Us {
+#app-mount [class*="message-"]:hover [class*="username-"] {
     color: var(--sber-green) !important;
     text-shadow: 0 0 8px var(--sber-green-glow);
 }
@@ -295,9 +219,8 @@
 /*=============================================
 =        ПОЛЕ ВВОДА                           =
 =============================================*/
-#app-mount .channelTextArea-1FufC0,
-#app-mount .channelTextArea-2VhZ6z,
-#app-mount .channelTextArea-1VQBuV {
+#app-mount [class*="channelTextArea-"],
+#app-mount [class*="textArea-"] {
     background: rgba(33, 160, 56, var(--textarea-alpha)) !important;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
@@ -305,35 +228,30 @@
     border: 1px solid rgba(33, 160, 56, 0.25);
     transition: all var(--anim-base);
 }
-#app-mount .channelTextArea-1FufC0:focus-within,
-#app-mount .channelTextArea-2VhZ6z:focus-within {
+#app-mount [class*="channelTextArea-"]:focus-within {
     background: rgba(33, 160, 56, var(--textarea-alpha-focus)) !important;
     border-color: var(--sber-green) !important;
     box-shadow: 0 0 0 3px rgba(33, 160, 56, 0.25),
                 0 0 24px rgba(33, 160, 56, 0.35);
-    transform: translateY(-1px);
 }
 
 /*=============================================
-=   ПРАВАЯ ПАНЕЛЬ УЧАСТНИКОВ + АНИМАЦИЯ       =
-=   ПРИ НАВЕДЕНИИ НА УЧАСТНИКА                =
+=        ПРАВАЯ ПАНЕЛЬ УЧАСТНИКОВ             =
+=        + АНИМАЦИЯ ПРИ НАВЕДЕНИИ             =
 =============================================*/
-#app-mount .container-2o3qEW,
-#app-mount .members-3WRCEx,
-#app-mount .membersWrap-3hqJpK {
+#app-mount [class*="membersWrap-"],
+#app-mount [class*="members-"] {
     background: var(--glass-members) !important;
     backdrop-filter: blur(var(--glass-blur)) saturate(140%);
     -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(140%);
-    border-radius: var(--app-radius);
+    border-radius: var(--app-radius) !important;
     border: 1px solid rgba(33, 160, 56, 0.12);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35),
                 inset 0 1px 0 rgba(255, 255, 255, 0.05);
-    margin: 8px 8px 8px 0;
+    margin: 8px 8px 8px 0 !important;
 }
 
-/* Участник — анимация при наведении */
-#app-mount .member-2gU6Ar,
-#app-mount .member-2gU6Ar .memberInner-3r7g5L {
+#app-mount [class*="member-"]:not([class*="memberInner"]) {
     border-radius: 12px;
     padding: 4px 6px;
     transition: background var(--anim-base),
@@ -342,563 +260,184 @@
                 padding-left var(--anim-base);
     position: relative;
 }
-#app-mount .member-2gU6Ar:hover {
+#app-mount [class*="member-"]:hover {
     background: rgba(33, 160, 56, 0.15) !important;
     transform: translateX(4px) scale(1.01);
     box-shadow: 0 4px 16px rgba(33, 160, 56, 0.25),
                 inset 0 0 0 1px rgba(33, 160, 56, 0.3);
     padding-left: 10px;
 }
-#app-mount .member-2gU6Ar:hover::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 20%;
-    bottom: 20%;
-    width: 3px;
-    background: var(--sber-green);
-    border-radius: 0 3px 3px 0;
-    box-shadow: 0 0 10px var(--sber-green-glow);
-    animation: sber-bar-in var(--anim-base) both;
-}
-@keyframes sber-bar-in {
-    from { height: 0; top: 50%; bottom: 50%; opacity: 0; }
-    to   { height: auto; top: 20%; bottom: 20%; opacity: 1; }
-}
-#app-mount .member-2gU6Ar .name-3Vmqxm,
-#app-mount .member-2gU6Ar .username-1A8OIy {
-    transition: color var(--anim-fast), text-shadow var(--anim-fast);
-}
-#app-mount .member-2gU6Ar:hover .name-3Vmqxm,
-#app-mount .member-2gU6Ar:hover .username-1A8OIy {
+#app-mount [class*="member-"]:hover [class*="name-"],
+#app-mount [class*="member-"]:hover [class*="username-"] {
     color: var(--sber-green-light) !important;
     text-shadow: 0 0 8px var(--sber-green-glow);
 }
-#app-mount .member-2gU6Ar .avatar-1BDn8e,
-#app-mount .member-2gU6Ar .avatar-2e8lTP {
+#app-mount [class*="member-"] [class*="avatar-"] {
     transition: transform var(--anim-base), box-shadow var(--anim-base);
 }
-#app-mount .member-2gU6Ar:hover .avatar-1BDn8e,
-#app-mount .member-2gU6Ar:hover .avatar-2e8lTP {
+#app-mount [class*="member-"]:hover [class*="avatar-"] {
     transform: scale(1.15);
     box-shadow: 0 0 0 2px var(--sber-green),
                 0 0 12px var(--sber-green-glow);
 }
 
 /*=============================================
-=        ПАНЕЛЬ ПОЛЬЗОВАТЕЛЯ — СТЕКЛО         =
+=        ПАНЕЛЬ ПОЛЬЗОВАТЕЛЯ                  =
 =============================================*/
-#app-mount .panels-3wFtMD,
-#app-mount .panels-3wFtMD .container-YkUktl,
-#app-mount .panels-3wFtMD .panel-2ZF6Cz {
+#app-mount [class*="panels-"] {
     background: var(--glass-sidebar) !important;
     backdrop-filter: blur(var(--glass-blur)) saturate(140%);
     -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(140%);
     border-top: 1px solid rgba(33, 160, 56, 0.15);
     box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.3);
 }
-#app-mount .panels-3wFtMD .avatarWrapper-3y0XJY {
-    border-radius: 10px;
-    transition: background var(--anim-fast), transform var(--anim-fast);
-}
-#app-mount .panels-3wFtMD .avatarWrapper-3y0XJY:hover {
-    background: rgba(33, 160, 56, 0.15) !important;
-    transform: scale(1.08);
-    box-shadow: 0 0 0 2px var(--sber-green),
-                0 0 16px var(--sber-green-glow);
-}
 
 /*=============================================
-=        КНОПКИ — АНИМАЦИЯ + БЛИК             =
+=        КНОПКИ                               =
 =============================================*/
-#app-mount .lookFilled-1H2Jvj.colorBrand-2M3O3N,
-#app-mount .lookFilled-1H2Jvj.colorGreen-3J2YFF,
+#app-mount [class*="lookFilled-"][class*="colorBrand"],
+#app-mount [class*="lookFilled-"][class*="colorGreen"],
 #app-mount button[class*="colorBrand"] {
     background: var(--sber-green) !important;
-    color: var(--accent-text-color) !important;
+    color: #fff !important;
     border-radius: 12px !important;
     transition: background var(--anim-fast),
                 transform var(--anim-fast),
                 box-shadow var(--anim-base);
-    position: relative;
-    overflow: hidden;
 }
-#app-mount .lookFilled-1H2Jvj.colorBrand-2M3O3N:hover,
-#app-mount .lookFilled-1H2Jvj.colorGreen-3J2YFF:hover,
+#app-mount [class*="lookFilled-"][class*="colorBrand"]:hover,
+#app-mount [class*="lookFilled-"][class*="colorGreen"]:hover,
 #app-mount button[class*="colorBrand"]:hover {
     background: var(--sber-green-hover) !important;
     transform: translateY(-1px);
     box-shadow: 0 8px 24px rgba(33, 160, 56, 0.45);
 }
-#app-mount .lookFilled-1H2Jvj.colorBrand-2M3O3N:active,
-#app-mount .lookFilled-1H2Jvj.colorGreen-3J2YFF:active {
-    transform: translateY(0) scale(0.98);
-}
-#app-mount .lookFilled-1H2Jvj.colorBrand-2M3O3N::after,
-#app-mount .lookFilled-1H2Jvj.colorGreen-3J2YFF::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -75%;
-    width: 50%;
-    height: 100%;
-    background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-    transform: skewX(-20deg);
-    transition: left 0.6s ease;
-    pointer-events: none;
-}
-#app-mount .lookFilled-1H2Jvj.colorBrand-2M3O3N:hover::after,
-#app-mount .lookFilled-1H2Jvj.colorGreen-3J2YFF:hover::after {
-    left: 125%;
-}
 
 /*=============================================
-=        КОНТЕКСТНОЕ МЕНЮ — СТЕКЛО            =
+=        КОНТЕКСТНОЕ МЕНЮ                     =
 =============================================*/
-#app-mount .menu-1QYk3Y,
-#app-mount .root-2QYk3Y {
+#app-mount [class*="menu-"]:not([class*="menuItem"]),
+#app-mount [role="menu"] {
     background: var(--glass-popout) !important;
     backdrop-filter: blur(20px) saturate(160%);
     -webkit-backdrop-filter: blur(20px) saturate(160%);
     border-radius: 16px !important;
     border: 1px solid rgba(33, 160, 56, 0.25);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5),
-                0 0 0 1px rgba(33, 160, 56, 0.1),
-                inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
     padding: 6px;
-    animation: sber-menu-in var(--anim-base) both;
-    transform-origin: top left;
 }
-@keyframes sber-menu-in {
-    from { opacity: 0; transform: scale(0.94) translateY(-6px); }
-    to   { opacity: 1; transform: scale(1)    translateY(0); }
-}
-#app-mount .menu-1QYk3Y .item-1OdjEJ {
-    border-radius: 10px;
-    color: var(--text-default) !important;
-    transition: background var(--anim-fast),
-                color var(--anim-fast),
-                padding-left var(--anim-fast),
-                transform var(--anim-fast);
-}
-#app-mount .menu-1QYk3Y .item-1OdjEJ:hover {
+#app-mount [role="menuitem"]:hover,
+#app-mount [class*="item-"]:hover {
     background: rgba(33, 160, 56, 0.22) !important;
     color: #fff !important;
-    padding-left: 14px;
-    transform: translateX(2px);
-}
-#app-mount .menu-1QYk3Y .item-1OdjEJ.colorDanger-2YLzLC:hover {
-    background: rgba(237, 66, 69, 0.22) !important;
-    color: #ED4245 !important;
-}
-#app-mount .menu-1QYk3Y .separator-1So4YB {
-    background: rgba(33, 160, 56, 0.25) !important;
-    margin: 4px 8px;
 }
 
 /*=============================================
-=   ПРОФИЛЬ (ЮЗЕР-ПОПАУТ) — СТЕКЛО + АНИМАЦИИ =
-=   ПРИ НАВЕДЕНИИ НА АВУ / НИК В ПРОФИЛЕ      =
+=   ПРОФИЛЬ + АНИМАЦИЯ АВАТАРА И НИКА         =
 =============================================*/
-#app-mount .userPopout-3YAwnI,
-#app-mount .userPopoutOuter-3AVBmJ,
-#app-mount .userProfileOuterUnthemed-2b7g4F,
-#app-mount .userProfileOuter-1QYk3Y,
-#app-mount .outer-1QYk3Y {
+#app-mount [class*="userPopout-"],
+#app-mount [class*="userProfileOuter"],
+#app-mount [class*="userProfileInner"] {
     background: var(--glass-popout) !important;
     backdrop-filter: blur(24px) saturate(160%);
     -webkit-backdrop-filter: blur(24px) saturate(160%);
     border-radius: 20px !important;
     border: 1px solid rgba(33, 160, 56, 0.3);
     box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6),
-                0 0 40px rgba(33, 160, 56, 0.2),
-                inset 0 1px 0 rgba(255, 255, 255, 0.06);
-    animation: sber-popout-in 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+                0 0 40px rgba(33, 160, 56, 0.2);
     overflow: hidden;
-}
-@keyframes sber-popout-in {
-    from { opacity: 0; transform: scale(0.92) translateY(-10px); }
-    to   { opacity: 1; transform: scale(1)    translateY(0); }
-}
-#app-mount .userPopout-3YAwnI .body-3iLsc4,
-#app-mount .userPopout-3YAwnI .footer-1fjuF6,
-#app-mount .userProfileInner-2QYk3Y,
-#app-mount .inner-1QYk3Y {
-    background: transparent !important;
-}
-#app-mount .userPopout-3YAwnI .headerNormal-T_seeN,
-#app-mount .userPopout-3YAwnI .headerTop-3C2Zn0 {
-    background: linear-gradient(135deg, var(--sber-green) 0%, var(--sber-green-light) 100%) !important;
-    border-radius: 20px 20px 0 0;
-    position: relative;
-    overflow: hidden;
-}
-#app-mount .userPopout-3YAwnI .headerNormal-T_seeN::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(120deg,
-        transparent 30%,
-        rgba(255, 255, 255, 0.25) 50%,
-        transparent 70%);
-    transform: translateX(-100%);
-    animation: sber-header-shine 4s ease-in-out infinite;
-    pointer-events: none;
-}
-@keyframes sber-header-shine {
-    0%, 100% { transform: translateX(-100%); }
-    50%      { transform: translateX(100%); }
-}
-#app-mount .userPopout-3YAwnI .headerNormal-T_seeN .headerText-3Uvj1Y,
-#app-mount .userPopout-3YAwnI .headerNormal-T_seeN .headerTag-3F5f6k {
-    color: #fff !important;
-    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
 }
 
-/* Аватар в профиле — анимация при наведении */
-#app-mount .userPopout-3YAwnI .avatar-1BDn8e,
-#app-mount .userPopout-3YAwnI .avatarWrapper-3y0XJY,
-#app-mount .userProfileInner-2QYk3Y .avatar-1BDn8e,
-#app-mount .userProfileInner-2QYk3Y .avatarWrapper-3y0XJY {
+#app-mount [class*="userPopout-"] [class*="headerNormal"],
+#app-mount [class*="userPopout-"] [class*="headerTop"],
+#app-mount [class*="userProfileInner"] [class*="header-"] {
+    background: linear-gradient(135deg,
+        var(--sber-green) 0%,
+        var(--sber-green-light) 100%) !important;
+    border-radius: 20px 20px 0 0;
+}
+
+/* Аватар в профиле — ховер */
+#app-mount [class*="userPopout-"] [class*="avatarWrapper"],
+#app-mount [class*="userPopout-"] [class*="avatar-"],
+#app-mount [class*="userProfileInner"] [class*="avatarWrapper"],
+#app-mount [class*="userProfileInner"] [class*="avatar-"] {
     transition: transform var(--anim-base),
                 box-shadow var(--anim-base),
                 filter var(--anim-base);
     cursor: pointer;
 }
-#app-mount .userPopout-3YAwnI .avatarWrapper-3y0XJY:hover .avatar-1BDn8e,
-#app-mount .userPopout-3YAwnI .avatar-1BDn8e:hover,
-#app-mount .userProfileInner-2QYk3Y .avatarWrapper-3y0XJY:hover .avatar-1BDn8e,
-#app-mount .userProfileInner-2QYk3Y .avatar-1BDn8e:hover {
+#app-mount [class*="userPopout-"] [class*="avatarWrapper"]:hover,
+#app-mount [class*="userPopout-"] [class*="avatar-"]:hover,
+#app-mount [class*="userProfileInner"] [class*="avatarWrapper"]:hover,
+#app-mount [class*="userProfileInner"] [class*="avatar-"]:hover {
     transform: scale(1.12) rotate(-3deg);
     box-shadow: 0 0 0 3px var(--sber-green),
                 0 0 24px var(--sber-green-glow);
     filter: brightness(1.15);
 }
 
-/* Ник в профиле — анимация при наведении */
-#app-mount .userPopout-3YAwnI .headerText-3Uvj1Y,
-#app-mount .userPopout-3YAwnI .nickname-2QYk3Y,
-#app-mount .userPopout-3YAwnI .username-1QYk3Y,
-#app-mount .userProfileInner-2QYk3Y .nickname-2QYk3Y,
-#app-mount .userProfileInner-2QYk3Y .username-1QYk3Y,
-#app-mount .userPopout-3YAwnI [class*="nickname"],
-#app-mount .userPopout-3YAwnI [class*="username"] {
+/* Ник в профиле — ховер */
+#app-mount [class*="userPopout-"] [class*="nickname"],
+#app-mount [class*="userPopout-"] [class*="username"],
+#app-mount [class*="userPopout-"] [class*="headerText"],
+#app-mount [class*="userProfileInner"] [class*="nickname"],
+#app-mount [class*="userProfileInner"] [class*="username"] {
     transition: color var(--anim-base),
                 text-shadow var(--anim-base),
                 transform var(--anim-base);
     cursor: pointer;
     display: inline-block;
 }
-#app-mount .userPopout-3YAwnI .headerText-3Uvj1Y:hover,
-#app-mount .userPopout-3YAwnI .nickname-2QYk3Y:hover,
-#app-mount .userPopout-3YAwnI .username-1QYk3Y:hover,
-#app-mount .userPopout-3YAwnI [class*="nickname"]:hover,
-#app-mount .userPopout-3YAwnI [class*="username"]:hover {
-    color: var(--sber-green-light) !important;
-    text-shadow: 0 0 12px var(--sber-green-glow);
-    transform: translateX(3px);
-}
-#app-mount .userProfileInner-2QYk3Y .nickname-2QYk3Y:hover,
-#app-mount .userProfileInner-2QYk3Y .username-1QYk3Y:hover {
+#app-mount [class*="userPopout-"] [class*="nickname"]:hover,
+#app-mount [class*="userPopout-"] [class*="username"]:hover,
+#app-mount [class*="userPopout-"] [class*="headerText"]:hover,
+#app-mount [class*="userProfileInner"] [class*="nickname"]:hover,
+#app-mount [class*="userProfileInner"] [class*="username"]:hover {
     color: var(--sber-green-light) !important;
     text-shadow: 0 0 12px var(--sber-green-glow);
     transform: translateX(3px);
 }
 
-/* Кнопки в профиле — зелёный ховер */
-#app-mount .userPopout-3YAwnI button,
-#app-mount .userProfileInner-2QYk3Y button {
-    transition: background var(--anim-fast),
-                transform var(--anim-fast),
-                box-shadow var(--anim-fast);
-}
-#app-mount .userPopout-3YAwnI button:hover,
-#app-mount .userProfileInner-2QYk3Y button:hover {
-    background: rgba(33, 160, 56, 0.2) !important;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(33, 160, 56, 0.3);
-}
-
-/* Роли в профиле — зелёная подсветка */
-#app-mount .userPopout-3YAwnI [class*="role"],
-#app-mount .userProfileInner-2QYk3Y [class*="role"] {
-    transition: transform var(--anim-fast), box-shadow var(--anim-fast);
-}
-#app-mount .userPopout-3YAwnI [class*="role"]:hover,
-#app-mount .userProfileInner-2QYk3Y [class*="role"]:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(33, 160, 56, 0.35);
-}
-
 /*=============================================
-=        QUICK SWITCHER (Ctrl+K)              =
+=        РЕАКЦИИ / УПОМИНАНИЯ / EMBEDS         =
 =============================================*/
-#app-mount .quickswitcher-2QYk3Y {
-    background: rgba(9, 18, 24, 0.92) !important;
-    backdrop-filter: blur(24px) saturate(160%);
-    -webkit-backdrop-filter: blur(24px) saturate(160%);
-    border-radius: 18px !important;
-    border: 1px solid rgba(33, 160, 56, 0.35);
-    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6),
-                0 0 40px rgba(33, 160, 56, 0.25);
-    animation: sber-menu-in var(--anim-base) both;
-}
-#app-mount .quickswitcher-2QYk3Y .input-2QYk3Y {
-    background: rgba(33, 160, 56, 0.15) !important;
-    border-radius: 12px !important;
-    border: 1px solid rgba(33, 160, 56, 0.25);
-    transition: border-color var(--anim-fast), box-shadow var(--anim-fast);
-}
-#app-mount .quickswitcher-2QYk3Y .input-2QYk3Y:focus {
-    border-color: var(--sber-green);
-    box-shadow: 0 0 0 3px rgba(33, 160, 56, 0.25);
-}
-#app-mount .quickswitcher-2QYk3Y .result-2QYk3Y {
-    border-radius: 10px;
-    transition: background var(--anim-fast), transform var(--anim-fast);
-}
-#app-mount .quickswitcher-2QYk3Y .result-2QYk3Y:hover,
-#app-mount .quickswitcher-2QYk3Y .result-2QYk3Y.selected-2QYk3Y {
-    background: rgba(33, 160, 56, 0.25) !important;
-    transform: translateX(3px);
-}
-
-/*=============================================
-=        ЭМОДЗИ-ПИКЕР                         =
-=============================================*/
-#app-mount .emojiPicker-6YC1cb {
-    background: var(--glass-popout) !important;
-    backdrop-filter: blur(16px) saturate(160%);
-    -webkit-backdrop-filter: blur(16px) saturate(160%);
-    border-radius: 18px !important;
-    border: 1px solid rgba(33, 160, 56, 0.25);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-    animation: sber-menu-in var(--anim-base) both;
-}
-#app-mount .emojiPicker-6YC1cb .emojiItem-277VFM {
-    transition: background var(--anim-fast), transform var(--anim-fast);
-}
-#app-mount .emojiPicker-6YC1cb .emojiItem-277VFM.emojiItemSelected-2Lg50V {
-    background: rgba(33, 160, 56, 0.28) !important;
-    border-radius: 10px;
-    transform: scale(1.15);
-}
-
-/*=============================================
-=        TOOLTIP                              =
-=============================================*/
-#app-mount .tooltip-14MtrL {
-    background: rgba(9, 18, 24, 0.96) !important;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border-radius: 10px !important;
-    border: 1px solid rgba(33, 160, 56, 0.35);
-    color: #fff !important;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
-    animation: sber-tooltip-in 0.2s ease both;
-}
-@keyframes sber-tooltip-in {
-    from { opacity: 0; transform: translateY(4px) scale(0.96); }
-    to   { opacity: 1; transform: translateY(0)   scale(1); }
-}
-#app-mount .tooltip-14MtrL.tooltipBrand-2QYk3Y,
-#app-mount .tooltip-14MtrL.tooltipPrimary-3qLMbS {
-    background: var(--sber-green) !important;
-    color: #fff !important;
-    box-shadow: 0 8px 24px var(--sber-green-glow);
-}
-
-/*=============================================
-=        МОДАЛЬНЫЕ ОКНА                       =
-=============================================*/
-#app-mount .modal-2QYk3Y .root-2QYk3Y,
-#app-mount .root-2QYk3Y .modal-2QYk3Y {
-    background: rgba(9, 18, 24, 0.92) !important;
-    backdrop-filter: blur(24px) saturate(160%);
-    -webkit-backdrop-filter: blur(24px) saturate(160%);
-    border-radius: 20px !important;
-    border: 1px solid rgba(33, 160, 56, 0.25);
-    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
-    animation: sber-modal-in 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-@keyframes sber-modal-in {
-    from { opacity: 0; transform: scale(0.9); }
-    to   { opacity: 1; transform: scale(1); }
-}
-#app-mount .modal-2QYk3Y .footer-2QYk3Y {
-    background: transparent !important;
-    border-top: 1px solid rgba(33, 160, 56, 0.15);
-}
-
-/*=============================================
-=        РЕАКЦИИ                              =
-=============================================*/
-#app-mount .reaction-2QYk3Y {
+#app-mount [class*="reaction-"] {
     background: rgba(33, 160, 56, 0.12) !important;
     border-radius: 12px !important;
     border: 1px solid rgba(33, 160, 56, 0.2);
-    transition: background var(--anim-fast),
-                border-color var(--anim-fast),
-                transform var(--anim-fast),
-                box-shadow var(--anim-fast);
-    animation: sber-reaction-pop 0.35s cubic-bezier(0.68, -0.55, 0.27, 1.55) both;
+    transition: all var(--anim-fast);
 }
-@keyframes sber-reaction-pop {
-    0%   { transform: scale(0.5); opacity: 0; }
-    100% { transform: scale(1);   opacity: 1; }
-}
-#app-mount .reaction-2QYk3Y:hover {
-    background: rgba(33, 160, 56, 0.22) !important;
+#app-mount [class*="reaction-"]:hover {
+    background: rgba(33, 160, 56, 0.25) !important;
     border-color: var(--sber-green);
     transform: translateY(-2px) scale(1.05);
     box-shadow: 0 6px 16px rgba(33, 160, 56, 0.35);
 }
-#app-mount .reaction-2QYk3Y.reactionMe-1QYk3Y {
-    background: rgba(33, 160, 56, 0.28) !important;
+#app-mount [class*="reaction-"][class*="reactionMe"] {
+    background: rgba(33, 160, 56, 0.3) !important;
     border-color: var(--sber-green) !important;
-    box-shadow: 0 0 12px var(--sber-green-glow);
-}
-#app-mount .reaction-2QYk3Y.reactionMe-1QYk3Y .reactionCount-1QYk3Y {
-    color: var(--sber-green-light) !important;
 }
 
-/*=============================================
-=        УПОМИНАНИЯ                           =
-=============================================*/
-#app-mount .mention-1QYk3Y,
-#app-mount .mention {
+#app-mount [class*="mention"] {
     background: rgba(33, 160, 56, 0.25) !important;
     color: var(--sber-green-light) !important;
     border-radius: 4px;
     font-weight: 600;
-    padding: 0 3px;
-    transition: all var(--anim-fast);
 }
-#app-mount .mention-1QYk3Y:hover,
-#app-mount .mention:hover {
+#app-mount [class*="mention"]:hover {
     background: var(--sber-green) !important;
     color: #fff !important;
-    box-shadow: 0 0 8px var(--sber-green-glow);
 }
 
-/*=============================================
-=        ВЛОЖЕНИЯ / EMBEDS                    =
-=============================================*/
-#app-mount .attachment-1PZZB2,
-#app-mount .embedFull-1QYk3Y {
+#app-mount [class*="embedFull"],
+#app-mount [class*="attachment-"] {
     background: rgba(0, 0, 0, 0.3) !important;
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
     border-radius: 12px !important;
-    border: 1px solid rgba(33, 160, 56, 0.2) !important;
     border-left: 3px solid var(--sber-green) !important;
-    transition: border-color var(--anim-fast),
-                box-shadow var(--anim-fast),
-                transform var(--anim-fast);
-}
-#app-mount .embedFull-1QYk3Y:hover {
-    border-color: var(--sber-green) !important;
-    box-shadow: 0 4px 16px rgba(33, 160, 56, 0.2);
-    transform: translateY(-1px);
-}
-#app-mount .embedFull-1QYk3Y .embedAuthorName-3mnGvk {
-    color: var(--sber-green-light) !important;
-}
-
-/*=============================================
-=        ГОЛОСОВОЙ КАНАЛ / КОЛЬЦА ГОВОРЯЩЕГО  =
-=============================================*/
-#app-mount .voiceUser-1QYk3Y {
-    border-radius: 12px;
-    background: rgba(33, 160, 56, 0.08) !important;
-    border: 1px solid rgba(33, 160, 56, 0.18);
-    transition: border-color var(--anim-base), box-shadow var(--anim-base);
-}
-#app-mount .voiceUser-1QYk3Y.speaking-1QYk3Y {
-    border-color: var(--sber-green) !important;
-    box-shadow: 0 0 0 2px rgba(33, 160, 56, 0.4);
-}
-#app-mount .avatarWrapper-3y0XJY.speaking-1QYk3Y .avatar-1BDn8e,
-#app-mount .voiceUser-1QYk3Y.speaking-1QYk3Y .avatar-1BDn8e {
-    box-shadow: 0 0 0 3px var(--sber-green),
-                0 0 16px var(--sber-green-glow) !important;
-    animation: sber-speaking 1.4s ease-in-out infinite;
-}
-@keyframes sber-speaking {
-    0%, 100% { box-shadow: 0 0 0 3px var(--sber-green), 0 0 12px var(--sber-green-glow); }
-    50%      { box-shadow: 0 0 0 4px var(--sber-green-light), 0 0 24px var(--sber-green-glow); }
-}
-
-/*=============================================
-=        НОВЫЕ СООБЩЕНИЯ (плашка)             =
-=============================================*/
-#app-mount .newMessagesBar-1hF-9G {
-    background: var(--sber-green) !important;
-    color: #fff !important;
-    border-radius: 0 0 12px 12px;
-    box-shadow: 0 6px 20px var(--sber-green-glow);
-    animation: sber-slide-down var(--anim-base) both;
-}
-@keyframes sber-slide-down {
-    from { transform: translateY(-100%); opacity: 0; }
-    to   { transform: translateY(0);     opacity: 1; }
-}
-
-/*=============================================
-=        НИТИ / ФОРУМ                         =
-=============================================*/
-#app-mount .container-1QYk3Y,
-#app-mount .container-3i3i1Q {
-    background: rgba(33, 160, 56, 0.08) !important;
-    border-radius: 12px !important;
-    border: 1px solid rgba(33, 160, 56, 0.2);
-    transition: border-color var(--anim-base),
-                box-shadow var(--anim-base),
-                transform var(--anim-base);
-}
-#app-mount .container-3i3i1Q:hover {
-    border-color: var(--sber-green) !important;
-    box-shadow: 0 6px 20px rgba(33, 160, 56, 0.35);
-    transform: translateY(-2px);
-}
-
-/*=============================================
-=        ВЕРХНЯЯ ПАНЕЛЬ (TITLE BAR)           =
-=============================================*/
-#app-mount .titleBar-1it3bQ {
-    background: rgba(0, 0, 0, 0.3) !important;
-    backdrop-filter: blur(12px) saturate(140%);
-    -webkit-backdrop-filter: blur(12px) saturate(140%);
-    border-bottom: 1px solid rgba(33, 160, 56, 0.15);
-}
-#app-mount .winButton-3UMjdg {
-    transition: background var(--anim-fast);
-}
-#app-mount .winButton-3UMjdg:hover {
-    background: rgba(33, 160, 56, 0.25) !important;
-}
-#app-mount .winButtonClose-3UMjdg:hover {
-    background: #ED4245 !important;
-}
-
-/*=============================================
-=        ЛИЧНЫЕ СООБЩЕНИЯ                     =
-=============================================*/
-#app-mount .privateChannels-1nO12O {
-    background: transparent !important;
-}
-#app-mount .privateChannels-1nO12O .channel-1Shao0 {
-    border-radius: 10px;
-    transition: background var(--anim-fast), transform var(--anim-fast);
-}
-#app-mount .privateChannels-1nO12O .channel-1Shao0:hover {
-    background: rgba(33, 160, 56, 0.12) !important;
-    transform: translateX(2px);
-}
-#app-mount .privateChannels-1nO12O .channel-1Shao0.selected-1dODfG {
-    background: rgba(33, 160, 56, 0.22) !important;
-    border-left: 3px solid var(--sber-green);
-    box-shadow: inset 0 0 0 1px rgba(33, 160, 56, 0.25);
+    border-top: 1px solid rgba(33, 160, 56, 0.2) !important;
+    border-right: 1px solid rgba(33, 160, 56, 0.2) !important;
+    border-bottom: 1px solid rgba(33, 160, 56, 0.2) !important;
 }
 
 /*=============================================
@@ -914,7 +453,6 @@
 #app-mount ::-webkit-scrollbar-thumb {
     background: rgba(33, 160, 56, 0.35);
     border-radius: 8px;
-    transition: background var(--anim-fast);
 }
 #app-mount ::-webkit-scrollbar-thumb:hover {
     background: var(--sber-green);
@@ -924,55 +462,10 @@
 /*=============================================
 =        ССЫЛКИ                               =
 =============================================*/
-#app-mount a,
-#app-mount .anchor-1MIwyf {
+#app-mount a {
     color: var(--sber-green-light) !important;
-    transition: color var(--anim-fast), text-shadow var(--anim-fast);
 }
 #app-mount a:hover {
     color: var(--sber-green) !important;
     text-shadow: 0 0 6px var(--sber-green-glow);
-}
-
-/*=============================================
-=        РАЗДЕЛИТЕЛИ НОВЫХ СООБЩЕНИЙ          =
-=============================================*/
-#app-mount .divider-2rZFJK {
-    border-color: rgba(33, 160, 56, 0.35) !important;
-}
-#app-mount .divider-2rZFJK .content-3spvdd {
-    background: var(--sber-green) !important;
-    color: #fff !important;
-    border-radius: 8px;
-    box-shadow: 0 0 12px var(--sber-green-glow);
-}
-
-/*=============================================
-=        БЭННЕР СЕРВЕРА                       =
-=============================================*/
-#app-mount .banner-1QYk3Y {
-    border-radius: 8px 8px 0 0;
-}
-
-/*=============================================
-=        АНИМАЦИЯ ПОЯВЛЕНИЯ КАНАЛОВ           =
-=============================================*/
-#app-mount .sidebar-1tnWFu .containerDefault-YUSmu3,
-#app-mount .sidebar-1tnWFu .wrapper-1S43wL {
-    animation: sber-fade-in 0.3s ease both;
-}
-@keyframes sber-fade-in {
-    from { opacity: 0; transform: translateX(-6px); }
-    to   { opacity: 1; transform: translateX(0); }
-}
-
-/*=============================================
-=        ПЛАВНОЕ ПОЯВЛЕНИЕ ЧАТА               =
-=============================================*/
-#app-mount .chatContent-3KubbW .messagesWrapper-Rn5jGi {
-    animation: sber-chat-in 0.35s ease both;
-}
-@keyframes sber-chat-in {
-    from { opacity: 0; transform: translateY(6px); }
-    to   { opacity: 1; transform: translateY(0); }
 }
