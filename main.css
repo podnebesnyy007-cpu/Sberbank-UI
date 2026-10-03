@@ -1151,3 +1151,52 @@ iframe {
         transition: none !important;
     }
 }
+
+/* ============================================================
+   ФИКС: убираем скругления у поля ввода сообщения
+   ============================================================ */
+
+/* --- Само поле ввода — без кругов --- */
+[class*="channelTextArea"],
+[class*="channelTextArea_"],
+[class*="form_"]:has([class*="textArea"]),
+[class*="scrollableContainer_"]:has([class*="slateTextArea"]) {
+    border-radius: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    background-color: rgba(var(--color2), 0.25) !important;
+    backdrop-filter: blur(6px) !important;
+    -webkit-backdrop-filter: blur(6px) !important;
+}
+
+/* --- Контейнер формы — тоже без скруглений --- */
+[class*="form_"],
+[class*="formWithLoadedChatInput_"] {
+    border-radius: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* --- Кнопки внутри поля (плюс, GIF, эмодзи) — без кругов --- */
+[class*="attachWrapper_"],
+[class*="attachButton_"],
+[class*="emojiButton_"],
+[class*="buttons_"] {
+    border-radius: 0 !important;
+    background: transparent !important;
+}
+
+/* --- Убираем ВСЕ скругления на дочерних элементах поля ввода --- */
+[class*="channelTextArea"] *,
+[class*="form_"] *,
+[class*="scrollableContainer_"]:has([class*="slateTextArea"]) * {
+    border-radius: 0 !important;
+}
+
+/* --- Если чат имеет скругление снизу — убираем --- */
+[class*="chat_"]:not([class*="chatContent"]),
+[class*="chatContent"] {
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+}
