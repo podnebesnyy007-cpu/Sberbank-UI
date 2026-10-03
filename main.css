@@ -1200,3 +1200,55 @@ iframe {
     border-bottom-left-radius: 0 !important;
     border-bottom-right-radius: 0 !important;
 }
+
+/* ============================================================
+   ФИКС КАКОЙ НЕ ЕБУ УЖЕ СУКААА
+   ============================================================ */
+
+/* Все элементы с любым из этих классов — без скруглений */
+[class*="channelTextArea"],
+[class*="channelTextArea_"],
+[class*="form_"],
+[class*="formWithLoadedChatInput"],
+[class*="scrollableContainer"],
+[class*="slateTextArea"],
+[class*="textArea"],
+[class*="themedBackground"],
+[class*="stackedBars"],
+[class*="channelAttachmentArea"],
+[class*="attachWrapper"],
+[class*="attachButton"],
+[class*="emojiButton"],
+[class*="buttons_"],
+[class*="buttons-"],
+
+/* Нижняя часть чата */
+[class*="chatContent"] > *:last-child,
+[class*="chat_"] > *:last-child,
+[class*="messagesWrapper"] + * {
+    border-radius: 0 !important;
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+}
+
+/* Все дети этих элементов — тоже без кругов */
+[class*="channelTextArea"] *,
+[class*="form_"] *,
+[class*="scrollableContainer"] *,
+[class*="slateTextArea"] *,
+[class*="themedBackground"] * {
+    border-radius: 0 !important;
+}
+
+/* Убираем декоративные псевдоэлементы, если они создают круги */
+[class*="channelTextArea"]::before,
+[class*="channelTextArea"]::after,
+[class*="form_"]::before,
+[class*="form_"]::after,
+[class*="scrollableContainer"]::before,
+[class*="scrollableContainer"]::after {
+    border-radius: 0 !important;
+    display: none !important;
+}
